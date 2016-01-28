@@ -25,7 +25,9 @@ public class CorrectionRequestEntity extends BaseEntity implements Serializable 
     @PodamStrategyValue(DateStrategy.class)
     private Date dueDate;
 
-    private String status;
+    @PodamExclude
+    @ManyToOne
+    private LanguageEntity language;
 
     @PodamExclude
     @ManyToOne
@@ -33,7 +35,7 @@ public class CorrectionRequestEntity extends BaseEntity implements Serializable 
 
     @PodamExclude
     @ManyToOne
-    private LanguageEntity language;
+    private StatusEntity status;
 
     /**
      * @generated
@@ -66,15 +68,15 @@ public class CorrectionRequestEntity extends BaseEntity implements Serializable 
     /**
      * @generated
      */
-    public String getStatus(){
-        return status;
+    public LanguageEntity getLanguage() {
+        return language;
     }
 
     /**
      * @generated
      */
-    public void setStatus(String status){
-        this.status = status;
+    public void setLanguage(LanguageEntity language) {
+        this.language = language;
     }
 
     /**
@@ -94,15 +96,15 @@ public class CorrectionRequestEntity extends BaseEntity implements Serializable 
     /**
      * @generated
      */
-    public LanguageEntity getLanguage() {
-        return language;
+    public StatusEntity getStatus() {
+        return status;
     }
 
     /**
      * @generated
      */
-    public void setLanguage(LanguageEntity language) {
-        this.language = language;
+    public void setStatus(StatusEntity status) {
+        this.status = status;
     }
 
 

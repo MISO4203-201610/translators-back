@@ -33,7 +33,6 @@ public abstract class CorrectionRequestConverter {
             dto.setName(entity.getName());
             dto.setCreationDate(entity.getCreationDate());
             dto.setDueDate(entity.getDueDate());
-            dto.setStatus(entity.getStatus());
 
             return dto;
         } else {
@@ -76,9 +75,9 @@ public abstract class CorrectionRequestConverter {
             dto.setName(entity.getName());
             dto.setCreationDate(entity.getCreationDate());
             dto.setDueDate(entity.getDueDate());
-            dto.setStatus(entity.getStatus());
-            dto.setCustomer(CustomerConverter.refEntity2DTO(entity.getCustomer()));
             dto.setLanguage(LanguageConverter.refEntity2DTO(entity.getLanguage()));
+            dto.setCustomer(CustomerConverter.refEntity2DTO(entity.getCustomer()));
+            dto.setStatus(StatusConverter.refEntity2DTO(entity.getStatus()));
 
             return dto;
         } else {
@@ -102,9 +101,9 @@ public abstract class CorrectionRequestConverter {
             entity.setName(dto.getName());
             entity.setCreationDate(dto.getCreationDate());
             entity.setDueDate(dto.getDueDate());
-            entity.setStatus(dto.getStatus());
-            entity.setCustomer(CustomerConverter.refDTO2Entity(dto.getCustomer()));
             entity.setLanguage(LanguageConverter.refDTO2Entity(dto.getLanguage()));
+            entity.setCustomer(CustomerConverter.refDTO2Entity(dto.getCustomer()));
+            entity.setStatus(StatusConverter.refDTO2Entity(dto.getStatus()));
 
             return entity;
         } else {

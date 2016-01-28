@@ -19,10 +19,10 @@ import co.edu.uniandes.csw.translationservice.api.ICustomerLogic;
 import co.edu.uniandes.csw.translationservice.dtos.CustomerDTO;
 import co.edu.uniandes.csw.translationservice.entities.CustomerEntity;
 import co.edu.uniandes.csw.translationservice.converters.CustomerConverter;
-import co.edu.uniandes.csw.translationservice.dtos.TranslationRequestDTO;
-import co.edu.uniandes.csw.translationservice.converters.TranslationRequestConverter;
 import co.edu.uniandes.csw.translationservice.dtos.CorrectionRequestDTO;
 import co.edu.uniandes.csw.translationservice.converters.CorrectionRequestConverter;
+import co.edu.uniandes.csw.translationservice.dtos.TranslationRequestDTO;
+import co.edu.uniandes.csw.translationservice.converters.TranslationRequestConverter;
 
 /**
  * @generated
@@ -108,74 +108,6 @@ public class CustomerService {
     }
 
     /**
-     * Obtiene una colección de instancias de TranslationRequestDTO asociadas a una
-     * instancia de Customer
-     *
-     * @param customerId Identificador de la instancia de Customer
-     * @return Colección de instancias de TranslationRequestDTO asociadas a la instancia de Customer
-     * @generated
-     */
-    @GET
-    @Path("{customerId: \\d+}/translationRequests")
-    public List<TranslationRequestDTO> getTranslationRequests(@PathParam("customerId") Long customerId) {
-        return TranslationRequestConverter.listEntity2DTO(customerLogic.listTranslationRequests(customerId));
-    }
-
-    /**
-     * Obtiene una instancia de TranslationRequest asociada a una instancia de Customer
-     *
-     * @param customerId Identificador de la instancia de Customer
-     * @param translationRequestId Identificador de la instancia de TranslationRequest
-     * @generated
-     */
-    @GET
-    @Path("{customerId: \\d+}/translationRequests/{translationRequestId: \\d+}")
-    public TranslationRequestDTO getTranslationRequest(@PathParam("customerId") Long customerId, @PathParam("translationRequestId") Long translationRequestId) {
-        return TranslationRequestConverter.fullEntity2DTO(customerLogic.getTranslationRequests(customerId, translationRequestId));
-    }
-
-    /**
-     * Asocia un TranslationRequest existente a un Customer
-     *
-     * @param customerId Identificador de la instancia de Customer
-     * @param translationRequestId Identificador de la instancia de TranslationRequest
-     * @return Instancia de TranslationRequestDTO que fue asociada a Customer
-     * @generated
-     */
-    @POST
-    @Path("{customerId: \\d+}/translationRequests/{translationRequestId: \\d+}")
-    public TranslationRequestDTO addTranslationRequest(@PathParam("customerId") Long customerId, @PathParam("translationRequestId") Long translationRequestId) {
-        return TranslationRequestConverter.fullEntity2DTO(customerLogic.addTranslationRequests(customerId, translationRequestId));
-    }
-
-    /**
-     * Remplaza las instancias de TranslationRequest asociadas a una instancia de Customer
-     *
-     * @param customerId Identificador de la instancia de Customer
-     * @param translationRequests Colección de instancias de TranslationRequestDTO a asociar a instancia de Customer
-     * @return Nueva colección de TranslationRequestDTO asociada a la instancia de Customer
-     * @generated
-     */
-    @PUT
-    @Path("{customerId: \\d+}/translationRequests")
-    public List<TranslationRequestDTO> replaceTranslationRequests(@PathParam("customerId") Long customerId, List<TranslationRequestDTO> translationRequests) {
-        return TranslationRequestConverter.listEntity2DTO(customerLogic.replaceTranslationRequests(customerId, TranslationRequestConverter.listDTO2Entity(translationRequests)));
-    }
-
-    /**
-     * Desasocia un TranslationRequest existente de un Customer existente
-     *
-     * @param customerId Identificador de la instancia de Customer
-     * @param translationRequestId Identificador de la instancia de TranslationRequest
-     * @generated
-     */
-    @DELETE
-    @Path("{customerId: \\d+}/translationRequests/{translationRequestId: \\d+}")
-    public void removeTranslationRequest(@PathParam("customerId") Long customerId, @PathParam("translationRequestId") Long translationRequestId) {
-        customerLogic.removeTranslationRequests(customerId, translationRequestId);
-    }
-
-    /**
      * Obtiene una colección de instancias de CorrectionRequestDTO asociadas a una
      * instancia de Customer
      *
@@ -241,6 +173,74 @@ public class CustomerService {
     @Path("{customerId: \\d+}/correctionRequests/{correctionRequestId: \\d+}")
     public void removeCorrectionRequest(@PathParam("customerId") Long customerId, @PathParam("correctionRequestId") Long correctionRequestId) {
         customerLogic.removeCorrectionRequests(customerId, correctionRequestId);
+    }
+
+    /**
+     * Obtiene una colección de instancias de TranslationRequestDTO asociadas a una
+     * instancia de Customer
+     *
+     * @param customerId Identificador de la instancia de Customer
+     * @return Colección de instancias de TranslationRequestDTO asociadas a la instancia de Customer
+     * @generated
+     */
+    @GET
+    @Path("{customerId: \\d+}/translationRequests")
+    public List<TranslationRequestDTO> getTranslationRequests(@PathParam("customerId") Long customerId) {
+        return TranslationRequestConverter.listEntity2DTO(customerLogic.listTranslationRequests(customerId));
+    }
+
+    /**
+     * Obtiene una instancia de TranslationRequest asociada a una instancia de Customer
+     *
+     * @param customerId Identificador de la instancia de Customer
+     * @param translationRequestId Identificador de la instancia de TranslationRequest
+     * @generated
+     */
+    @GET
+    @Path("{customerId: \\d+}/translationRequests/{translationRequestId: \\d+}")
+    public TranslationRequestDTO getTranslationRequest(@PathParam("customerId") Long customerId, @PathParam("translationRequestId") Long translationRequestId) {
+        return TranslationRequestConverter.fullEntity2DTO(customerLogic.getTranslationRequests(customerId, translationRequestId));
+    }
+
+    /**
+     * Asocia un TranslationRequest existente a un Customer
+     *
+     * @param customerId Identificador de la instancia de Customer
+     * @param translationRequestId Identificador de la instancia de TranslationRequest
+     * @return Instancia de TranslationRequestDTO que fue asociada a Customer
+     * @generated
+     */
+    @POST
+    @Path("{customerId: \\d+}/translationRequests/{translationRequestId: \\d+}")
+    public TranslationRequestDTO addTranslationRequest(@PathParam("customerId") Long customerId, @PathParam("translationRequestId") Long translationRequestId) {
+        return TranslationRequestConverter.fullEntity2DTO(customerLogic.addTranslationRequests(customerId, translationRequestId));
+    }
+
+    /**
+     * Remplaza las instancias de TranslationRequest asociadas a una instancia de Customer
+     *
+     * @param customerId Identificador de la instancia de Customer
+     * @param translationRequests Colección de instancias de TranslationRequestDTO a asociar a instancia de Customer
+     * @return Nueva colección de TranslationRequestDTO asociada a la instancia de Customer
+     * @generated
+     */
+    @PUT
+    @Path("{customerId: \\d+}/translationRequests")
+    public List<TranslationRequestDTO> replaceTranslationRequests(@PathParam("customerId") Long customerId, List<TranslationRequestDTO> translationRequests) {
+        return TranslationRequestConverter.listEntity2DTO(customerLogic.replaceTranslationRequests(customerId, TranslationRequestConverter.listDTO2Entity(translationRequests)));
+    }
+
+    /**
+     * Desasocia un TranslationRequest existente de un Customer existente
+     *
+     * @param customerId Identificador de la instancia de Customer
+     * @param translationRequestId Identificador de la instancia de TranslationRequest
+     * @generated
+     */
+    @DELETE
+    @Path("{customerId: \\d+}/translationRequests/{translationRequestId: \\d+}")
+    public void removeTranslationRequest(@PathParam("customerId") Long customerId, @PathParam("translationRequestId") Long translationRequestId) {
+        customerLogic.removeTranslationRequests(customerId, translationRequestId);
     }
 
 }

@@ -4,8 +4,9 @@ import co.edu.uniandes.csw.translationservice.ejbs.TranslationRequestLogic;
 import co.edu.uniandes.csw.translationservice.api.ITranslationRequestLogic;
 import co.edu.uniandes.csw.translationservice.entities.TranslationRequestEntity;
 import co.edu.uniandes.csw.translationservice.persistence.TranslationRequestPersistence;
-import co.edu.uniandes.csw.translationservice.entities.LanguageEntity;
 import co.edu.uniandes.csw.translationservice.entities.CustomerEntity;
+import co.edu.uniandes.csw.translationservice.entities.LanguageEntity;
+import co.edu.uniandes.csw.translationservice.entities.StatusEntity;
 import co.edu.uniandes.csw.translationservice.entities.LanguageEntity;
 import java.util.ArrayList;
 import java.util.List;
@@ -62,12 +63,17 @@ public class TranslationRequestLogicTest {
     /**
      * @generated
      */
+    private List<CustomerEntity> customerData = new ArrayList<>();
+
+    /**
+     * @generated
+     */
     private List<LanguageEntity> targetLanguageData = new ArrayList<>();
 
     /**
      * @generated
      */
-    private List<CustomerEntity> customerData = new ArrayList<>();
+    private List<StatusEntity> statusData = new ArrayList<>();
 
     /**
      * @generated
@@ -113,8 +119,9 @@ public class TranslationRequestLogicTest {
      */
     private void clearData() {
         em.createQuery("delete from TranslationRequestEntity").executeUpdate();
-        em.createQuery("delete from LanguageEntity").executeUpdate();
         em.createQuery("delete from CustomerEntity").executeUpdate();
+        em.createQuery("delete from LanguageEntity").executeUpdate();
+        em.createQuery("delete from StatusEntity").executeUpdate();
         em.createQuery("delete from LanguageEntity").executeUpdate();
     }
 
@@ -123,15 +130,21 @@ public class TranslationRequestLogicTest {
      */
     private void insertData() {
         for (int i = 0; i < 3; i++) {
+            CustomerEntity customer = factory.manufacturePojo(CustomerEntity.class);
+            em.persist(customer);
+            customerData.add(customer);
+        }
+
+        for (int i = 0; i < 3; i++) {
             LanguageEntity targetLanguage = factory.manufacturePojo(LanguageEntity.class);
             em.persist(targetLanguage);
             targetLanguageData.add(targetLanguage);
         }
 
         for (int i = 0; i < 3; i++) {
-            CustomerEntity customer = factory.manufacturePojo(CustomerEntity.class);
-            em.persist(customer);
-            customerData.add(customer);
+            StatusEntity status = factory.manufacturePojo(StatusEntity.class);
+            em.persist(status);
+            statusData.add(status);
         }
 
         for (int i = 0; i < 3; i++) {
@@ -143,9 +156,11 @@ public class TranslationRequestLogicTest {
         for (int i = 0; i < 3; i++) {
             TranslationRequestEntity entity = factory.manufacturePojo(TranslationRequestEntity.class);
 
+            entity.setCustomer(customerData.get(0));
+
             entity.setTargetLanguage(targetLanguageData.get(0));
 
-            entity.setCustomer(customerData.get(0));
+            entity.setStatus(statusData.get(0));
 
             entity.setOriginalLanguage(originalLanguageData.get(0));
 
@@ -166,7 +181,6 @@ public class TranslationRequestLogicTest {
         Assert.assertEquals(result.getName(), entity.getName());
         Assert.assertEquals(result.getCreationDate(), entity.getCreationDate());
         Assert.assertEquals(result.getDueDate(), entity.getDueDate());
-        Assert.assertEquals(result.getStatus(), entity.getStatus());
     }
 
     /**
@@ -199,7 +213,6 @@ public class TranslationRequestLogicTest {
         Assert.assertEquals(entity.getName(), resultEntity.getName());
         Assert.assertEquals(entity.getCreationDate(), resultEntity.getCreationDate());
         Assert.assertEquals(entity.getDueDate(), resultEntity.getDueDate());
-        Assert.assertEquals(entity.getStatus(), resultEntity.getStatus());
     }
 
     /**
@@ -231,6 +244,5 @@ public class TranslationRequestLogicTest {
         Assert.assertEquals(pojoEntity.getName(), resp.getName());
         Assert.assertEquals(pojoEntity.getCreationDate(), resp.getCreationDate());
         Assert.assertEquals(pojoEntity.getDueDate(), resp.getDueDate());
-        Assert.assertEquals(pojoEntity.getStatus(), resp.getStatus());
     }
 }

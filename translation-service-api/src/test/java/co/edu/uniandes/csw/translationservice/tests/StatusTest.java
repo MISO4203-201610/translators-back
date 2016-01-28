@@ -2,8 +2,8 @@ package co.edu.uniandes.csw.translationservice.tests;
 
 import co.edu.uniandes.csw.auth.model.UserDTO;
 import co.edu.uniandes.csw.auth.security.JWT;
-import co.edu.uniandes.csw.translationservice.dtos.TranslationRequestDTO;
-import co.edu.uniandes.csw.translationservice.services.TranslationRequestService;
+import co.edu.uniandes.csw.translationservice.dtos.StatusDTO;
+import co.edu.uniandes.csw.translationservice.services.StatusService;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -35,13 +35,13 @@ import uk.co.jemos.podam.api.PodamFactory;
 import uk.co.jemos.podam.api.PodamFactoryImpl;
 
 @RunWith(Arquillian.class)
-public class TranslationRequestTest {
+public class StatusTest {
 
     private final int Ok = Status.OK.getStatusCode();
     private final int Created = Status.CREATED.getStatusCode();
     private final int OkWithoutContent = Status.NO_CONTENT.getStatusCode();
-    private final String translationRequestPath = "translationRequests";
-    private final static List<TranslationRequestDTO> oraculo = new ArrayList<>();
+    private final String statusPath = "statuss";
+    private final static List<StatusDTO> oraculo = new ArrayList<>();
     private WebTarget target;
     private final String apiPath = "api";
     private final String username = System.getenv("USERNAME_USER");
@@ -61,7 +61,7 @@ public class TranslationRequestTest {
                         .resolve("co.edu.uniandes.csw:auth-utils:0.1.0")
                         .withTransitivity().asFile())
                 // Se agregan los compilados de los paquetes de servicios
-                .addPackage(TranslationRequestService.class.getPackage())
+                .addPackage(StatusService.class.getPackage())
                 // El archivo que contiene la configuracion a la base de datos.
                 .addAsResource("META-INF/persistence.xml", "META-INF/persistence.xml")
                 // El archivo beans.xml es necesario para injeccion de dependencias.
@@ -86,10 +86,10 @@ public class TranslationRequestTest {
     public static void insertData() {
         for (int i = 0; i < 5; i++) {
             PodamFactory factory = new PodamFactoryImpl();
-            TranslationRequestDTO translationRequest = factory.manufacturePojo(TranslationRequestDTO.class);
-            translationRequest.setId(i + 1L);
+            StatusDTO status = factory.manufacturePojo(StatusDTO.class);
+            status.setId(i + 1L);
 
-            oraculo.add(translationRequest);
+            oraculo.add(status);
 
         }
     }
@@ -115,70 +115,62 @@ public class TranslationRequestTest {
 
     @Test
     @InSequence(1)
-    public void createTranslationRequestTest() throws IOException {
-        TranslationRequestDTO translationRequest = oraculo.get(0);
+    public void createStatusTest() throws IOException {
+        StatusDTO status = oraculo.get(0);
         Cookie cookieSessionId = login(username, password);
-        Response response = target.path(translationRequestPath)
+        Response response = target.path(statusPath)
                 .request().cookie(cookieSessionId)
-                .post(Entity.entity(translationRequest, MediaType.APPLICATION_JSON));
-        TranslationRequestDTO  translationrequestTest = (TranslationRequestDTO) response.readEntity(TranslationRequestDTO.class);
-        Assert.assertEquals(translationRequest.getId(), translationrequestTest.getId());
-        Assert.assertEquals(translationRequest.getName(), translationrequestTest.getName());
-        Assert.assertEquals(translationRequest.getCreationDate(), translationrequestTest.getCreationDate());
-        Assert.assertEquals(translationRequest.getDueDate(), translationrequestTest.getDueDate());
+                .post(Entity.entity(status, MediaType.APPLICATION_JSON));
+        StatusDTO  statusTest = (StatusDTO) response.readEntity(StatusDTO.class);
+        Assert.assertEquals(status.getId(), statusTest.getId());
+        Assert.assertEquals(status.getName(), statusTest.getName());
         Assert.assertEquals(Created, response.getStatus());
     }
 
     @Test
     @InSequence(2)
-    public void getTranslationRequestById() {
+    public void getStatusById() {
         Cookie cookieSessionId = login(username, password);
-        TranslationRequestDTO translationrequestTest = target.path(translationRequestPath)
+        StatusDTO statusTest = target.path(statusPath)
                 .path(oraculo.get(0).getId().toString())
-                .request().cookie(cookieSessionId).get(TranslationRequestDTO.class);
-        Assert.assertEquals(translationrequestTest.getId(), oraculo.get(0).getId());
-        Assert.assertEquals(translationrequestTest.getName(), oraculo.get(0).getName());
-        Assert.assertEquals(translationrequestTest.getCreationDate(), oraculo.get(0).getCreationDate());
-        Assert.assertEquals(translationrequestTest.getDueDate(), oraculo.get(0).getDueDate());
+                .request().cookie(cookieSessionId).get(StatusDTO.class);
+        Assert.assertEquals(statusTest.getId(), oraculo.get(0).getId());
+        Assert.assertEquals(statusTest.getName(), oraculo.get(0).getName());
     }
 
     @Test
     @InSequence(3)
-    public void listTranslationRequestTest() throws IOException {
+    public void listStatusTest() throws IOException {
         Cookie cookieSessionId = login(username, password);
-        Response response = target.path(translationRequestPath)
+        Response response = target.path(statusPath)
                 .request().cookie(cookieSessionId).get();
-        String listTranslationRequest = response.readEntity(String.class);
-        List<TranslationRequestDTO> listTranslationRequestTest = new ObjectMapper().readValue(listTranslationRequest, List.class);
+        String listStatus = response.readEntity(String.class);
+        List<StatusDTO> listStatusTest = new ObjectMapper().readValue(listStatus, List.class);
         Assert.assertEquals(Ok, response.getStatus());
-        Assert.assertEquals(1, listTranslationRequestTest.size());
+        Assert.assertEquals(1, listStatusTest.size());
     }
 
     @Test
     @InSequence(4)
-    public void updateTranslationRequestTest() throws IOException {
+    public void updateStatusTest() throws IOException {
         Cookie cookieSessionId = login(username, password);
-        TranslationRequestDTO translationRequest = oraculo.get(0);
+        StatusDTO status = oraculo.get(0);
         PodamFactory factory = new PodamFactoryImpl();
-        TranslationRequestDTO translationRequestChanged = factory.manufacturePojo(TranslationRequestDTO.class);
-        translationRequest.setName(translationRequestChanged.getName());
-        translationRequest.setCreationDate(translationRequestChanged.getCreationDate());
-        translationRequest.setDueDate(translationRequestChanged.getDueDate());
-        Response response = target.path(translationRequestPath).path(translationRequest.getId().toString())
-                .request().cookie(cookieSessionId).put(Entity.entity(translationRequest, MediaType.APPLICATION_JSON));
-        TranslationRequestDTO translationrequestTest = (TranslationRequestDTO) response.readEntity(TranslationRequestDTO.class);
+        StatusDTO statusChanged = factory.manufacturePojo(StatusDTO.class);
+        status.setName(statusChanged.getName());
+        Response response = target.path(statusPath).path(status.getId().toString())
+                .request().cookie(cookieSessionId).put(Entity.entity(status, MediaType.APPLICATION_JSON));
+        StatusDTO statusTest = (StatusDTO) response.readEntity(StatusDTO.class);
         Assert.assertEquals(Ok, response.getStatus());
-        Assert.assertEquals(translationRequest.getName(), translationrequestTest.getName());
-        Assert.assertEquals(translationRequest.getCreationDate(), translationrequestTest.getCreationDate());
-        Assert.assertEquals(translationRequest.getDueDate(), translationrequestTest.getDueDate());
+        Assert.assertEquals(status.getName(), statusTest.getName());
     }
 
     @Test
     @InSequence(5)
-    public void deleteTranslationRequestTest() {
+    public void deleteStatusTest() {
         Cookie cookieSessionId = login(username, password);
-        TranslationRequestDTO translationRequest = oraculo.get(0);
-        Response response = target.path(translationRequestPath).path(translationRequest.getId().toString())
+        StatusDTO status = oraculo.get(0);
+        Response response = target.path(statusPath).path(status.getId().toString())
                 .request().cookie(cookieSessionId).delete();
         Assert.assertEquals(OkWithoutContent, response.getStatus());
     }

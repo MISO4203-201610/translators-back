@@ -13,10 +13,10 @@ public class TranslatorDTO {
 
     private Long id;
     private String name;
-    @PodamExclude
-    private List<LanguageDTO> languages = new ArrayList<>();
     
     private List<EducationDTO> education = new ArrayList<>();
+    @PodamExclude
+    private List<LanguageDTO> languages = new ArrayList<>();
 
     /**
      * @generated
@@ -49,20 +49,6 @@ public class TranslatorDTO {
     /**
      * @generated
      */
-    public List<LanguageDTO> getLanguages() {
-        return languages;
-    }
-
-    /**
-     * @generated
-     */
-    public void setLanguages(List<LanguageDTO> languages) {
-        this.languages = languages;
-    }
-
-    /**
-     * @generated
-     */
     public List<EducationDTO> getEducation() {
         return education;
     }
@@ -72,6 +58,20 @@ public class TranslatorDTO {
      */
     public void setEducation(List<EducationDTO> education) {
         this.education = education;
+    }
+
+    /**
+     * @generated
+     */
+    public List<LanguageDTO> getLanguages() {
+        return languages;
+    }
+
+    /**
+     * @generated
+     */
+    public void setLanguages(List<LanguageDTO> languages) {
+        this.languages = languages;
     }
 
 }

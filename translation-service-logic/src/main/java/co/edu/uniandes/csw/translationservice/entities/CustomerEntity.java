@@ -16,25 +16,11 @@ public class CustomerEntity extends BaseEntity implements Serializable {
 
     @PodamExclude
     @OneToMany(mappedBy = "customer")
-    private List<TranslationRequestEntity> translationRequests = new ArrayList<>();
+    private List<CorrectionRequestEntity> correctionRequests = new ArrayList<>();
 
     @PodamExclude
     @OneToMany(mappedBy = "customer")
-    private List<CorrectionRequestEntity> correctionRequests = new ArrayList<>();
-
-    /**
-     * @generated
-     */
-    public List<TranslationRequestEntity> getTranslationRequests() {
-        return translationRequests;
-    }
-
-    /**
-     * @generated
-     */
-    public void setTranslationRequests(List<TranslationRequestEntity> translationrequests) {
-        this.translationRequests = translationrequests;
-    }
+    private List<TranslationRequestEntity> translationRequests = new ArrayList<>();
 
     /**
      * @generated
@@ -48,6 +34,20 @@ public class CustomerEntity extends BaseEntity implements Serializable {
      */
     public void setCorrectionRequests(List<CorrectionRequestEntity> correctionrequests) {
         this.correctionRequests = correctionrequests;
+    }
+
+    /**
+     * @generated
+     */
+    public List<TranslationRequestEntity> getTranslationRequests() {
+        return translationRequests;
+    }
+
+    /**
+     * @generated
+     */
+    public void setTranslationRequests(List<TranslationRequestEntity> translationrequests) {
+        this.translationRequests = translationrequests;
     }
 
 

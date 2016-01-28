@@ -25,7 +25,9 @@ public class TranslationRequestEntity extends BaseEntity implements Serializable
     @PodamStrategyValue(DateStrategy.class)
     private Date dueDate;
 
-    private String status;
+    @PodamExclude
+    @ManyToOne
+    private CustomerEntity customer;
 
     @PodamExclude
     @ManyToOne
@@ -33,7 +35,7 @@ public class TranslationRequestEntity extends BaseEntity implements Serializable
 
     @PodamExclude
     @ManyToOne
-    private CustomerEntity customer;
+    private StatusEntity status;
 
     @PodamExclude
     @ManyToOne
@@ -70,15 +72,15 @@ public class TranslationRequestEntity extends BaseEntity implements Serializable
     /**
      * @generated
      */
-    public String getStatus(){
-        return status;
+    public CustomerEntity getCustomer() {
+        return customer;
     }
 
     /**
      * @generated
      */
-    public void setStatus(String status){
-        this.status = status;
+    public void setCustomer(CustomerEntity customer) {
+        this.customer = customer;
     }
 
     /**
@@ -98,15 +100,15 @@ public class TranslationRequestEntity extends BaseEntity implements Serializable
     /**
      * @generated
      */
-    public CustomerEntity getCustomer() {
-        return customer;
+    public StatusEntity getStatus() {
+        return status;
     }
 
     /**
      * @generated
      */
-    public void setCustomer(CustomerEntity customer) {
-        this.customer = customer;
+    public void setStatus(StatusEntity status) {
+        this.status = status;
     }
 
     /**

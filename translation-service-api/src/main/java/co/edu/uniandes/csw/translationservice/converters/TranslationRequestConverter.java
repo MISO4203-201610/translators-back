@@ -33,7 +33,6 @@ public abstract class TranslationRequestConverter {
             dto.setName(entity.getName());
             dto.setCreationDate(entity.getCreationDate());
             dto.setDueDate(entity.getDueDate());
-            dto.setStatus(entity.getStatus());
 
             return dto;
         } else {
@@ -76,9 +75,9 @@ public abstract class TranslationRequestConverter {
             dto.setName(entity.getName());
             dto.setCreationDate(entity.getCreationDate());
             dto.setDueDate(entity.getDueDate());
-            dto.setStatus(entity.getStatus());
-            dto.setTargetLanguage(LanguageConverter.refEntity2DTO(entity.getTargetLanguage()));
             dto.setCustomer(CustomerConverter.refEntity2DTO(entity.getCustomer()));
+            dto.setTargetLanguage(LanguageConverter.refEntity2DTO(entity.getTargetLanguage()));
+            dto.setStatus(StatusConverter.refEntity2DTO(entity.getStatus()));
             dto.setOriginalLanguage(LanguageConverter.refEntity2DTO(entity.getOriginalLanguage()));
 
             return dto;
@@ -103,9 +102,9 @@ public abstract class TranslationRequestConverter {
             entity.setName(dto.getName());
             entity.setCreationDate(dto.getCreationDate());
             entity.setDueDate(dto.getDueDate());
-            entity.setStatus(dto.getStatus());
-            entity.setTargetLanguage(LanguageConverter.refDTO2Entity(dto.getTargetLanguage()));
             entity.setCustomer(CustomerConverter.refDTO2Entity(dto.getCustomer()));
+            entity.setTargetLanguage(LanguageConverter.refDTO2Entity(dto.getTargetLanguage()));
+            entity.setStatus(StatusConverter.refDTO2Entity(dto.getStatus()));
             entity.setOriginalLanguage(LanguageConverter.refDTO2Entity(dto.getOriginalLanguage()));
 
             return entity;

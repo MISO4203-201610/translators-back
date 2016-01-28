@@ -4,8 +4,8 @@ import co.edu.uniandes.csw.translationservice.ejbs.TranslatorLogic;
 import co.edu.uniandes.csw.translationservice.api.ITranslatorLogic;
 import co.edu.uniandes.csw.translationservice.entities.TranslatorEntity;
 import co.edu.uniandes.csw.translationservice.persistence.TranslatorPersistence;
-import co.edu.uniandes.csw.translationservice.entities.LanguageEntity;
 import co.edu.uniandes.csw.translationservice.entities.EducationEntity;
+import co.edu.uniandes.csw.translationservice.entities.LanguageEntity;
 import java.util.ArrayList;
 import java.util.List;
 

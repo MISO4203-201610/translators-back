@@ -126,7 +126,6 @@ public class CorrectionRequestTest {
         Assert.assertEquals(correctionRequest.getName(), correctionrequestTest.getName());
         Assert.assertEquals(correctionRequest.getCreationDate(), correctionrequestTest.getCreationDate());
         Assert.assertEquals(correctionRequest.getDueDate(), correctionrequestTest.getDueDate());
-        Assert.assertEquals(correctionRequest.getStatus(), correctionrequestTest.getStatus());
         Assert.assertEquals(Created, response.getStatus());
     }
 
@@ -141,7 +140,6 @@ public class CorrectionRequestTest {
         Assert.assertEquals(correctionrequestTest.getName(), oraculo.get(0).getName());
         Assert.assertEquals(correctionrequestTest.getCreationDate(), oraculo.get(0).getCreationDate());
         Assert.assertEquals(correctionrequestTest.getDueDate(), oraculo.get(0).getDueDate());
-        Assert.assertEquals(correctionrequestTest.getStatus(), oraculo.get(0).getStatus());
     }
 
     @Test
@@ -166,7 +164,6 @@ public class CorrectionRequestTest {
         correctionRequest.setName(correctionRequestChanged.getName());
         correctionRequest.setCreationDate(correctionRequestChanged.getCreationDate());
         correctionRequest.setDueDate(correctionRequestChanged.getDueDate());
-        correctionRequest.setStatus(correctionRequestChanged.getStatus());
         Response response = target.path(correctionRequestPath).path(correctionRequest.getId().toString())
                 .request().cookie(cookieSessionId).put(Entity.entity(correctionRequest, MediaType.APPLICATION_JSON));
         CorrectionRequestDTO correctionrequestTest = (CorrectionRequestDTO) response.readEntity(CorrectionRequestDTO.class);
@@ -174,7 +171,6 @@ public class CorrectionRequestTest {
         Assert.assertEquals(correctionRequest.getName(), correctionrequestTest.getName());
         Assert.assertEquals(correctionRequest.getCreationDate(), correctionrequestTest.getCreationDate());
         Assert.assertEquals(correctionRequest.getDueDate(), correctionrequestTest.getDueDate());
-        Assert.assertEquals(correctionRequest.getStatus(), correctionrequestTest.getStatus());
     }
 
     @Test

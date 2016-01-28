@@ -4,8 +4,9 @@ import co.edu.uniandes.csw.translationservice.ejbs.CorrectionRequestLogic;
 import co.edu.uniandes.csw.translationservice.api.ICorrectionRequestLogic;
 import co.edu.uniandes.csw.translationservice.entities.CorrectionRequestEntity;
 import co.edu.uniandes.csw.translationservice.persistence.CorrectionRequestPersistence;
-import co.edu.uniandes.csw.translationservice.entities.CustomerEntity;
 import co.edu.uniandes.csw.translationservice.entities.LanguageEntity;
+import co.edu.uniandes.csw.translationservice.entities.CustomerEntity;
+import co.edu.uniandes.csw.translationservice.entities.StatusEntity;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Date;
@@ -61,12 +62,17 @@ public class CorrectionRequestLogicTest {
     /**
      * @generated
      */
+    private List<LanguageEntity> languageData = new ArrayList<>();
+
+    /**
+     * @generated
+     */
     private List<CustomerEntity> customerData = new ArrayList<>();
 
     /**
      * @generated
      */
-    private List<LanguageEntity> languageData = new ArrayList<>();
+    private List<StatusEntity> statusData = new ArrayList<>();
 
     /**
      * @generated
@@ -107,8 +113,9 @@ public class CorrectionRequestLogicTest {
      */
     private void clearData() {
         em.createQuery("delete from CorrectionRequestEntity").executeUpdate();
-        em.createQuery("delete from CustomerEntity").executeUpdate();
         em.createQuery("delete from LanguageEntity").executeUpdate();
+        em.createQuery("delete from CustomerEntity").executeUpdate();
+        em.createQuery("delete from StatusEntity").executeUpdate();
     }
 
     /**
@@ -116,23 +123,31 @@ public class CorrectionRequestLogicTest {
      */
     private void insertData() {
         for (int i = 0; i < 3; i++) {
-            CustomerEntity customer = factory.manufacturePojo(CustomerEntity.class);
-            em.persist(customer);
-            customerData.add(customer);
-        }
-
-        for (int i = 0; i < 3; i++) {
             LanguageEntity language = factory.manufacturePojo(LanguageEntity.class);
             em.persist(language);
             languageData.add(language);
         }
 
         for (int i = 0; i < 3; i++) {
+            CustomerEntity customer = factory.manufacturePojo(CustomerEntity.class);
+            em.persist(customer);
+            customerData.add(customer);
+        }
+
+        for (int i = 0; i < 3; i++) {
+            StatusEntity status = factory.manufacturePojo(StatusEntity.class);
+            em.persist(status);
+            statusData.add(status);
+        }
+
+        for (int i = 0; i < 3; i++) {
             CorrectionRequestEntity entity = factory.manufacturePojo(CorrectionRequestEntity.class);
+
+            entity.setLanguage(languageData.get(0));
 
             entity.setCustomer(customerData.get(0));
 
-            entity.setLanguage(languageData.get(0));
+            entity.setStatus(statusData.get(0));
 
             em.persist(entity);
             data.add(entity);
@@ -151,7 +166,6 @@ public class CorrectionRequestLogicTest {
         Assert.assertEquals(result.getName(), entity.getName());
         Assert.assertEquals(result.getCreationDate(), entity.getCreationDate());
         Assert.assertEquals(result.getDueDate(), entity.getDueDate());
-        Assert.assertEquals(result.getStatus(), entity.getStatus());
     }
 
     /**
@@ -184,7 +198,6 @@ public class CorrectionRequestLogicTest {
         Assert.assertEquals(entity.getName(), resultEntity.getName());
         Assert.assertEquals(entity.getCreationDate(), resultEntity.getCreationDate());
         Assert.assertEquals(entity.getDueDate(), resultEntity.getDueDate());
-        Assert.assertEquals(entity.getStatus(), resultEntity.getStatus());
     }
 
     /**
@@ -216,6 +229,5 @@ public class CorrectionRequestLogicTest {
         Assert.assertEquals(pojoEntity.getName(), resp.getName());
         Assert.assertEquals(pojoEntity.getCreationDate(), resp.getCreationDate());
         Assert.assertEquals(pojoEntity.getDueDate(), resp.getDueDate());
-        Assert.assertEquals(pojoEntity.getStatus(), resp.getStatus());
     }
 }

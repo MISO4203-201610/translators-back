@@ -15,27 +15,13 @@ import javax.persistence.CascadeType;
 @Entity
 public class TranslatorEntity extends BaseEntity implements Serializable {
 
-    @PodamExclude
-    @OneToMany
-    private List<LanguageEntity> languages = new ArrayList<>();
-
     
     @OneToMany(mappedBy = "translator", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<EducationEntity> education = new ArrayList<>();
 
-    /**
-     * @generated
-     */
-    public List<LanguageEntity> getLanguages() {
-        return languages;
-    }
-
-    /**
-     * @generated
-     */
-    public void setLanguages(List<LanguageEntity> languages) {
-        this.languages = languages;
-    }
+    @PodamExclude
+    @OneToMany
+    private List<LanguageEntity> languages = new ArrayList<>();
 
     /**
      * @generated
@@ -49,6 +35,20 @@ public class TranslatorEntity extends BaseEntity implements Serializable {
      */
     public void setEducation(List<EducationEntity> education) {
         this.education = education;
+    }
+
+    /**
+     * @generated
+     */
+    public List<LanguageEntity> getLanguages() {
+        return languages;
+    }
+
+    /**
+     * @generated
+     */
+    public void setLanguages(List<LanguageEntity> languages) {
+        this.languages = languages;
     }
 
 

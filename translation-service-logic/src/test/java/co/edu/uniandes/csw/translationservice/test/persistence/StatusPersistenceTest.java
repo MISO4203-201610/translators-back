@@ -1,10 +1,10 @@
 package co.edu.uniandes.csw.translationservice.test.persistence;
 
-import co.edu.uniandes.csw.translationservice.entities.TranslationRequestEntity;
-import co.edu.uniandes.csw.translationservice.persistence.TranslationRequestPersistence;
+import co.edu.uniandes.csw.translationservice.entities.StatusEntity;
+import co.edu.uniandes.csw.translationservice.persistence.StatusPersistence;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Date;
+
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -24,7 +24,7 @@ import uk.co.jemos.podam.api.PodamFactoryImpl;
  * @generated
  */
 @RunWith(Arquillian.class)
-public class TranslationRequestPersistenceTest {
+public class StatusPersistenceTest {
 
     /**
      * @generated
@@ -32,8 +32,8 @@ public class TranslationRequestPersistenceTest {
     @Deployment
     public static JavaArchive createDeployment() {
         return ShrinkWrap.create(JavaArchive.class)
-                .addPackage(TranslationRequestEntity.class.getPackage())
-                .addPackage(TranslationRequestPersistence.class.getPackage())
+                .addPackage(StatusEntity.class.getPackage())
+                .addPackage(StatusPersistence.class.getPackage())
                 .addAsManifestResource("META-INF/persistence.xml", "persistence.xml")
                 .addAsManifestResource("META-INF/beans.xml", "beans.xml");
     }
@@ -42,7 +42,7 @@ public class TranslationRequestPersistenceTest {
      * @generated
      */
     @Inject
-    private TranslationRequestPersistence translationRequestPersistence;
+    private StatusPersistence statusPersistence;
 
     /**
      * @generated
@@ -81,13 +81,13 @@ public class TranslationRequestPersistenceTest {
      * @generated
      */
     private void clearData() {
-        em.createQuery("delete from TranslationRequestEntity").executeUpdate();
+        em.createQuery("delete from StatusEntity").executeUpdate();
     }
 
     /**
      * @generated
      */
-    private List<TranslationRequestEntity> data = new ArrayList<TranslationRequestEntity>();
+    private List<StatusEntity> data = new ArrayList<StatusEntity>();
 
     /**
      * @generated
@@ -95,7 +95,7 @@ public class TranslationRequestPersistenceTest {
     private void insertData() {
         PodamFactory factory = new PodamFactoryImpl();
         for (int i = 0; i < 3; i++) {
-            TranslationRequestEntity entity = factory.manufacturePojo(TranslationRequestEntity.class);
+            StatusEntity entity = factory.manufacturePojo(StatusEntity.class);
             em.persist(entity);
             data.add(entity);
         }
@@ -105,14 +105,14 @@ public class TranslationRequestPersistenceTest {
      * @generated
      */
     @Test
-    public void createTranslationRequestTest() {
+    public void createStatusTest() {
 		PodamFactory factory = new PodamFactoryImpl();
-        TranslationRequestEntity newEntity = factory.manufacturePojo(TranslationRequestEntity.class);
-        TranslationRequestEntity result = translationRequestPersistence.create(newEntity);
+        StatusEntity newEntity = factory.manufacturePojo(StatusEntity.class);
+        StatusEntity result = statusPersistence.create(newEntity);
 
         Assert.assertNotNull(result);
 
-        TranslationRequestEntity entity = em.find(TranslationRequestEntity.class, result.getId());
+        StatusEntity entity = em.find(StatusEntity.class, result.getId());
 
         Assert.assertEquals(newEntity.getName(), entity.getName());
     }
@@ -121,12 +121,12 @@ public class TranslationRequestPersistenceTest {
      * @generated
      */
     @Test
-    public void getTranslationRequestsTest() {
-        List<TranslationRequestEntity> list = translationRequestPersistence.findAll();
+    public void getStatussTest() {
+        List<StatusEntity> list = statusPersistence.findAll();
         Assert.assertEquals(data.size(), list.size());
-        for (TranslationRequestEntity ent : list) {
+        for (StatusEntity ent : list) {
             boolean found = false;
-            for (TranslationRequestEntity entity : data) {
+            for (StatusEntity entity : data) {
                 if (ent.getId().equals(entity.getId())) {
                     found = true;
                 }
@@ -139,23 +139,21 @@ public class TranslationRequestPersistenceTest {
      * @generated
      */
     @Test
-    public void getTranslationRequestTest() {
-        TranslationRequestEntity entity = data.get(0);
-        TranslationRequestEntity newEntity = translationRequestPersistence.find(entity.getId());
+    public void getStatusTest() {
+        StatusEntity entity = data.get(0);
+        StatusEntity newEntity = statusPersistence.find(entity.getId());
         Assert.assertNotNull(newEntity);
         Assert.assertEquals(entity.getName(), newEntity.getName());
-        Assert.assertEquals(entity.getCreationDate(), newEntity.getCreationDate());
-        Assert.assertEquals(entity.getDueDate(), newEntity.getDueDate());
     }
 
     /**
      * @generated
      */
     @Test
-    public void deleteTranslationRequestTest() {
-        TranslationRequestEntity entity = data.get(0);
-        translationRequestPersistence.delete(entity.getId());
-        TranslationRequestEntity deleted = em.find(TranslationRequestEntity.class, entity.getId());
+    public void deleteStatusTest() {
+        StatusEntity entity = data.get(0);
+        statusPersistence.delete(entity.getId());
+        StatusEntity deleted = em.find(StatusEntity.class, entity.getId());
         Assert.assertNull(deleted);
     }
 
@@ -163,16 +161,16 @@ public class TranslationRequestPersistenceTest {
      * @generated
      */
     @Test
-    public void updateTranslationRequestTest() {
-        TranslationRequestEntity entity = data.get(0);
+    public void updateStatusTest() {
+        StatusEntity entity = data.get(0);
         PodamFactory factory = new PodamFactoryImpl();
-        TranslationRequestEntity newEntity = factory.manufacturePojo(TranslationRequestEntity.class);
+        StatusEntity newEntity = factory.manufacturePojo(StatusEntity.class);
 
         newEntity.setId(entity.getId());
 
-        translationRequestPersistence.update(newEntity);
+        statusPersistence.update(newEntity);
 
-        TranslationRequestEntity resp = em.find(TranslationRequestEntity.class, entity.getId());
+        StatusEntity resp = em.find(StatusEntity.class, entity.getId());
 
         Assert.assertEquals(newEntity.getName(), resp.getName());
     }

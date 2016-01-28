@@ -110,8 +110,8 @@ public abstract class TranslatorConverter {
     public static TranslatorDTO fullEntity2DTO(TranslatorEntity entity) {
         if (entity != null) {
             TranslatorDTO dto = basicEntity2DTO(entity);
-            dto.setLanguages(LanguageConverter.listEntity2DTO(entity.getLanguages()));
             dto.setEducation(EducationConverter.listEntity2DTO(entity.getEducation()));
+            dto.setLanguages(LanguageConverter.listEntity2DTO(entity.getLanguages()));
             return dto;
         } else {
             return null;
@@ -129,8 +129,8 @@ public abstract class TranslatorConverter {
     public static TranslatorEntity fullDTO2Entity(TranslatorDTO dto) {
         if (dto != null) {
             TranslatorEntity entity = basicDTO2Entity(dto);
-            entity.setLanguages(LanguageConverter.listDTO2Entity(dto.getLanguages()));
             entity.setEducation(EducationConverter.childListDTO2Entity(dto.getEducation(), entity));
+            entity.setLanguages(LanguageConverter.listDTO2Entity(dto.getLanguages()));
             return entity;
         } else {
             return null;

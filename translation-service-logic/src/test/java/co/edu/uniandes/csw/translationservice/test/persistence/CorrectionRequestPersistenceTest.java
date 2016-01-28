@@ -4,6 +4,7 @@ import co.edu.uniandes.csw.translationservice.entities.CorrectionRequestEntity;
 import co.edu.uniandes.csw.translationservice.persistence.CorrectionRequestPersistence;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Date;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -114,7 +115,6 @@ public class CorrectionRequestPersistenceTest {
         CorrectionRequestEntity entity = em.find(CorrectionRequestEntity.class, result.getId());
 
         Assert.assertEquals(newEntity.getName(), entity.getName());
-        Assert.assertEquals(newEntity.getStatus(), entity.getStatus());
     }
 
     /**
@@ -146,7 +146,6 @@ public class CorrectionRequestPersistenceTest {
         Assert.assertEquals(entity.getName(), newEntity.getName());
         Assert.assertEquals(entity.getCreationDate(), newEntity.getCreationDate());
         Assert.assertEquals(entity.getDueDate(), newEntity.getDueDate());
-        Assert.assertEquals(entity.getStatus(), newEntity.getStatus());
     }
 
     /**
@@ -176,6 +175,5 @@ public class CorrectionRequestPersistenceTest {
         CorrectionRequestEntity resp = em.find(CorrectionRequestEntity.class, entity.getId());
 
         Assert.assertEquals(newEntity.getName(), resp.getName());
-        Assert.assertEquals(newEntity.getStatus(), resp.getStatus());
     }
 }

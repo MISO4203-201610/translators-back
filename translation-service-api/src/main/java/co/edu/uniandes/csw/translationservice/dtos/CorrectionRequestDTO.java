@@ -22,11 +22,12 @@ public class CorrectionRequestDTO {
     @XmlJavaTypeAdapter(DateAdapter.class)
     @PodamStrategyValue(DateStrategy.class)
     private Date dueDate;
-    private String status;
+    @PodamExclude
+    private LanguageDTO language;
     @PodamExclude
     private CustomerDTO customer;
     @PodamExclude
-    private LanguageDTO language;
+    private StatusDTO status;
 
     /**
      * @generated
@@ -87,15 +88,15 @@ public class CorrectionRequestDTO {
     /**
      * @generated
      */
-    public String getStatus() {
-        return status;
+    public LanguageDTO getLanguage() {
+        return language;
     }
 
     /**
      * @generated
      */
-    public void setStatus(String status) {
-        this.status = status;
+    public void setLanguage(LanguageDTO language) {
+        this.language = language;
     }
 
     /**
@@ -115,15 +116,15 @@ public class CorrectionRequestDTO {
     /**
      * @generated
      */
-    public LanguageDTO getLanguage() {
-        return language;
+    public StatusDTO getStatus() {
+        return status;
     }
 
     /**
      * @generated
      */
-    public void setLanguage(LanguageDTO language) {
-        this.language = language;
+    public void setStatus(StatusDTO status) {
+        this.status = status;
     }
 
 }

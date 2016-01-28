@@ -22,11 +22,12 @@ public class TranslationRequestDTO {
     @XmlJavaTypeAdapter(DateAdapter.class)
     @PodamStrategyValue(DateStrategy.class)
     private Date dueDate;
-    private String status;
+    @PodamExclude
+    private CustomerDTO customer;
     @PodamExclude
     private LanguageDTO targetLanguage;
     @PodamExclude
-    private CustomerDTO customer;
+    private StatusDTO status;
     @PodamExclude
     private LanguageDTO originalLanguage;
 
@@ -89,15 +90,15 @@ public class TranslationRequestDTO {
     /**
      * @generated
      */
-    public String getStatus() {
-        return status;
+    public CustomerDTO getCustomer() {
+        return customer;
     }
 
     /**
      * @generated
      */
-    public void setStatus(String status) {
-        this.status = status;
+    public void setCustomer(CustomerDTO customer) {
+        this.customer = customer;
     }
 
     /**
@@ -117,15 +118,15 @@ public class TranslationRequestDTO {
     /**
      * @generated
      */
-    public CustomerDTO getCustomer() {
-        return customer;
+    public StatusDTO getStatus() {
+        return status;
     }
 
     /**
      * @generated
      */
-    public void setCustomer(CustomerDTO customer) {
-        this.customer = customer;
+    public void setStatus(StatusDTO status) {
+        this.status = status;
     }
 
     /**

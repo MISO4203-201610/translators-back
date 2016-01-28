@@ -7,6 +7,7 @@
     <class>co.edu.uniandes.csw.translationservice.entities.CustomerEntity</class>
     <class>co.edu.uniandes.csw.translationservice.entities.EducationEntity</class>
     <class>co.edu.uniandes.csw.translationservice.entities.LanguageEntity</class>
+    <class>co.edu.uniandes.csw.translationservice.entities.StatusEntity</class>
     <class>co.edu.uniandes.csw.translationservice.entities.TranslationRequestEntity</class>
     <class>co.edu.uniandes.csw.translationservice.entities.TranslatorEntity</class>
     <properties>

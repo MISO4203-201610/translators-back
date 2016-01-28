@@ -5,6 +5,7 @@
   - [Entidad Customer](#entidad-customer)
   - [Entidad Education](#entidad-education)
   - [Entidad Language](#entidad-language)
+  - [Entidad Status](#entidad-status)
   - [Entidad TranslationRequest](#entidad-translationrequest)
   - [Entidad Translator](#entidad-translator)
 
@@ -44,12 +45,12 @@ En la siguiente tabla se detalla los servicios REST generados para la entidad Co
 ```javascript
 {
     dueDate: '' /*Tipo Date*/,
-    customer: '' /*Objeto que representa instancia de Customer*/,
-    status: '' /*Tipo String*/,
-    id: '' /*Tipo Long*/,
+    name: '' /*Tipo String*/,
     language: '' /*Objeto que representa instancia de Language*/,
+    customer: '' /*Objeto que representa instancia de Customer*/,
     creationDate: '' /*Tipo Date*/,
-    name: '' /*Tipo String*/
+    id: '' /*Tipo Long*/,
+    status: '' /*Objeto que representa instancia de Status*/
 }
 ```
 #####Servicios
@@ -92,10 +93,10 @@ A diferencia del API para CRUD Básico, el API de Maestro/Detalle no provee un s
 
 Método|URI|Acción|Parámetros|Cuerpo|Retorno
 :--:|:--:|:--:|:--:|:--:|:--:
-**GET**|customers/:id/translationRequests|Obtener instancias de translationRequests(TranslationRequest) asociados con Customer|**@PathParam id**: `id` de instancia de Customer||Colección de `id` de translationRequests(TranslationRequest) asociados con Customer
-**PUT**|customers/:id/translationRequests|Actualización de referencias a translationRequests(TranslationRequest) desde Customer|**@PathParam id**: `id` de instancia de Customer|Colección de `id` de translationRequests(TranslationRequest) a asociar|Colección de objetos JSON de translationRequests(TranslationRequest) asociados
 **GET**|customers/:id/correctionRequests|Obtener instancias de correctionRequests(CorrectionRequest) asociados con Customer|**@PathParam id**: `id` de instancia de Customer||Colección de `id` de correctionRequests(CorrectionRequest) asociados con Customer
 **PUT**|customers/:id/correctionRequests|Actualización de referencias a correctionRequests(CorrectionRequest) desde Customer|**@PathParam id**: `id` de instancia de Customer|Colección de `id` de correctionRequests(CorrectionRequest) a asociar|Colección de objetos JSON de correctionRequests(CorrectionRequest) asociados
+**GET**|customers/:id/translationRequests|Obtener instancias de translationRequests(TranslationRequest) asociados con Customer|**@PathParam id**: `id` de instancia de Customer||Colección de `id` de translationRequests(TranslationRequest) asociados con Customer
+**PUT**|customers/:id/translationRequests|Actualización de referencias a translationRequests(TranslationRequest) desde Customer|**@PathParam id**: `id` de instancia de Customer|Colección de `id` de translationRequests(TranslationRequest) a asociar|Colección de objetos JSON de translationRequests(TranslationRequest) asociados
 [Volver arriba](#tabla-de-contenidos)
 
 ###Entidad Education
@@ -147,6 +148,28 @@ Método|URI|Acción|Parámetros|Cuerpo|Retorno
 
 [Volver arriba](#tabla-de-contenidos)
 
+###Entidad Status
+####CRUD Básico
+En la siguiente tabla se detalla los servicios REST generados para la entidad Status, la estructura del objeto que intercambian y sus respectivas funciones.
+
+#####Estructura de objeto Status
+```javascript
+{
+    id: '' /*Tipo Long*/,
+    name: '' /*Tipo String*/
+}
+```
+#####Servicios
+Método|URI|Acción|Parámetros|Cuerpo|Retorno
+:--:|:--:|:--:|:--:|:--:|:--:
+**GET**|/statuss|Obtener todos los objetos JSON de Status (READ)|**@QueryParam page**: página a consultar<br>**@QueryParam maxRecords**: cantidad de registros a consultar<br><br>*Si se omite alguno de estos parámetros se obtiene todos los registros en la base de datos*||Colección de objetos JSON Status y el total de registros en la base de datos en el header X-Total-Count
+**GET**|/statuss/:id|Obtener los atributos de una instancia de Status en formato JSON(READ)|**@PathParam id**: Identificador del registro||Objeto JSON con detalle de la instancia de Status
+**POST**|/statuss|Crear una nueva instancia de la entidad Status (CREATE)||Objeto JSON de Status a crear|Objeto JSON de Status creado
+**PUT**|/statuss/:id|Actualiza una instancia de la entidad Status (UPDATE)|**@PathParam id**: Identificador del registro|Objeto JSON de Status|Objeto JSON de Status actualizado
+**DELETE**|/statuss/:id|Borra instancia de Status en el servidor (DELETE)|<strong>@PathParam id</strong>: Identificador del registro||
+
+[Volver arriba](#tabla-de-contenidos)
+
 ###Entidad TranslationRequest
 ####CRUD Básico
 En la siguiente tabla se detalla los servicios REST generados para la entidad TranslationRequest, la estructura del objeto que intercambian y sus respectivas funciones.
@@ -155,13 +178,13 @@ En la siguiente tabla se detalla los servicios REST generados para la entidad Tr
 ```javascript
 {
     dueDate: '' /*Tipo Date*/,
-    id: '' /*Tipo Long*/,
-    targetLanguage: '' /*Objeto que representa instancia de Language*/,
     name: '' /*Tipo String*/,
     customer: '' /*Objeto que representa instancia de Customer*/,
+    targetLanguage: '' /*Objeto que representa instancia de Language*/,
+    id: '' /*Tipo Long*/,
+    status: '' /*Objeto que representa instancia de Status*/,
     creationDate: '' /*Tipo Date*/,
-    originalLanguage: '' /*Objeto que representa instancia de Language*/,
-    status: '' /*Tipo String*/
+    originalLanguage: '' /*Objeto que representa instancia de Language*/
 }
 ```
 #####Servicios

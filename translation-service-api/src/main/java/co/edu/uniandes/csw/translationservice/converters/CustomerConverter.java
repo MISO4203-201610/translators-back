@@ -110,8 +110,8 @@ public abstract class CustomerConverter {
     public static CustomerDTO fullEntity2DTO(CustomerEntity entity) {
         if (entity != null) {
             CustomerDTO dto = basicEntity2DTO(entity);
-            dto.setTranslationRequests(TranslationRequestConverter.listEntity2DTO(entity.getTranslationRequests()));
             dto.setCorrectionRequests(CorrectionRequestConverter.listEntity2DTO(entity.getCorrectionRequests()));
+            dto.setTranslationRequests(TranslationRequestConverter.listEntity2DTO(entity.getTranslationRequests()));
             return dto;
         } else {
             return null;
@@ -129,8 +129,8 @@ public abstract class CustomerConverter {
     public static CustomerEntity fullDTO2Entity(CustomerDTO dto) {
         if (dto != null) {
             CustomerEntity entity = basicDTO2Entity(dto);
-            entity.setTranslationRequests(TranslationRequestConverter.listDTO2Entity(dto.getTranslationRequests()));
             entity.setCorrectionRequests(CorrectionRequestConverter.listDTO2Entity(dto.getCorrectionRequests()));
+            entity.setTranslationRequests(TranslationRequestConverter.listDTO2Entity(dto.getTranslationRequests()));
             return entity;
         } else {
             return null;
