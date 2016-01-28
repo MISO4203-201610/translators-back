@@ -11,7 +11,7 @@
 
 #API Rest
 ##Introducción
-La comunicación entre cliente y servidor se realiza intercambiando objetos JSON. Para cada entidad se hace un mapeo a JSON, donde cada uno de sus atributos se transforma en una propiedad de un objeto JSON. Todos los servicios se generan en la URL /TranslationService.api/webresources/. Por defecto, todas las entidades tienen un atributo `id`, con el cual se identifica cada registro:
+La comunicación entre cliente y servidor se realiza intercambiando objetos JSON. Para cada entidad se hace un mapeo a JSON, donde cada uno de sus atributos se transforma en una propiedad de un objeto JSON. Todos los servicios se generan en la URL /TranslationService.api/api/. Por defecto, todas las entidades tienen un atributo `id`, con el cual se identifica cada registro:
 
 ```javascript
 {
