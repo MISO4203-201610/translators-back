@@ -190,7 +190,7 @@ public abstract class EducationConverter {
 
     /**
      * Convierte una instancia de EducationDTO a EducationEntity asignando un valor
-     * al atributo org.eclipse.uml2.uml.internal.impl.PropertyImpl@20859994 (name: translator, visibility: <unset>) (isLeaf: false) (isStatic: false) (isOrdered: false, isUnique: true, isReadOnly: false) (aggregation: none, isDerived: false, isDerivedUnion: false, isID: false) de EducationEntity. Se usa cuando se necesita convertir
+     * al atributo org.eclipse.uml2.uml.internal.impl.PropertyImpl@64d7e799 (name: translator, visibility: <unset>) (isLeaf: false) (isStatic: false) (isOrdered: false, isUnique: true, isReadOnly: false) (aggregation: none, isDerived: false, isDerivedUnion: false, isID: false) de EducationEntity. Se usa cuando se necesita convertir
      * un EducationDTO asignando el libro asociado
      * @param dto Instancia de EducationDTO
      * @param parent Instancia de TranslatorEntity
@@ -206,10 +206,10 @@ public abstract class EducationConverter {
     /**
      * Convierte una colección de instancias de EducationDTO a EducationEntity
      * asignando el mismo padre para todos. Se usa cuando se necesita crear o
-     * actualizar varios EducationEntity con el mismo org.eclipse.uml2.uml.internal.impl.PropertyImpl@20859994 (name: translator, visibility: <unset>) (isLeaf: false) (isStatic: false) (isOrdered: false, isUnique: true, isReadOnly: false) (aggregation: none, isDerived: false, isDerivedUnion: false, isID: false)
+     * actualizar varios EducationEntity con el mismo org.eclipse.uml2.uml.internal.impl.PropertyImpl@64d7e799 (name: translator, visibility: <unset>) (isLeaf: false) (isStatic: false) (isOrdered: false, isUnique: true, isReadOnly: false) (aggregation: none, isDerived: false, isDerivedUnion: false, isID: false)
      * @param dtos Colección de instancias de EducationDTO
      * @param parent Instancia de TranslatorEntity
-     * @return Colección de EducationEntity con el atributo org.eclipse.uml2.uml.internal.impl.PropertyImpl@20859994 (name: translator, visibility: <unset>) (isLeaf: false) (isStatic: false) (isOrdered: false, isUnique: true, isReadOnly: false) (aggregation: none, isDerived: false, isDerivedUnion: false, isID: false) asignado
+     * @return Colección de EducationEntity con el atributo org.eclipse.uml2.uml.internal.impl.PropertyImpl@64d7e799 (name: translator, visibility: <unset>) (isLeaf: false) (isStatic: false) (isOrdered: false, isUnique: true, isReadOnly: false) (aggregation: none, isDerived: false, isDerivedUnion: false, isID: false) asignado
      * @generated
      */
     public static List<EducationEntity> childListDTO2Entity(List<EducationDTO> dtos, TranslatorEntity parent) {

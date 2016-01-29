@@ -75,8 +75,8 @@ public abstract class CorrectionRequestConverter {
             dto.setName(entity.getName());
             dto.setCreationDate(entity.getCreationDate());
             dto.setDueDate(entity.getDueDate());
-            dto.setLanguage(LanguageConverter.refEntity2DTO(entity.getLanguage()));
             dto.setStatus(StatusConverter.refEntity2DTO(entity.getStatus()));
+            dto.setLanguage(LanguageConverter.refEntity2DTO(entity.getLanguage()));
             dto.setCustomer(CustomerConverter.refEntity2DTO(entity.getCustomer()));
 
             return dto;
@@ -101,8 +101,8 @@ public abstract class CorrectionRequestConverter {
             entity.setName(dto.getName());
             entity.setCreationDate(dto.getCreationDate());
             entity.setDueDate(dto.getDueDate());
-            entity.setLanguage(LanguageConverter.refDTO2Entity(dto.getLanguage()));
             entity.setStatus(StatusConverter.refDTO2Entity(dto.getStatus()));
+            entity.setLanguage(LanguageConverter.refDTO2Entity(dto.getLanguage()));
             entity.setCustomer(CustomerConverter.refDTO2Entity(dto.getCustomer()));
 
             return entity;

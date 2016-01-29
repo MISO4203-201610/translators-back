@@ -23,9 +23,9 @@ public class TranslationRequestDTO {
     @PodamStrategyValue(DateStrategy.class)
     private Date dueDate;
     @PodamExclude
-    private CustomerDTO customer;
-    @PodamExclude
     private StatusDTO status;
+    @PodamExclude
+    private CustomerDTO customer;
     @PodamExclude
     private LanguageDTO originalLanguage;
     @PodamExclude
@@ -90,20 +90,6 @@ public class TranslationRequestDTO {
     /**
      * @generated
      */
-    public CustomerDTO getCustomer() {
-        return customer;
-    }
-
-    /**
-     * @generated
-     */
-    public void setCustomer(CustomerDTO customer) {
-        this.customer = customer;
-    }
-
-    /**
-     * @generated
-     */
     public StatusDTO getStatus() {
         return status;
     }
@@ -113,6 +99,20 @@ public class TranslationRequestDTO {
      */
     public void setStatus(StatusDTO status) {
         this.status = status;
+    }
+
+    /**
+     * @generated
+     */
+    public CustomerDTO getCustomer() {
+        return customer;
+    }
+
+    /**
+     * @generated
+     */
+    public void setCustomer(CustomerDTO customer) {
+        this.customer = customer;
     }
 
     /**

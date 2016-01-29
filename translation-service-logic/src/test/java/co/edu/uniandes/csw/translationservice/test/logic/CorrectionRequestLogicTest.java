@@ -4,8 +4,8 @@ import co.edu.uniandes.csw.translationservice.ejbs.CorrectionRequestLogic;
 import co.edu.uniandes.csw.translationservice.api.ICorrectionRequestLogic;
 import co.edu.uniandes.csw.translationservice.entities.CorrectionRequestEntity;
 import co.edu.uniandes.csw.translationservice.persistence.CorrectionRequestPersistence;
-import co.edu.uniandes.csw.translationservice.entities.LanguageEntity;
 import co.edu.uniandes.csw.translationservice.entities.StatusEntity;
+import co.edu.uniandes.csw.translationservice.entities.LanguageEntity;
 import co.edu.uniandes.csw.translationservice.entities.CustomerEntity;
 import java.util.ArrayList;
 import java.util.List;
@@ -62,12 +62,12 @@ public class CorrectionRequestLogicTest {
     /**
      * @generated
      */
-    private List<LanguageEntity> languageData = new ArrayList<>();
+    private List<StatusEntity> statusData = new ArrayList<>();
 
     /**
      * @generated
      */
-    private List<StatusEntity> statusData = new ArrayList<>();
+    private List<LanguageEntity> languageData = new ArrayList<>();
 
     /**
      * @generated
@@ -113,8 +113,8 @@ public class CorrectionRequestLogicTest {
      */
     private void clearData() {
         em.createQuery("delete from CorrectionRequestEntity").executeUpdate();
-        em.createQuery("delete from LanguageEntity").executeUpdate();
         em.createQuery("delete from StatusEntity").executeUpdate();
+        em.createQuery("delete from LanguageEntity").executeUpdate();
         em.createQuery("delete from CustomerEntity").executeUpdate();
     }
 
@@ -123,15 +123,15 @@ public class CorrectionRequestLogicTest {
      */
     private void insertData() {
         for (int i = 0; i < 3; i++) {
-            LanguageEntity language = factory.manufacturePojo(LanguageEntity.class);
-            em.persist(language);
-            languageData.add(language);
-        }
-
-        for (int i = 0; i < 3; i++) {
             StatusEntity status = factory.manufacturePojo(StatusEntity.class);
             em.persist(status);
             statusData.add(status);
+        }
+
+        for (int i = 0; i < 3; i++) {
+            LanguageEntity language = factory.manufacturePojo(LanguageEntity.class);
+            em.persist(language);
+            languageData.add(language);
         }
 
         for (int i = 0; i < 3; i++) {
@@ -143,9 +143,9 @@ public class CorrectionRequestLogicTest {
         for (int i = 0; i < 3; i++) {
             CorrectionRequestEntity entity = factory.manufacturePojo(CorrectionRequestEntity.class);
 
-            entity.setLanguage(languageData.get(0));
-
             entity.setStatus(statusData.get(0));
+
+            entity.setLanguage(languageData.get(0));
 
             entity.setCustomer(customerData.get(0));
 

@@ -23,9 +23,9 @@ public class CorrectionRequestDTO {
     @PodamStrategyValue(DateStrategy.class)
     private Date dueDate;
     @PodamExclude
-    private LanguageDTO language;
-    @PodamExclude
     private StatusDTO status;
+    @PodamExclude
+    private LanguageDTO language;
     @PodamExclude
     private CustomerDTO customer;
 
@@ -88,20 +88,6 @@ public class CorrectionRequestDTO {
     /**
      * @generated
      */
-    public LanguageDTO getLanguage() {
-        return language;
-    }
-
-    /**
-     * @generated
-     */
-    public void setLanguage(LanguageDTO language) {
-        this.language = language;
-    }
-
-    /**
-     * @generated
-     */
     public StatusDTO getStatus() {
         return status;
     }
@@ -111,6 +97,20 @@ public class CorrectionRequestDTO {
      */
     public void setStatus(StatusDTO status) {
         this.status = status;
+    }
+
+    /**
+     * @generated
+     */
+    public LanguageDTO getLanguage() {
+        return language;
+    }
+
+    /**
+     * @generated
+     */
+    public void setLanguage(LanguageDTO language) {
+        this.language = language;
     }
 
     /**

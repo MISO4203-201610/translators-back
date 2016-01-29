@@ -38,70 +38,70 @@ public class EducationEntity extends BaseEntity implements Serializable {
     /**
      * @generated
      */
-    public Date getStartDate() {
+    public Date getStartDate(){
         return startDate;
     }
 
     /**
      * @generated
      */
-    public void setStartDate(Date startDate) {
+    public void setStartDate(Date startDate){
         this.startDate = startDate;
     }
 
     /**
      * @generated
      */
-    public Date getEndDate() {
+    public Date getEndDate(){
         return endDate;
     }
 
     /**
      * @generated
      */
-    public void setEndDate(Date endDate) {
+    public void setEndDate(Date endDate){
         this.endDate = endDate;
     }
 
     /**
      * @generated
      */
-    public String getInstitution() {
+    public String getInstitution(){
         return institution;
     }
 
     /**
      * @generated
      */
-    public void setInstitution(String institution) {
+    public void setInstitution(String institution){
         this.institution = institution;
     }
 
     /**
      * @generated
      */
-    public String getTitle() {
+    public String getTitle(){
         return title;
     }
 
     /**
      * @generated
      */
-    public void setTitle(String title) {
+    public void setTitle(String title){
         this.title = title;
     }
 
     /**
      * @generated
      */
-    public String getDescription() {
+    public String getDescription(){
         return description;
     }
 
     /**
      * @generated
      */
-    public void setDescription(String description) {
+    public void setDescription(String description){
         this.description = description;
     }
 

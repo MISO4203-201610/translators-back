@@ -27,11 +27,11 @@ public class CorrectionRequestEntity extends BaseEntity implements Serializable 
 
     @PodamExclude
     @ManyToOne
-    private LanguageEntity language;
+    private StatusEntity status;
 
     @PodamExclude
     @ManyToOne
-    private StatusEntity status;
+    private LanguageEntity language;
 
     @PodamExclude
     @ManyToOne
@@ -68,20 +68,6 @@ public class CorrectionRequestEntity extends BaseEntity implements Serializable 
     /**
      * @generated
      */
-    public LanguageEntity getLanguage() {
-        return language;
-    }
-
-    /**
-     * @generated
-     */
-    public void setLanguage(LanguageEntity language) {
-        this.language = language;
-    }
-
-    /**
-     * @generated
-     */
     public StatusEntity getStatus() {
         return status;
     }
@@ -91,6 +77,20 @@ public class CorrectionRequestEntity extends BaseEntity implements Serializable 
      */
     public void setStatus(StatusEntity status) {
         this.status = status;
+    }
+
+    /**
+     * @generated
+     */
+    public LanguageEntity getLanguage() {
+        return language;
+    }
+
+    /**
+     * @generated
+     */
+    public void setLanguage(LanguageEntity language) {
+        this.language = language;
     }
 
     /**

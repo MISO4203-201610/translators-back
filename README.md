@@ -44,13 +44,13 @@ En la siguiente tabla se detalla los servicios REST generados para la entidad Co
 #####Estructura de objeto CorrectionRequest
 ```javascript
 {
-    language: '' /*Objeto que representa instancia de Language*/,
-    id: '' /*Tipo Long*/,
-    status: '' /*Objeto que representa instancia de Status*/,
-    customer: '' /*Objeto que representa instancia de Customer*/,
-    creationDate: '' /*Tipo Date*/,
     dueDate: '' /*Tipo Date*/,
-    name: '' /*Tipo String*/
+    status: '' /*Objeto que representa instancia de Status*/,
+    language: '' /*Objeto que representa instancia de Language*/,
+    creationDate: '' /*Tipo Date*/,
+    name: '' /*Tipo String*/,
+    id: '' /*Tipo Long*/,
+    customer: '' /*Objeto que representa instancia de Customer*/
 }
 ```
 #####Servicios
@@ -177,13 +177,13 @@ En la siguiente tabla se detalla los servicios REST generados para la entidad Tr
 #####Estructura de objeto TranslationRequest
 ```javascript
 {
-    customer: '' /*Objeto que representa instancia de Customer*/,
     status: '' /*Objeto que representa instancia de Status*/,
-    id: '' /*Tipo Long*/,
-    originalLanguage: '' /*Objeto que representa instancia de Language*/,
-    dueDate: '' /*Tipo Date*/,
     name: '' /*Tipo String*/,
+    customer: '' /*Objeto que representa instancia de Customer*/,
+    dueDate: '' /*Tipo Date*/,
     creationDate: '' /*Tipo Date*/,
+    originalLanguage: '' /*Objeto que representa instancia de Language*/,
+    id: '' /*Tipo Long*/,
     targetLanguage: '' /*Objeto que representa instancia de Language*/
 }
 ```

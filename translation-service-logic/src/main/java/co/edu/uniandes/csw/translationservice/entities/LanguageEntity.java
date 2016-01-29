@@ -9,5 +9,4 @@ import co.edu.uniandes.csw.crud.spi.entity.BaseEntity;
  */
 @Entity
 public class LanguageEntity extends BaseEntity implements Serializable {
-
 }

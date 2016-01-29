@@ -4,8 +4,8 @@ import co.edu.uniandes.csw.translationservice.ejbs.TranslationRequestLogic;
 import co.edu.uniandes.csw.translationservice.api.ITranslationRequestLogic;
 import co.edu.uniandes.csw.translationservice.entities.TranslationRequestEntity;
 import co.edu.uniandes.csw.translationservice.persistence.TranslationRequestPersistence;
-import co.edu.uniandes.csw.translationservice.entities.CustomerEntity;
 import co.edu.uniandes.csw.translationservice.entities.StatusEntity;
+import co.edu.uniandes.csw.translationservice.entities.CustomerEntity;
 import co.edu.uniandes.csw.translationservice.entities.LanguageEntity;
 import co.edu.uniandes.csw.translationservice.entities.LanguageEntity;
 import java.util.ArrayList;
@@ -63,12 +63,12 @@ public class TranslationRequestLogicTest {
     /**
      * @generated
      */
-    private List<CustomerEntity> customerData = new ArrayList<>();
+    private List<StatusEntity> statusData = new ArrayList<>();
 
     /**
      * @generated
      */
-    private List<StatusEntity> statusData = new ArrayList<>();
+    private List<CustomerEntity> customerData = new ArrayList<>();
 
     /**
      * @generated
@@ -119,8 +119,8 @@ public class TranslationRequestLogicTest {
      */
     private void clearData() {
         em.createQuery("delete from TranslationRequestEntity").executeUpdate();
-        em.createQuery("delete from CustomerEntity").executeUpdate();
         em.createQuery("delete from StatusEntity").executeUpdate();
+        em.createQuery("delete from CustomerEntity").executeUpdate();
         em.createQuery("delete from LanguageEntity").executeUpdate();
         em.createQuery("delete from LanguageEntity").executeUpdate();
     }
@@ -130,15 +130,15 @@ public class TranslationRequestLogicTest {
      */
     private void insertData() {
         for (int i = 0; i < 3; i++) {
-            CustomerEntity customer = factory.manufacturePojo(CustomerEntity.class);
-            em.persist(customer);
-            customerData.add(customer);
-        }
-
-        for (int i = 0; i < 3; i++) {
             StatusEntity status = factory.manufacturePojo(StatusEntity.class);
             em.persist(status);
             statusData.add(status);
+        }
+
+        for (int i = 0; i < 3; i++) {
+            CustomerEntity customer = factory.manufacturePojo(CustomerEntity.class);
+            em.persist(customer);
+            customerData.add(customer);
         }
 
         for (int i = 0; i < 3; i++) {
@@ -156,9 +156,9 @@ public class TranslationRequestLogicTest {
         for (int i = 0; i < 3; i++) {
             TranslationRequestEntity entity = factory.manufacturePojo(TranslationRequestEntity.class);
 
-            entity.setCustomer(customerData.get(0));
-
             entity.setStatus(statusData.get(0));
+
+            entity.setCustomer(customerData.get(0));
 
             entity.setOriginalLanguage(originalLanguageData.get(0));
 
