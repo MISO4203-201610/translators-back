@@ -14,9 +14,9 @@ public class CustomerDTO {
     private Long id;
     private String name;
     @PodamExclude
-    private List<CorrectionRequestDTO> correctionRequests = new ArrayList<>();
-    @PodamExclude
     private List<TranslationRequestDTO> translationRequests = new ArrayList<>();
+    @PodamExclude
+    private List<CorrectionRequestDTO> correctionRequests = new ArrayList<>();
 
     /**
      * @generated
@@ -49,20 +49,6 @@ public class CustomerDTO {
     /**
      * @generated
      */
-    public List<CorrectionRequestDTO> getCorrectionRequests() {
-        return correctionRequests;
-    }
-
-    /**
-     * @generated
-     */
-    public void setCorrectionRequests(List<CorrectionRequestDTO> correctionrequests) {
-        this.correctionRequests = correctionrequests;
-    }
-
-    /**
-     * @generated
-     */
     public List<TranslationRequestDTO> getTranslationRequests() {
         return translationRequests;
     }
@@ -72,6 +58,20 @@ public class CustomerDTO {
      */
     public void setTranslationRequests(List<TranslationRequestDTO> translationrequests) {
         this.translationRequests = translationrequests;
+    }
+
+    /**
+     * @generated
+     */
+    public List<CorrectionRequestDTO> getCorrectionRequests() {
+        return correctionRequests;
+    }
+
+    /**
+     * @generated
+     */
+    public void setCorrectionRequests(List<CorrectionRequestDTO> correctionrequests) {
+        this.correctionRequests = correctionrequests;
     }
 
 }

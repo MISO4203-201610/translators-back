@@ -102,5 +102,4 @@ public class LanguageService {
     public void deleteLanguage(@PathParam("id") Long id) {
         languageLogic.deleteLanguage(id);
     }
-
 }

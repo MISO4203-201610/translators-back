@@ -25,9 +25,9 @@ public class CorrectionRequestDTO {
     @PodamExclude
     private LanguageDTO language;
     @PodamExclude
-    private CustomerDTO customer;
-    @PodamExclude
     private StatusDTO status;
+    @PodamExclude
+    private CustomerDTO customer;
 
     /**
      * @generated
@@ -102,20 +102,6 @@ public class CorrectionRequestDTO {
     /**
      * @generated
      */
-    public CustomerDTO getCustomer() {
-        return customer;
-    }
-
-    /**
-     * @generated
-     */
-    public void setCustomer(CustomerDTO customer) {
-        this.customer = customer;
-    }
-
-    /**
-     * @generated
-     */
     public StatusDTO getStatus() {
         return status;
     }
@@ -125,6 +111,20 @@ public class CorrectionRequestDTO {
      */
     public void setStatus(StatusDTO status) {
         this.status = status;
+    }
+
+    /**
+     * @generated
+     */
+    public CustomerDTO getCustomer() {
+        return customer;
+    }
+
+    /**
+     * @generated
+     */
+    public void setCustomer(CustomerDTO customer) {
+        this.customer = customer;
     }
 
 }

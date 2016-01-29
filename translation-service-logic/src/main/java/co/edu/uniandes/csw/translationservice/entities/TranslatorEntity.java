@@ -15,7 +15,7 @@ import javax.persistence.CascadeType;
 @Entity
 public class TranslatorEntity extends BaseEntity implements Serializable {
 
-    
+
     @OneToMany(mappedBy = "translator", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<EducationEntity> education = new ArrayList<>();
 
@@ -49,16 +49,5 @@ public class TranslatorEntity extends BaseEntity implements Serializable {
      */
     public void setLanguages(List<LanguageEntity> languages) {
         this.languages = languages;
-    }
-
-
-    @Override
-    public boolean equals(Object obj) {
-        return this.getId().equals(((TranslatorEntity)obj).getId());
-    }
-
-    @Override
-    public int hashCode() {
-        return this.getId().hashCode();
     }
 }

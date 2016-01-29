@@ -115,7 +115,7 @@ public class TranslatorService {
      */
     @GET
     @Path("{translatorId: \\d+}/languages")
-    public List<LanguageDTO> getLanguages(@PathParam("translatorId") Long translatorId) {
+    public List<LanguageDTO> listLanguages(@PathParam("translatorId") Long translatorId) {
         return LanguageConverter.listEntity2DTO(translatorLogic.listLanguages(translatorId));
     }
 
@@ -128,7 +128,7 @@ public class TranslatorService {
      */
     @GET
     @Path("{translatorId: \\d+}/languages/{languageId: \\d+}")
-    public LanguageDTO getLanguage(@PathParam("translatorId") Long translatorId, @PathParam("languageId") Long languageId) {
+    public LanguageDTO getLanguages(@PathParam("translatorId") Long translatorId, @PathParam("languageId") Long languageId) {
         return LanguageConverter.fullEntity2DTO(translatorLogic.getLanguages(translatorId, languageId));
     }
 
@@ -142,7 +142,7 @@ public class TranslatorService {
      */
     @POST
     @Path("{translatorId: \\d+}/languages/{languageId: \\d+}")
-    public LanguageDTO addLanguage(@PathParam("translatorId") Long translatorId, @PathParam("languageId") Long languageId) {
+    public LanguageDTO addLanguages(@PathParam("translatorId") Long translatorId, @PathParam("languageId") Long languageId) {
         return LanguageConverter.fullEntity2DTO(translatorLogic.addLanguages(translatorId, languageId));
     }
 
@@ -169,8 +169,7 @@ public class TranslatorService {
      */
     @DELETE
     @Path("{translatorId: \\d+}/languages/{languageId: \\d+}")
-    public void removeLanguage(@PathParam("translatorId") Long translatorId, @PathParam("languageId") Long languageId) {
+    public void removeLanguages(@PathParam("translatorId") Long translatorId, @PathParam("languageId") Long languageId) {
         translatorLogic.removeLanguages(translatorId, languageId);
     }
-
 }

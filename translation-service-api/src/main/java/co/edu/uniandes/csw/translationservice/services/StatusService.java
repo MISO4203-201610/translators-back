@@ -102,5 +102,4 @@ public class StatusService {
     public void deleteStatus(@PathParam("id") Long id) {
         statusLogic.deleteStatus(id);
     }
-
 }

@@ -4,8 +4,8 @@ import co.edu.uniandes.csw.translationservice.ejbs.CustomerLogic;
 import co.edu.uniandes.csw.translationservice.api.ICustomerLogic;
 import co.edu.uniandes.csw.translationservice.entities.CustomerEntity;
 import co.edu.uniandes.csw.translationservice.persistence.CustomerPersistence;
-import co.edu.uniandes.csw.translationservice.entities.CorrectionRequestEntity;
 import co.edu.uniandes.csw.translationservice.entities.TranslationRequestEntity;
+import co.edu.uniandes.csw.translationservice.entities.CorrectionRequestEntity;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -61,12 +61,12 @@ public class CustomerLogicTest {
     /**
      * @generated
      */
-    private List<CorrectionRequestEntity> correctionRequestsData = new ArrayList<>();
+    private List<TranslationRequestEntity> translationRequestsData = new ArrayList<>();
 
     /**
      * @generated
      */
-    private List<TranslationRequestEntity> translationRequestsData = new ArrayList<>();
+    private List<CorrectionRequestEntity> correctionRequestsData = new ArrayList<>();
 
     /**
      * @generated
@@ -106,8 +106,8 @@ public class CustomerLogicTest {
      * @generated
      */
     private void clearData() {
-        em.createQuery("delete from CorrectionRequestEntity").executeUpdate();
         em.createQuery("delete from TranslationRequestEntity").executeUpdate();
+        em.createQuery("delete from CorrectionRequestEntity").executeUpdate();
         em.createQuery("delete from CustomerEntity").executeUpdate();
     }
 
@@ -116,15 +116,15 @@ public class CustomerLogicTest {
      */
     private void insertData() {
         for (int i = 0; i < 3; i++) {
-            CorrectionRequestEntity correctionRequests = factory.manufacturePojo(CorrectionRequestEntity.class);
-            em.persist(correctionRequests);
-            correctionRequestsData.add(correctionRequests);
-        }
-
-        for (int i = 0; i < 3; i++) {
             TranslationRequestEntity translationRequests = factory.manufacturePojo(TranslationRequestEntity.class);
             em.persist(translationRequests);
             translationRequestsData.add(translationRequests);
+        }
+
+        for (int i = 0; i < 3; i++) {
+            CorrectionRequestEntity correctionRequests = factory.manufacturePojo(CorrectionRequestEntity.class);
+            em.persist(correctionRequests);
+            correctionRequestsData.add(correctionRequests);
         }
 
         for (int i = 0; i < 3; i++) {
@@ -134,11 +134,11 @@ public class CustomerLogicTest {
             data.add(entity);
 
             if (i == 0) {
-                correctionRequestsData.get(i).setCustomer(entity);
+                translationRequestsData.get(i).setCustomer(entity);
             }
 
             if (i == 0) {
-                translationRequestsData.get(i).setCustomer(entity);
+                correctionRequestsData.get(i).setCustomer(entity);
             }
         }
     }
@@ -218,68 +218,6 @@ public class CustomerLogicTest {
      * @generated
      */
     @Test
-    public void getCorrectionRequestsTest() {
-        CustomerEntity entity = data.get(0);
-        CorrectionRequestEntity correctionRequestEntity = correctionRequestsData.get(0);
-        CorrectionRequestEntity response = customerLogic.getCorrectionRequests(entity.getId(), correctionRequestEntity.getId());
-
-        Assert.assertEquals(correctionRequestEntity.getId(), response.getId());
-        Assert.assertEquals(correctionRequestEntity.getName(), response.getName());
-        Assert.assertEquals(correctionRequestEntity.getCreationDate(), response.getCreationDate());
-        Assert.assertEquals(correctionRequestEntity.getDueDate(), response.getDueDate());
-    }
-
-    /**
-     * @generated
-     */
-    @Test
-    public void listCorrectionRequestsTest() {
-        List<CorrectionRequestEntity> list = customerLogic.listCorrectionRequests(data.get(0).getId());
-        Assert.assertEquals(1, list.size());
-    }
-
-    /**
-     * @generated
-     */
-    @Test
-    public void addCorrectionRequestsTest() {
-        CustomerEntity entity = data.get(0);
-        CorrectionRequestEntity correctionRequestEntity = correctionRequestsData.get(1);
-        CorrectionRequestEntity response = customerLogic.addCorrectionRequests(entity.getId(), correctionRequestEntity.getId());
-
-        Assert.assertNotNull(response);
-        Assert.assertEquals(correctionRequestEntity.getId(), response.getId());
-    }
-
-    /**
-     * @generated
-     */
-    @Test
-    public void replaceCorrectionRequestsTest() {
-        CustomerEntity entity = data.get(0);
-        List<CorrectionRequestEntity> list = correctionRequestsData.subList(1, 3);
-        customerLogic.replaceCorrectionRequests(entity.getId(), list);
-
-        entity = customerLogic.getCustomer(entity.getId());
-        Assert.assertFalse(entity.getCorrectionRequests().contains(correctionRequestsData.get(0)));
-        Assert.assertTrue(entity.getCorrectionRequests().contains(correctionRequestsData.get(1)));
-        Assert.assertTrue(entity.getCorrectionRequests().contains(correctionRequestsData.get(2)));
-    }
-
-    /**
-     * @generated
-     */
-    @Test
-    public void removeCorrectionRequestsTest() {
-        customerLogic.removeCorrectionRequests(data.get(0).getId(), correctionRequestsData.get(0).getId());
-        CorrectionRequestEntity response = customerLogic.getCorrectionRequests(data.get(0).getId(), correctionRequestsData.get(0).getId());
-        Assert.assertNull(response);
-    }
-
-    /**
-     * @generated
-     */
-    @Test
     public void getTranslationRequestsTest() {
         CustomerEntity entity = data.get(0);
         TranslationRequestEntity translationRequestEntity = translationRequestsData.get(0);
@@ -335,6 +273,68 @@ public class CustomerLogicTest {
     public void removeTranslationRequestsTest() {
         customerLogic.removeTranslationRequests(data.get(0).getId(), translationRequestsData.get(0).getId());
         TranslationRequestEntity response = customerLogic.getTranslationRequests(data.get(0).getId(), translationRequestsData.get(0).getId());
+        Assert.assertNull(response);
+    }
+
+    /**
+     * @generated
+     */
+    @Test
+    public void getCorrectionRequestsTest() {
+        CustomerEntity entity = data.get(0);
+        CorrectionRequestEntity correctionRequestEntity = correctionRequestsData.get(0);
+        CorrectionRequestEntity response = customerLogic.getCorrectionRequests(entity.getId(), correctionRequestEntity.getId());
+
+        Assert.assertEquals(correctionRequestEntity.getId(), response.getId());
+        Assert.assertEquals(correctionRequestEntity.getName(), response.getName());
+        Assert.assertEquals(correctionRequestEntity.getCreationDate(), response.getCreationDate());
+        Assert.assertEquals(correctionRequestEntity.getDueDate(), response.getDueDate());
+    }
+
+    /**
+     * @generated
+     */
+    @Test
+    public void listCorrectionRequestsTest() {
+        List<CorrectionRequestEntity> list = customerLogic.listCorrectionRequests(data.get(0).getId());
+        Assert.assertEquals(1, list.size());
+    }
+
+    /**
+     * @generated
+     */
+    @Test
+    public void addCorrectionRequestsTest() {
+        CustomerEntity entity = data.get(0);
+        CorrectionRequestEntity correctionRequestEntity = correctionRequestsData.get(1);
+        CorrectionRequestEntity response = customerLogic.addCorrectionRequests(entity.getId(), correctionRequestEntity.getId());
+
+        Assert.assertNotNull(response);
+        Assert.assertEquals(correctionRequestEntity.getId(), response.getId());
+    }
+
+    /**
+     * @generated
+     */
+    @Test
+    public void replaceCorrectionRequestsTest() {
+        CustomerEntity entity = data.get(0);
+        List<CorrectionRequestEntity> list = correctionRequestsData.subList(1, 3);
+        customerLogic.replaceCorrectionRequests(entity.getId(), list);
+
+        entity = customerLogic.getCustomer(entity.getId());
+        Assert.assertFalse(entity.getCorrectionRequests().contains(correctionRequestsData.get(0)));
+        Assert.assertTrue(entity.getCorrectionRequests().contains(correctionRequestsData.get(1)));
+        Assert.assertTrue(entity.getCorrectionRequests().contains(correctionRequestsData.get(2)));
+    }
+
+    /**
+     * @generated
+     */
+    @Test
+    public void removeCorrectionRequestsTest() {
+        customerLogic.removeCorrectionRequests(data.get(0).getId(), correctionRequestsData.get(0).getId());
+        CorrectionRequestEntity response = customerLogic.getCorrectionRequests(data.get(0).getId(), correctionRequestsData.get(0).getId());
         Assert.assertNull(response);
     }
 }

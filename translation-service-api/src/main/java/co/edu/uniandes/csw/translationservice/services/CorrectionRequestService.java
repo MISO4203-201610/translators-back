@@ -102,5 +102,4 @@ public class CorrectionRequestService {
     public void deleteCorrectionRequest(@PathParam("id") Long id) {
         correctionRequestLogic.deleteCorrectionRequest(id);
     }
-
 }

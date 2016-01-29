@@ -31,11 +31,11 @@ public class CorrectionRequestEntity extends BaseEntity implements Serializable 
 
     @PodamExclude
     @ManyToOne
-    private CustomerEntity customer;
+    private StatusEntity status;
 
     @PodamExclude
     @ManyToOne
-    private StatusEntity status;
+    private CustomerEntity customer;
 
     /**
      * @generated
@@ -82,20 +82,6 @@ public class CorrectionRequestEntity extends BaseEntity implements Serializable 
     /**
      * @generated
      */
-    public CustomerEntity getCustomer() {
-        return customer;
-    }
-
-    /**
-     * @generated
-     */
-    public void setCustomer(CustomerEntity customer) {
-        this.customer = customer;
-    }
-
-    /**
-     * @generated
-     */
     public StatusEntity getStatus() {
         return status;
     }
@@ -107,14 +93,17 @@ public class CorrectionRequestEntity extends BaseEntity implements Serializable 
         this.status = status;
     }
 
-
-    @Override
-    public boolean equals(Object obj) {
-        return this.getId().equals(((CorrectionRequestEntity)obj).getId());
+    /**
+     * @generated
+     */
+    public CustomerEntity getCustomer() {
+        return customer;
     }
 
-    @Override
-    public int hashCode() {
-        return this.getId().hashCode();
+    /**
+     * @generated
+     */
+    public void setCustomer(CustomerEntity customer) {
+        this.customer = customer;
     }
 }

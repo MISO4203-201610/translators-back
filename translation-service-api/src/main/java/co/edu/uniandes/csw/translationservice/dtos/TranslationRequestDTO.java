@@ -25,11 +25,11 @@ public class TranslationRequestDTO {
     @PodamExclude
     private CustomerDTO customer;
     @PodamExclude
-    private LanguageDTO targetLanguage;
-    @PodamExclude
     private StatusDTO status;
     @PodamExclude
     private LanguageDTO originalLanguage;
+    @PodamExclude
+    private LanguageDTO targetLanguage;
 
     /**
      * @generated
@@ -104,20 +104,6 @@ public class TranslationRequestDTO {
     /**
      * @generated
      */
-    public LanguageDTO getTargetLanguage() {
-        return targetLanguage;
-    }
-
-    /**
-     * @generated
-     */
-    public void setTargetLanguage(LanguageDTO targetlanguage) {
-        this.targetLanguage = targetlanguage;
-    }
-
-    /**
-     * @generated
-     */
     public StatusDTO getStatus() {
         return status;
     }
@@ -141,6 +127,20 @@ public class TranslationRequestDTO {
      */
     public void setOriginalLanguage(LanguageDTO originallanguage) {
         this.originalLanguage = originallanguage;
+    }
+
+    /**
+     * @generated
+     */
+    public LanguageDTO getTargetLanguage() {
+        return targetLanguage;
+    }
+
+    /**
+     * @generated
+     */
+    public void setTargetLanguage(LanguageDTO targetlanguage) {
+        this.targetLanguage = targetlanguage;
     }
 
 }

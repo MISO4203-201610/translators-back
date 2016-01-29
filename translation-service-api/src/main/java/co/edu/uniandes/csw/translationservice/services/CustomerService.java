@@ -19,10 +19,10 @@ import co.edu.uniandes.csw.translationservice.api.ICustomerLogic;
 import co.edu.uniandes.csw.translationservice.dtos.CustomerDTO;
 import co.edu.uniandes.csw.translationservice.entities.CustomerEntity;
 import co.edu.uniandes.csw.translationservice.converters.CustomerConverter;
-import co.edu.uniandes.csw.translationservice.dtos.CorrectionRequestDTO;
-import co.edu.uniandes.csw.translationservice.converters.CorrectionRequestConverter;
 import co.edu.uniandes.csw.translationservice.dtos.TranslationRequestDTO;
 import co.edu.uniandes.csw.translationservice.converters.TranslationRequestConverter;
+import co.edu.uniandes.csw.translationservice.dtos.CorrectionRequestDTO;
+import co.edu.uniandes.csw.translationservice.converters.CorrectionRequestConverter;
 
 /**
  * @generated
@@ -108,74 +108,6 @@ public class CustomerService {
     }
 
     /**
-     * Obtiene una colección de instancias de CorrectionRequestDTO asociadas a una
-     * instancia de Customer
-     *
-     * @param customerId Identificador de la instancia de Customer
-     * @return Colección de instancias de CorrectionRequestDTO asociadas a la instancia de Customer
-     * @generated
-     */
-    @GET
-    @Path("{customerId: \\d+}/correctionRequests")
-    public List<CorrectionRequestDTO> getCorrectionRequests(@PathParam("customerId") Long customerId) {
-        return CorrectionRequestConverter.listEntity2DTO(customerLogic.listCorrectionRequests(customerId));
-    }
-
-    /**
-     * Obtiene una instancia de CorrectionRequest asociada a una instancia de Customer
-     *
-     * @param customerId Identificador de la instancia de Customer
-     * @param correctionRequestId Identificador de la instancia de CorrectionRequest
-     * @generated
-     */
-    @GET
-    @Path("{customerId: \\d+}/correctionRequests/{correctionRequestId: \\d+}")
-    public CorrectionRequestDTO getCorrectionRequest(@PathParam("customerId") Long customerId, @PathParam("correctionRequestId") Long correctionRequestId) {
-        return CorrectionRequestConverter.fullEntity2DTO(customerLogic.getCorrectionRequests(customerId, correctionRequestId));
-    }
-
-    /**
-     * Asocia un CorrectionRequest existente a un Customer
-     *
-     * @param customerId Identificador de la instancia de Customer
-     * @param correctionRequestId Identificador de la instancia de CorrectionRequest
-     * @return Instancia de CorrectionRequestDTO que fue asociada a Customer
-     * @generated
-     */
-    @POST
-    @Path("{customerId: \\d+}/correctionRequests/{correctionRequestId: \\d+}")
-    public CorrectionRequestDTO addCorrectionRequest(@PathParam("customerId") Long customerId, @PathParam("correctionRequestId") Long correctionRequestId) {
-        return CorrectionRequestConverter.fullEntity2DTO(customerLogic.addCorrectionRequests(customerId, correctionRequestId));
-    }
-
-    /**
-     * Remplaza las instancias de CorrectionRequest asociadas a una instancia de Customer
-     *
-     * @param customerId Identificador de la instancia de Customer
-     * @param correctionRequests Colección de instancias de CorrectionRequestDTO a asociar a instancia de Customer
-     * @return Nueva colección de CorrectionRequestDTO asociada a la instancia de Customer
-     * @generated
-     */
-    @PUT
-    @Path("{customerId: \\d+}/correctionRequests")
-    public List<CorrectionRequestDTO> replaceCorrectionRequests(@PathParam("customerId") Long customerId, List<CorrectionRequestDTO> correctionRequests) {
-        return CorrectionRequestConverter.listEntity2DTO(customerLogic.replaceCorrectionRequests(customerId, CorrectionRequestConverter.listDTO2Entity(correctionRequests)));
-    }
-
-    /**
-     * Desasocia un CorrectionRequest existente de un Customer existente
-     *
-     * @param customerId Identificador de la instancia de Customer
-     * @param correctionRequestId Identificador de la instancia de CorrectionRequest
-     * @generated
-     */
-    @DELETE
-    @Path("{customerId: \\d+}/correctionRequests/{correctionRequestId: \\d+}")
-    public void removeCorrectionRequest(@PathParam("customerId") Long customerId, @PathParam("correctionRequestId") Long correctionRequestId) {
-        customerLogic.removeCorrectionRequests(customerId, correctionRequestId);
-    }
-
-    /**
      * Obtiene una colección de instancias de TranslationRequestDTO asociadas a una
      * instancia de Customer
      *
@@ -185,7 +117,7 @@ public class CustomerService {
      */
     @GET
     @Path("{customerId: \\d+}/translationRequests")
-    public List<TranslationRequestDTO> getTranslationRequests(@PathParam("customerId") Long customerId) {
+    public List<TranslationRequestDTO> listTranslationRequests(@PathParam("customerId") Long customerId) {
         return TranslationRequestConverter.listEntity2DTO(customerLogic.listTranslationRequests(customerId));
     }
 
@@ -198,7 +130,7 @@ public class CustomerService {
      */
     @GET
     @Path("{customerId: \\d+}/translationRequests/{translationRequestId: \\d+}")
-    public TranslationRequestDTO getTranslationRequest(@PathParam("customerId") Long customerId, @PathParam("translationRequestId") Long translationRequestId) {
+    public TranslationRequestDTO getTranslationRequests(@PathParam("customerId") Long customerId, @PathParam("translationRequestId") Long translationRequestId) {
         return TranslationRequestConverter.fullEntity2DTO(customerLogic.getTranslationRequests(customerId, translationRequestId));
     }
 
@@ -212,7 +144,7 @@ public class CustomerService {
      */
     @POST
     @Path("{customerId: \\d+}/translationRequests/{translationRequestId: \\d+}")
-    public TranslationRequestDTO addTranslationRequest(@PathParam("customerId") Long customerId, @PathParam("translationRequestId") Long translationRequestId) {
+    public TranslationRequestDTO addTranslationRequests(@PathParam("customerId") Long customerId, @PathParam("translationRequestId") Long translationRequestId) {
         return TranslationRequestConverter.fullEntity2DTO(customerLogic.addTranslationRequests(customerId, translationRequestId));
     }
 
@@ -239,8 +171,75 @@ public class CustomerService {
      */
     @DELETE
     @Path("{customerId: \\d+}/translationRequests/{translationRequestId: \\d+}")
-    public void removeTranslationRequest(@PathParam("customerId") Long customerId, @PathParam("translationRequestId") Long translationRequestId) {
+    public void removeTranslationRequests(@PathParam("customerId") Long customerId, @PathParam("translationRequestId") Long translationRequestId) {
         customerLogic.removeTranslationRequests(customerId, translationRequestId);
     }
 
+    /**
+     * Obtiene una colección de instancias de CorrectionRequestDTO asociadas a una
+     * instancia de Customer
+     *
+     * @param customerId Identificador de la instancia de Customer
+     * @return Colección de instancias de CorrectionRequestDTO asociadas a la instancia de Customer
+     * @generated
+     */
+    @GET
+    @Path("{customerId: \\d+}/correctionRequests")
+    public List<CorrectionRequestDTO> listCorrectionRequests(@PathParam("customerId") Long customerId) {
+        return CorrectionRequestConverter.listEntity2DTO(customerLogic.listCorrectionRequests(customerId));
+    }
+
+    /**
+     * Obtiene una instancia de CorrectionRequest asociada a una instancia de Customer
+     *
+     * @param customerId Identificador de la instancia de Customer
+     * @param correctionRequestId Identificador de la instancia de CorrectionRequest
+     * @generated
+     */
+    @GET
+    @Path("{customerId: \\d+}/correctionRequests/{correctionRequestId: \\d+}")
+    public CorrectionRequestDTO getCorrectionRequests(@PathParam("customerId") Long customerId, @PathParam("correctionRequestId") Long correctionRequestId) {
+        return CorrectionRequestConverter.fullEntity2DTO(customerLogic.getCorrectionRequests(customerId, correctionRequestId));
+    }
+
+    /**
+     * Asocia un CorrectionRequest existente a un Customer
+     *
+     * @param customerId Identificador de la instancia de Customer
+     * @param correctionRequestId Identificador de la instancia de CorrectionRequest
+     * @return Instancia de CorrectionRequestDTO que fue asociada a Customer
+     * @generated
+     */
+    @POST
+    @Path("{customerId: \\d+}/correctionRequests/{correctionRequestId: \\d+}")
+    public CorrectionRequestDTO addCorrectionRequests(@PathParam("customerId") Long customerId, @PathParam("correctionRequestId") Long correctionRequestId) {
+        return CorrectionRequestConverter.fullEntity2DTO(customerLogic.addCorrectionRequests(customerId, correctionRequestId));
+    }
+
+    /**
+     * Remplaza las instancias de CorrectionRequest asociadas a una instancia de Customer
+     *
+     * @param customerId Identificador de la instancia de Customer
+     * @param correctionRequests Colección de instancias de CorrectionRequestDTO a asociar a instancia de Customer
+     * @return Nueva colección de CorrectionRequestDTO asociada a la instancia de Customer
+     * @generated
+     */
+    @PUT
+    @Path("{customerId: \\d+}/correctionRequests")
+    public List<CorrectionRequestDTO> replaceCorrectionRequests(@PathParam("customerId") Long customerId, List<CorrectionRequestDTO> correctionRequests) {
+        return CorrectionRequestConverter.listEntity2DTO(customerLogic.replaceCorrectionRequests(customerId, CorrectionRequestConverter.listDTO2Entity(correctionRequests)));
+    }
+
+    /**
+     * Desasocia un CorrectionRequest existente de un Customer existente
+     *
+     * @param customerId Identificador de la instancia de Customer
+     * @param correctionRequestId Identificador de la instancia de CorrectionRequest
+     * @generated
+     */
+    @DELETE
+    @Path("{customerId: \\d+}/correctionRequests/{correctionRequestId: \\d+}")
+    public void removeCorrectionRequests(@PathParam("customerId") Long customerId, @PathParam("correctionRequestId") Long correctionRequestId) {
+        customerLogic.removeCorrectionRequests(customerId, correctionRequestId);
+    }
 }

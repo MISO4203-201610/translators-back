@@ -3,8 +3,8 @@ package co.edu.uniandes.csw.translationservice.tests;
 import co.edu.uniandes.csw.auth.model.UserDTO;
 import co.edu.uniandes.csw.auth.security.JWT;
 import co.edu.uniandes.csw.translationservice.dtos.CustomerDTO;
-import co.edu.uniandes.csw.translationservice.dtos.CorrectionRequestDTO;
 import co.edu.uniandes.csw.translationservice.dtos.TranslationRequestDTO;
+import co.edu.uniandes.csw.translationservice.dtos.CorrectionRequestDTO;
 import co.edu.uniandes.csw.translationservice.services.CustomerService;
 import java.io.File;
 import java.io.IOException;
@@ -44,10 +44,10 @@ public class CustomerTest {
     private final int OkWithoutContent = Status.NO_CONTENT.getStatusCode();
     private final String customerPath = "customers";
     private final static List<CustomerDTO> oraculo = new ArrayList<>();
-    private final String correctionRequestsPath = "correctionRequests";
-    private final static List<CorrectionRequestDTO> oraculoCorrectionRequests = new ArrayList<>();
     private final String translationRequestsPath = "translationRequests";
     private final static List<TranslationRequestDTO> oraculoTranslationRequests = new ArrayList<>();
+    private final String correctionRequestsPath = "correctionRequests";
+    private final static List<CorrectionRequestDTO> oraculoCorrectionRequests = new ArrayList<>();
     private WebTarget target;
     private final String apiPath = "api";
     private final String username = System.getenv("USERNAME_USER");
@@ -61,7 +61,7 @@ public class CustomerTest {
         return ShrinkWrap.create(WebArchive.class)
                 // Se agrega la dependencia a la logica con el nombre groupid:artefactid:version (GAV)
                 .addAsLibraries(Maven.resolver()
-                        .resolve("co.edu.uniandes.csw.translationservice:translation-service-logic:0.1.0")
+                        .resolve("co.edu.uniandes.csw.translationservice:translation-service-logic:0.1.0-SNAPSHOT")
                         .withTransitivity().asFile())
                 .addAsLibraries(Maven.resolver()
                         .resolve("co.edu.uniandes.csw:auth-utils:0.1.0")
@@ -97,12 +97,12 @@ public class CustomerTest {
 
             oraculo.add(customer);
 
-            CorrectionRequestDTO correctionRequests = factory.manufacturePojo(CorrectionRequestDTO.class);
-            correctionRequests.setId(i + 1L);
-            oraculoCorrectionRequests.add(correctionRequests);
             TranslationRequestDTO translationRequests = factory.manufacturePojo(TranslationRequestDTO.class);
             translationRequests.setId(i + 1L);
             oraculoTranslationRequests.add(translationRequests);
+            CorrectionRequestDTO correctionRequests = factory.manufacturePojo(CorrectionRequestDTO.class);
+            correctionRequests.setId(i + 1L);
+            oraculoCorrectionRequests.add(correctionRequests);
         }
     }
 
@@ -189,85 +189,6 @@ public class CustomerTest {
 
     @Test
     @InSequence(5)
-    public void addCorrectionRequestsTest() {
-        Cookie cookieSessionId = login(username, password);
-
-        CorrectionRequestDTO correctionRequests = oraculoCorrectionRequests.get(0);
-        CustomerDTO customer = oraculo.get(0);
-
-
-        Response response = target.path(correctionRequestsPath)
-                .request().cookie(cookieSessionId)
-                .post(Entity.entity(correctionRequests, MediaType.APPLICATION_JSON));
-
-        CorrectionRequestDTO correctionrequestsTest = (CorrectionRequestDTO) response.readEntity(CorrectionRequestDTO.class);
-        Assert.assertEquals(correctionRequests.getId(), correctionrequestsTest.getId());
-        Assert.assertEquals(correctionRequests.getName(), correctionrequestsTest.getName());
-        Assert.assertEquals(correctionRequests.getCreationDate(), correctionrequestsTest.getCreationDate());
-        Assert.assertEquals(correctionRequests.getDueDate(), correctionrequestsTest.getDueDate());
-        Assert.assertEquals(Created, response.getStatus());
-
-        response = target.path(customerPath).path(customer.getId().toString())
-                .path(correctionRequestsPath).path(correctionRequests.getId().toString())
-                .request().cookie(cookieSessionId)
-                .post(Entity.entity(correctionRequests, MediaType.APPLICATION_JSON));
-
-        correctionrequestsTest = (CorrectionRequestDTO) response.readEntity(CorrectionRequestDTO.class);
-        Assert.assertEquals(Ok, response.getStatus());
-        Assert.assertEquals(correctionRequests.getId(), correctionrequestsTest.getId());
-    }
-
-    @Test
-    @InSequence(6)
-    public void listCorrectionRequestsTest() throws IOException {
-        Cookie cookieSessionId = login(username, password);
-        CustomerDTO customer = oraculo.get(0);
-
-        Response response = target.path(customerPath)
-                .path(customer.getId().toString())
-                .path(correctionRequestsPath)
-                .request().cookie(cookieSessionId).get();
-
-        String correctionRequestsList = response.readEntity(String.class);
-        List<CorrectionRequestDTO> correctionRequestsListTest = new ObjectMapper().readValue(correctionRequestsList, List.class);
-        Assert.assertEquals(Ok, response.getStatus());
-        Assert.assertEquals(1, correctionRequestsListTest.size());
-    }
-
-    @Test
-    @InSequence(7)
-    public void getCorrectionRequestsTest() throws IOException {
-        Cookie cookieSessionId = login(username, password);
-        CorrectionRequestDTO correctionRequests = oraculoCorrectionRequests.get(0);
-        CustomerDTO customer = oraculo.get(0);
-
-        CorrectionRequestDTO correctionrequestsTest = target.path(customerPath)
-                .path(customer.getId().toString()).path(correctionRequestsPath)
-                .path(correctionRequests.getId().toString())
-                .request().cookie(cookieSessionId).get(CorrectionRequestDTO.class);
-
-        Assert.assertEquals(correctionRequests.getId(), correctionrequestsTest.getId());
-        Assert.assertEquals(correctionRequests.getName(), correctionrequestsTest.getName());
-        Assert.assertEquals(correctionRequests.getCreationDate(), correctionrequestsTest.getCreationDate());
-        Assert.assertEquals(correctionRequests.getDueDate(), correctionrequestsTest.getDueDate());
-    }
-
-    @Test
-    @InSequence(8)
-    public void removeCorrectionRequestsTest() {
-        Cookie cookieSessionId = login(username, password);
-
-        CorrectionRequestDTO correctionRequests = oraculoCorrectionRequests.get(0);
-        CustomerDTO customer = oraculo.get(0);
-
-        Response response = target.path(customerPath).path(customer.getId().toString())
-                .path(correctionRequestsPath).path(correctionRequests.getId().toString())
-                .request().cookie(cookieSessionId).delete();
-        Assert.assertEquals(OkWithoutContent, response.getStatus());
-    }
-
-    @Test
-    @InSequence(9)
     public void addTranslationRequestsTest() {
         Cookie cookieSessionId = login(username, password);
 
@@ -275,7 +196,7 @@ public class CustomerTest {
         CustomerDTO customer = oraculo.get(0);
 
 
-        Response response = target.path(translationRequestsPath)
+        Response response = target.path("translationRequests")
                 .request().cookie(cookieSessionId)
                 .post(Entity.entity(translationRequests, MediaType.APPLICATION_JSON));
 
@@ -297,7 +218,7 @@ public class CustomerTest {
     }
 
     @Test
-    @InSequence(10)
+    @InSequence(6)
     public void listTranslationRequestsTest() throws IOException {
         Cookie cookieSessionId = login(username, password);
         CustomerDTO customer = oraculo.get(0);
@@ -314,7 +235,7 @@ public class CustomerTest {
     }
 
     @Test
-    @InSequence(11)
+    @InSequence(7)
     public void getTranslationRequestsTest() throws IOException {
         Cookie cookieSessionId = login(username, password);
         TranslationRequestDTO translationRequests = oraculoTranslationRequests.get(0);
@@ -332,7 +253,7 @@ public class CustomerTest {
     }
 
     @Test
-    @InSequence(12)
+    @InSequence(8)
     public void removeTranslationRequestsTest() {
         Cookie cookieSessionId = login(username, password);
 
@@ -341,6 +262,85 @@ public class CustomerTest {
 
         Response response = target.path(customerPath).path(customer.getId().toString())
                 .path(translationRequestsPath).path(translationRequests.getId().toString())
+                .request().cookie(cookieSessionId).delete();
+        Assert.assertEquals(OkWithoutContent, response.getStatus());
+    }
+
+    @Test
+    @InSequence(9)
+    public void addCorrectionRequestsTest() {
+        Cookie cookieSessionId = login(username, password);
+
+        CorrectionRequestDTO correctionRequests = oraculoCorrectionRequests.get(0);
+        CustomerDTO customer = oraculo.get(0);
+
+
+        Response response = target.path("correctionRequests")
+                .request().cookie(cookieSessionId)
+                .post(Entity.entity(correctionRequests, MediaType.APPLICATION_JSON));
+
+        CorrectionRequestDTO correctionrequestsTest = (CorrectionRequestDTO) response.readEntity(CorrectionRequestDTO.class);
+        Assert.assertEquals(correctionRequests.getId(), correctionrequestsTest.getId());
+        Assert.assertEquals(correctionRequests.getName(), correctionrequestsTest.getName());
+        Assert.assertEquals(correctionRequests.getCreationDate(), correctionrequestsTest.getCreationDate());
+        Assert.assertEquals(correctionRequests.getDueDate(), correctionrequestsTest.getDueDate());
+        Assert.assertEquals(Created, response.getStatus());
+
+        response = target.path(customerPath).path(customer.getId().toString())
+                .path(correctionRequestsPath).path(correctionRequests.getId().toString())
+                .request().cookie(cookieSessionId)
+                .post(Entity.entity(correctionRequests, MediaType.APPLICATION_JSON));
+
+        correctionrequestsTest = (CorrectionRequestDTO) response.readEntity(CorrectionRequestDTO.class);
+        Assert.assertEquals(Ok, response.getStatus());
+        Assert.assertEquals(correctionRequests.getId(), correctionrequestsTest.getId());
+    }
+
+    @Test
+    @InSequence(10)
+    public void listCorrectionRequestsTest() throws IOException {
+        Cookie cookieSessionId = login(username, password);
+        CustomerDTO customer = oraculo.get(0);
+
+        Response response = target.path(customerPath)
+                .path(customer.getId().toString())
+                .path(correctionRequestsPath)
+                .request().cookie(cookieSessionId).get();
+
+        String correctionRequestsList = response.readEntity(String.class);
+        List<CorrectionRequestDTO> correctionRequestsListTest = new ObjectMapper().readValue(correctionRequestsList, List.class);
+        Assert.assertEquals(Ok, response.getStatus());
+        Assert.assertEquals(1, correctionRequestsListTest.size());
+    }
+
+    @Test
+    @InSequence(11)
+    public void getCorrectionRequestsTest() throws IOException {
+        Cookie cookieSessionId = login(username, password);
+        CorrectionRequestDTO correctionRequests = oraculoCorrectionRequests.get(0);
+        CustomerDTO customer = oraculo.get(0);
+
+        CorrectionRequestDTO correctionrequestsTest = target.path(customerPath)
+                .path(customer.getId().toString()).path(correctionRequestsPath)
+                .path(correctionRequests.getId().toString())
+                .request().cookie(cookieSessionId).get(CorrectionRequestDTO.class);
+
+        Assert.assertEquals(correctionRequests.getId(), correctionrequestsTest.getId());
+        Assert.assertEquals(correctionRequests.getName(), correctionrequestsTest.getName());
+        Assert.assertEquals(correctionRequests.getCreationDate(), correctionrequestsTest.getCreationDate());
+        Assert.assertEquals(correctionRequests.getDueDate(), correctionrequestsTest.getDueDate());
+    }
+
+    @Test
+    @InSequence(12)
+    public void removeCorrectionRequestsTest() {
+        Cookie cookieSessionId = login(username, password);
+
+        CorrectionRequestDTO correctionRequests = oraculoCorrectionRequests.get(0);
+        CustomerDTO customer = oraculo.get(0);
+
+        Response response = target.path(customerPath).path(customer.getId().toString())
+                .path(correctionRequestsPath).path(correctionRequests.getId().toString())
                 .request().cookie(cookieSessionId).delete();
         Assert.assertEquals(OkWithoutContent, response.getStatus());
     }

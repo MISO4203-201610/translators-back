@@ -31,15 +31,15 @@ public class TranslationRequestEntity extends BaseEntity implements Serializable
 
     @PodamExclude
     @ManyToOne
-    private LanguageEntity targetLanguage;
-
-    @PodamExclude
-    @ManyToOne
     private StatusEntity status;
 
     @PodamExclude
     @ManyToOne
     private LanguageEntity originalLanguage;
+
+    @PodamExclude
+    @ManyToOne
+    private LanguageEntity targetLanguage;
 
     /**
      * @generated
@@ -86,20 +86,6 @@ public class TranslationRequestEntity extends BaseEntity implements Serializable
     /**
      * @generated
      */
-    public LanguageEntity getTargetLanguage() {
-        return targetLanguage;
-    }
-
-    /**
-     * @generated
-     */
-    public void setTargetLanguage(LanguageEntity targetlanguage) {
-        this.targetLanguage = targetlanguage;
-    }
-
-    /**
-     * @generated
-     */
     public StatusEntity getStatus() {
         return status;
     }
@@ -125,14 +111,17 @@ public class TranslationRequestEntity extends BaseEntity implements Serializable
         this.originalLanguage = originallanguage;
     }
 
-
-    @Override
-    public boolean equals(Object obj) {
-        return this.getId().equals(((TranslationRequestEntity)obj).getId());
+    /**
+     * @generated
+     */
+    public LanguageEntity getTargetLanguage() {
+        return targetLanguage;
     }
 
-    @Override
-    public int hashCode() {
-        return this.getId().hashCode();
+    /**
+     * @generated
+     */
+    public void setTargetLanguage(LanguageEntity targetlanguage) {
+        this.targetLanguage = targetlanguage;
     }
 }

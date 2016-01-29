@@ -59,7 +59,7 @@ public class TranslatorTest {
         return ShrinkWrap.create(WebArchive.class)
                 // Se agrega la dependencia a la logica con el nombre groupid:artefactid:version (GAV)
                 .addAsLibraries(Maven.resolver()
-                        .resolve("co.edu.uniandes.csw.translationservice:translation-service-logic:0.1.0")
+                        .resolve("co.edu.uniandes.csw.translationservice:translation-service-logic:0.1.0-SNAPSHOT")
                         .withTransitivity().asFile())
                 .addAsLibraries(Maven.resolver()
                         .resolve("co.edu.uniandes.csw:auth-utils:0.1.0")
@@ -200,7 +200,7 @@ public class TranslatorTest {
         TranslatorDTO translator = oraculo.get(0);
 
 
-        Response response = target.path(languagesPath)
+        Response response = target.path("languages")
                 .request().cookie(cookieSessionId)
                 .post(Entity.entity(languages, MediaType.APPLICATION_JSON));
 

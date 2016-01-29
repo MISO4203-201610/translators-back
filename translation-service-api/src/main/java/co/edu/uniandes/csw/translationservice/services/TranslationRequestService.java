@@ -102,5 +102,4 @@ public class TranslationRequestService {
     public void deleteTranslationRequest(@PathParam("id") Long id) {
         translationRequestLogic.deleteTranslationRequest(id);
     }
-
 }

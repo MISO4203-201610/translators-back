@@ -11,7 +11,7 @@
 
 #API Rest
 ##Introducción
-La comunicación entre cliente y servidor se realiza intercambiando objetos JSON. Para cada entidad se hace un mapeo a JSON, donde cada uno de sus atributos se transforma en una propiedad de un objeto JSON. Todos los servicios se generan en la URL /TranslationService.api/api/. Por defecto, todas las entidades tienen un atributo `id`, con el cual se identifica cada registro:
+La comunicación entre cliente y servidor se realiza intercambiando objetos JSON. Para cada entidad se hace un mapeo a JSON, donde cada uno de sus atributos se transforma en una propiedad de un objeto JSON. Todos los servicios se generan en la URL /TranslationService.api/webresources/. Por defecto, todas las entidades tienen un atributo `id`, con el cual se identifica cada registro:
 
 ```javascript
 {
@@ -44,13 +44,13 @@ En la siguiente tabla se detalla los servicios REST generados para la entidad Co
 #####Estructura de objeto CorrectionRequest
 ```javascript
 {
-    dueDate: '' /*Tipo Date*/,
-    name: '' /*Tipo String*/,
     language: '' /*Objeto que representa instancia de Language*/,
+    id: '' /*Tipo Long*/,
+    status: '' /*Objeto que representa instancia de Status*/,
     customer: '' /*Objeto que representa instancia de Customer*/,
     creationDate: '' /*Tipo Date*/,
-    id: '' /*Tipo Long*/,
-    status: '' /*Objeto que representa instancia de Status*/
+    dueDate: '' /*Tipo Date*/,
+    name: '' /*Tipo String*/
 }
 ```
 #####Servicios
@@ -93,10 +93,10 @@ A diferencia del API para CRUD Básico, el API de Maestro/Detalle no provee un s
 
 Método|URI|Acción|Parámetros|Cuerpo|Retorno
 :--:|:--:|:--:|:--:|:--:|:--:
-**GET**|customers/:id/correctionRequests|Obtener instancias de correctionRequests(CorrectionRequest) asociados con Customer|**@PathParam id**: `id` de instancia de Customer||Colección de `id` de correctionRequests(CorrectionRequest) asociados con Customer
-**PUT**|customers/:id/correctionRequests|Actualización de referencias a correctionRequests(CorrectionRequest) desde Customer|**@PathParam id**: `id` de instancia de Customer|Colección de `id` de correctionRequests(CorrectionRequest) a asociar|Colección de objetos JSON de correctionRequests(CorrectionRequest) asociados
 **GET**|customers/:id/translationRequests|Obtener instancias de translationRequests(TranslationRequest) asociados con Customer|**@PathParam id**: `id` de instancia de Customer||Colección de `id` de translationRequests(TranslationRequest) asociados con Customer
 **PUT**|customers/:id/translationRequests|Actualización de referencias a translationRequests(TranslationRequest) desde Customer|**@PathParam id**: `id` de instancia de Customer|Colección de `id` de translationRequests(TranslationRequest) a asociar|Colección de objetos JSON de translationRequests(TranslationRequest) asociados
+**GET**|customers/:id/correctionRequests|Obtener instancias de correctionRequests(CorrectionRequest) asociados con Customer|**@PathParam id**: `id` de instancia de Customer||Colección de `id` de correctionRequests(CorrectionRequest) asociados con Customer
+**PUT**|customers/:id/correctionRequests|Actualización de referencias a correctionRequests(CorrectionRequest) desde Customer|**@PathParam id**: `id` de instancia de Customer|Colección de `id` de correctionRequests(CorrectionRequest) a asociar|Colección de objetos JSON de correctionRequests(CorrectionRequest) asociados
 [Volver arriba](#tabla-de-contenidos)
 
 ###Entidad Education
@@ -177,14 +177,14 @@ En la siguiente tabla se detalla los servicios REST generados para la entidad Tr
 #####Estructura de objeto TranslationRequest
 ```javascript
 {
+    customer: '' /*Objeto que representa instancia de Customer*/,
+    status: '' /*Objeto que representa instancia de Status*/,
+    id: '' /*Tipo Long*/,
+    originalLanguage: '' /*Objeto que representa instancia de Language*/,
     dueDate: '' /*Tipo Date*/,
     name: '' /*Tipo String*/,
-    customer: '' /*Objeto que representa instancia de Customer*/,
-    targetLanguage: '' /*Objeto que representa instancia de Language*/,
-    id: '' /*Tipo Long*/,
-    status: '' /*Objeto que representa instancia de Status*/,
     creationDate: '' /*Tipo Date*/,
-    originalLanguage: '' /*Objeto que representa instancia de Language*/
+    targetLanguage: '' /*Objeto que representa instancia de Language*/
 }
 ```
 #####Servicios
