@@ -2,6 +2,11 @@ package co.edu.uniandes.csw.translationservice.dtos;
 
 import javax.xml.bind.annotation.XmlRootElement;
 import uk.co.jemos.podam.common.PodamExclude;
+import java.util.Date;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+import co.edu.uniandes.csw.auth.model.DateAdapter;
+import uk.co.jemos.podam.common.PodamStrategyValue;
+import co.edu.uniandes.csw.crud.api.podam.strategy.DateStrategy;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -13,6 +18,10 @@ public class TranslatorDTO {
 
     private Long id;
     private String name;
+    private String picture;
+    @XmlJavaTypeAdapter(DateAdapter.class)
+    @PodamStrategyValue(DateStrategy.class)
+    private Date birthDate;
     
     private List<EducationDTO> education = new ArrayList<>();
     @PodamExclude
@@ -44,6 +53,34 @@ public class TranslatorDTO {
      */
     public void setName(String name) {
         this.name = name;
+    }
+
+    /**
+     * @generated
+     */
+    public String getPicture() {
+        return picture;
+    }
+
+    /**
+     * @generated
+     */
+    public void setPicture(String picture) {
+        this.picture = picture;
+    }
+
+    /**
+     * @generated
+     */
+    public Date getBirthDate() {
+        return birthDate;
+    }
+
+    /**
+     * @generated
+     */
+    public void setBirthDate(Date birthdate) {
+        this.birthDate = birthdate;
     }
 
     /**

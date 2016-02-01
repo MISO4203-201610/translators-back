@@ -8,7 +8,7 @@ import co.edu.uniandes.csw.translationservice.entities.EducationEntity;
 import co.edu.uniandes.csw.translationservice.entities.LanguageEntity;
 import java.util.ArrayList;
 import java.util.List;
-
+import java.util.Date;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -140,6 +140,8 @@ public class TranslatorLogicTest {
         Assert.assertNotNull(result);
         Assert.assertEquals(result.getId(), entity.getId());
         Assert.assertEquals(result.getName(), entity.getName());
+        Assert.assertEquals(result.getPicture(), entity.getPicture());
+        Assert.assertEquals(result.getBirthDate(), entity.getBirthDate());
     }
 
     /**
@@ -170,6 +172,8 @@ public class TranslatorLogicTest {
         Assert.assertNotNull(resultEntity);
         Assert.assertEquals(entity.getId(), resultEntity.getId());
         Assert.assertEquals(entity.getName(), resultEntity.getName());
+        Assert.assertEquals(entity.getPicture(), resultEntity.getPicture());
+        Assert.assertEquals(entity.getBirthDate(), resultEntity.getBirthDate());
     }
 
     /**
@@ -199,6 +203,8 @@ public class TranslatorLogicTest {
 
         Assert.assertEquals(pojoEntity.getId(), resp.getId());
         Assert.assertEquals(pojoEntity.getName(), resp.getName());
+        Assert.assertEquals(pojoEntity.getPicture(), resp.getPicture());
+        Assert.assertEquals(pojoEntity.getBirthDate(), resp.getBirthDate());
     }
 
     /**

@@ -136,6 +136,8 @@ public class CustomerTest {
         CustomerDTO  customerTest = (CustomerDTO) response.readEntity(CustomerDTO.class);
         Assert.assertEquals(customer.getId(), customerTest.getId());
         Assert.assertEquals(customer.getName(), customerTest.getName());
+        Assert.assertEquals(customer.getPicture(), customerTest.getPicture());
+        Assert.assertEquals(customer.getBirthDate(), customerTest.getBirthDate());
         Assert.assertEquals(Created, response.getStatus());
     }
 
@@ -148,6 +150,8 @@ public class CustomerTest {
                 .request().cookie(cookieSessionId).get(CustomerDTO.class);
         Assert.assertEquals(customerTest.getId(), oraculo.get(0).getId());
         Assert.assertEquals(customerTest.getName(), oraculo.get(0).getName());
+        Assert.assertEquals(customerTest.getPicture(), oraculo.get(0).getPicture());
+        Assert.assertEquals(customerTest.getBirthDate(), oraculo.get(0).getBirthDate());
     }
 
     @Test
@@ -170,11 +174,15 @@ public class CustomerTest {
         PodamFactory factory = new PodamFactoryImpl();
         CustomerDTO customerChanged = factory.manufacturePojo(CustomerDTO.class);
         customer.setName(customerChanged.getName());
+        customer.setPicture(customerChanged.getPicture());
+        customer.setBirthDate(customerChanged.getBirthDate());
         Response response = target.path(customerPath).path(customer.getId().toString())
                 .request().cookie(cookieSessionId).put(Entity.entity(customer, MediaType.APPLICATION_JSON));
         CustomerDTO customerTest = (CustomerDTO) response.readEntity(CustomerDTO.class);
         Assert.assertEquals(Ok, response.getStatus());
         Assert.assertEquals(customer.getName(), customerTest.getName());
+        Assert.assertEquals(customer.getPicture(), customerTest.getPicture());
+        Assert.assertEquals(customer.getBirthDate(), customerTest.getBirthDate());
     }
 
     @Test

@@ -5,7 +5,7 @@ import co.edu.uniandes.csw.translationservice.entities.EducationEntity;
 import co.edu.uniandes.csw.translationservice.persistence.TranslatorPersistence;
 import java.util.ArrayList;
 import java.util.List;
-
+import java.util.Date;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -120,6 +120,7 @@ public class TranslatorPersistenceTest {
         TranslatorEntity entity = em.find(TranslatorEntity.class, result.getId());
 
         Assert.assertEquals(newEntity.getName(), entity.getName());
+        Assert.assertEquals(newEntity.getPicture(), entity.getPicture());
     }
 
     /**
@@ -149,6 +150,8 @@ public class TranslatorPersistenceTest {
         TranslatorEntity newEntity = translatorPersistence.find(entity.getId());
         Assert.assertNotNull(newEntity);
         Assert.assertEquals(entity.getName(), newEntity.getName());
+        Assert.assertEquals(entity.getPicture(), newEntity.getPicture());
+        Assert.assertEquals(entity.getBirthDate(), newEntity.getBirthDate());
     }
 
     /**
@@ -178,5 +181,6 @@ public class TranslatorPersistenceTest {
         TranslatorEntity resp = em.find(TranslatorEntity.class, entity.getId());
 
         Assert.assertEquals(newEntity.getName(), resp.getName());
+        Assert.assertEquals(newEntity.getPicture(), resp.getPicture());
     }
 }

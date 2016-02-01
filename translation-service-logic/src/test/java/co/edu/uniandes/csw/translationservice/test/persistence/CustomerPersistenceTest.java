@@ -4,7 +4,7 @@ import co.edu.uniandes.csw.translationservice.entities.CustomerEntity;
 import co.edu.uniandes.csw.translationservice.persistence.CustomerPersistence;
 import java.util.ArrayList;
 import java.util.List;
-
+import java.util.Date;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -115,6 +115,7 @@ public class CustomerPersistenceTest {
         CustomerEntity entity = em.find(CustomerEntity.class, result.getId());
 
         Assert.assertEquals(newEntity.getName(), entity.getName());
+        Assert.assertEquals(newEntity.getPicture(), entity.getPicture());
     }
 
     /**
@@ -144,6 +145,8 @@ public class CustomerPersistenceTest {
         CustomerEntity newEntity = customerPersistence.find(entity.getId());
         Assert.assertNotNull(newEntity);
         Assert.assertEquals(entity.getName(), newEntity.getName());
+        Assert.assertEquals(entity.getPicture(), newEntity.getPicture());
+        Assert.assertEquals(entity.getBirthDate(), newEntity.getBirthDate());
     }
 
     /**
@@ -173,5 +176,6 @@ public class CustomerPersistenceTest {
         CustomerEntity resp = em.find(CustomerEntity.class, entity.getId());
 
         Assert.assertEquals(newEntity.getName(), resp.getName());
+        Assert.assertEquals(newEntity.getPicture(), resp.getPicture());
     }
 }

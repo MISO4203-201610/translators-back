@@ -140,6 +140,8 @@ public class TranslatorTest {
         TranslatorDTO  translatorTest = (TranslatorDTO) response.readEntity(TranslatorDTO.class);
         Assert.assertEquals(translator.getId(), translatorTest.getId());
         Assert.assertEquals(translator.getName(), translatorTest.getName());
+        Assert.assertEquals(translator.getPicture(), translatorTest.getPicture());
+        Assert.assertEquals(translator.getBirthDate(), translatorTest.getBirthDate());
         Assert.assertEquals(Created, response.getStatus());
     }
 
@@ -152,6 +154,8 @@ public class TranslatorTest {
                 .request().cookie(cookieSessionId).get(TranslatorDTO.class);
         Assert.assertEquals(translatorTest.getId(), oraculo.get(0).getId());
         Assert.assertEquals(translatorTest.getName(), oraculo.get(0).getName());
+        Assert.assertEquals(translatorTest.getPicture(), oraculo.get(0).getPicture());
+        Assert.assertEquals(translatorTest.getBirthDate(), oraculo.get(0).getBirthDate());
     }
 
     @Test
@@ -174,11 +178,15 @@ public class TranslatorTest {
         PodamFactory factory = new PodamFactoryImpl();
         TranslatorDTO translatorChanged = factory.manufacturePojo(TranslatorDTO.class);
         translator.setName(translatorChanged.getName());
+        translator.setPicture(translatorChanged.getPicture());
+        translator.setBirthDate(translatorChanged.getBirthDate());
         Response response = target.path(translatorPath).path(translator.getId().toString())
                 .request().cookie(cookieSessionId).put(Entity.entity(translator, MediaType.APPLICATION_JSON));
         TranslatorDTO translatorTest = (TranslatorDTO) response.readEntity(TranslatorDTO.class);
         Assert.assertEquals(Ok, response.getStatus());
         Assert.assertEquals(translator.getName(), translatorTest.getName());
+        Assert.assertEquals(translator.getPicture(), translatorTest.getPicture());
+        Assert.assertEquals(translator.getBirthDate(), translatorTest.getBirthDate());
     }
 
     @Test

@@ -31,6 +31,8 @@ public abstract class CustomerConverter {
             CustomerDTO dto = new CustomerDTO();
             dto.setId(entity.getId());
             dto.setName(entity.getName());
+            dto.setPicture(entity.getPicture());
+            dto.setBirthDate(entity.getBirthDate());
 
             return dto;
         } else {
@@ -71,6 +73,8 @@ public abstract class CustomerConverter {
             CustomerDTO dto = new CustomerDTO();
             dto.setId(entity.getId());
             dto.setName(entity.getName());
+            dto.setPicture(entity.getPicture());
+            dto.setBirthDate(entity.getBirthDate());
 
             return dto;
         } else {
@@ -92,6 +96,8 @@ public abstract class CustomerConverter {
             CustomerEntity entity = new CustomerEntity();
             entity.setId(dto.getId());
             entity.setName(dto.getName());
+            entity.setPicture(dto.getPicture());
+            entity.setBirthDate(dto.getBirthDate());
 
             return entity;
         } else {

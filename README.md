@@ -44,12 +44,12 @@ En la siguiente tabla se detalla los servicios REST generados para la entidad Co
 #####Estructura de objeto CorrectionRequest
 ```javascript
 {
-    dueDate: '' /*Tipo Date*/,
-    status: '' /*Objeto que representa instancia de Status*/,
-    language: '' /*Objeto que representa instancia de Language*/,
     creationDate: '' /*Tipo Date*/,
     name: '' /*Tipo String*/,
     id: '' /*Tipo Long*/,
+    status: '' /*Objeto que representa instancia de Status*/,
+    language: '' /*Objeto que representa instancia de Language*/,
+    dueDate: '' /*Tipo Date*/,
     customer: '' /*Objeto que representa instancia de Customer*/
 }
 ```
@@ -72,7 +72,9 @@ En la siguiente tabla se detalla los servicios REST generados para la entidad Cu
 ```javascript
 {
     id: '' /*Tipo Long*/,
-    name: '' /*Tipo String*/
+    name: '' /*Tipo String*/,
+    picture: '' /*Tipo String*/,
+    birthDate: '' /*Tipo Date*/
 }
 ```
 #####Servicios
@@ -177,14 +179,14 @@ En la siguiente tabla se detalla los servicios REST generados para la entidad Tr
 #####Estructura de objeto TranslationRequest
 ```javascript
 {
-    status: '' /*Objeto que representa instancia de Status*/,
-    name: '' /*Tipo String*/,
-    customer: '' /*Objeto que representa instancia de Customer*/,
-    dueDate: '' /*Tipo Date*/,
-    creationDate: '' /*Tipo Date*/,
     originalLanguage: '' /*Objeto que representa instancia de Language*/,
+    name: '' /*Tipo String*/,
+    status: '' /*Objeto que representa instancia de Status*/,
     id: '' /*Tipo Long*/,
-    targetLanguage: '' /*Objeto que representa instancia de Language*/
+    customer: '' /*Objeto que representa instancia de Customer*/,
+    creationDate: '' /*Tipo Date*/,
+    targetLanguage: '' /*Objeto que representa instancia de Language*/,
+    dueDate: '' /*Tipo Date*/
 }
 ```
 #####Servicios
@@ -206,7 +208,9 @@ En la siguiente tabla se detalla los servicios REST generados para la entidad Tr
 ```javascript
 {
     id: '' /*Tipo Long*/,
-    name: '' /*Tipo String*/
+    name: '' /*Tipo String*/,
+    picture: '' /*Tipo String*/,
+    birthDate: '' /*Tipo Date*/
 }
 ```
 #####Servicios
