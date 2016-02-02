@@ -2,6 +2,7 @@ package co.edu.uniandes.csw.translationservice.services;
 
 import co.edu.uniandes.csw.auth.model.UserDTO;
 import co.edu.uniandes.csw.auth.service.AuthService;
+import static co.edu.uniandes.csw.auth.stormpath.Utils.getClient;
 import co.edu.uniandes.csw.translationservice.api.ICustomerLogic;
 import co.edu.uniandes.csw.translationservice.api.ITranslatorLogic;
 import co.edu.uniandes.csw.translationservice.entities.CustomerEntity;
@@ -10,7 +11,10 @@ import com.stormpath.sdk.account.Account;
 import com.stormpath.sdk.group.Group;
 import com.stormpath.sdk.resource.ResourceException;
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.WebApplicationException;
+import javax.ws.rs.core.Context;
 
 public class AccountService extends AuthService {
 
@@ -24,6 +28,9 @@ public class AccountService extends AuthService {
 
     @Inject
     private ITranslatorLogic translatorLogic;
+
+    @Context
+    private HttpServletRequest req;
 
     @Override
     public void register(UserDTO udto) {
@@ -51,4 +58,32 @@ public class AccountService extends AuthService {
         }
     }
 
+    public static CustomerEntity getCurrentCustomer(String href) {
+        Account account = getCurrentAccount(href);
+        Integer customerId = (Integer) account.getCustomData().get(CUSTOMER_CUSTOM_DATA_KEY);
+        if (customerId == null) {
+            throw new WebApplicationException(HttpServletResponse.SC_FORBIDDEN);
+        }
+        CustomerEntity customer = new CustomerEntity();
+        customer.setId(new Long(customerId));
+        return customer;
+    }
+
+    public static TranslatorEntity getCurrentTranslator(String href) {
+        Account account = getCurrentAccount(href);
+        Integer translatorId = (Integer) account.getCustomData().get(TRANSLATOR_CUSTOM_DATA_KEY);
+        if (translatorId == null) {
+            throw new WebApplicationException(HttpServletResponse.SC_FORBIDDEN);
+        }
+        TranslatorEntity translator = new TranslatorEntity();
+        translator.setId(new Long(translatorId));
+        return translator;
+    }
+
+    private static Account getCurrentAccount(String href) {
+        if (href == null) {
+            throw new WebApplicationException(HttpServletResponse.SC_BAD_REQUEST);
+        }
+        return getClient().getResource(href, Account.class);
+    }
 }
