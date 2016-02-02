@@ -14,10 +14,10 @@ import javax.ws.rs.WebApplicationException;
 
 public class AccountService extends AuthService {
 
-    private final String CUSTOMER_GROUP_HREF = "https://api.stormpath.com/v1/groups/6Sx6sEZ85WJtoFDza3R9GD";
-    private final String TRANSLATOR_GROUP_HREF = "https://api.stormpath.com/v1/groups/6rX3H3p1Ig7nAJOQDvBHDd";
-    private final String CUSTOMER_CUSTOM_DATA_KEY = "customerId";
-    private final String TRANSLATOR_CUSTOM_DATA_KEY = "translatorId";
+    private static final String CUSTOMER_GROUP_HREF = "https://api.stormpath.com/v1/groups/6Sx6sEZ85WJtoFDza3R9GD";
+    private static final String TRANSLATOR_GROUP_HREF = "https://api.stormpath.com/v1/groups/6rX3H3p1Ig7nAJOQDvBHDd";
+    public static final String CUSTOMER_CUSTOM_DATA_KEY = "customerId";
+    public static final String TRANSLATOR_CUSTOM_DATA_KEY = "translatorId";
 
     @Inject
     private ICustomerLogic customerLogic;
