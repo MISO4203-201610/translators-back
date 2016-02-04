@@ -11,10 +11,8 @@ import com.stormpath.sdk.account.Account;
 import com.stormpath.sdk.group.Group;
 import com.stormpath.sdk.resource.ResourceException;
 import javax.inject.Inject;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.WebApplicationException;
-import javax.ws.rs.core.Context;
 
 public class AccountService extends AuthService {
 
@@ -28,9 +26,6 @@ public class AccountService extends AuthService {
 
     @Inject
     private ITranslatorLogic translatorLogic;
-
-    @Context
-    private HttpServletRequest req;
 
     @Override
     public void register(UserDTO udto) {
@@ -80,7 +75,7 @@ public class AccountService extends AuthService {
         return translator;
     }
 
-    private static Account getCurrentAccount(String href) {
+    public static Account getCurrentAccount(String href) {
         if (href == null) {
             throw new WebApplicationException(HttpServletResponse.SC_BAD_REQUEST);
         }
