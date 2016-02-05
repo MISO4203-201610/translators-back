@@ -19,6 +19,8 @@ import co.edu.uniandes.csw.translationservice.api.ITranslationRequestLogic;
 import co.edu.uniandes.csw.translationservice.dtos.TranslationRequestDTO;
 import co.edu.uniandes.csw.translationservice.entities.TranslationRequestEntity;
 import co.edu.uniandes.csw.translationservice.converters.TranslationRequestConverter;
+import static co.edu.uniandes.csw.translationservice.services.AccountService.getCurrentCustomer;
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * @generated
@@ -29,6 +31,7 @@ import co.edu.uniandes.csw.translationservice.converters.TranslationRequestConve
 public class TranslationRequestService {
 
     @Inject private ITranslationRequestLogic translationRequestLogic;
+    @Context private HttpServletRequest req;
     @Context private HttpServletResponse response;
     @QueryParam("page") private Integer page;
     @QueryParam("maxRecords") private Integer maxRecords;
@@ -72,6 +75,7 @@ public class TranslationRequestService {
     @StatusCreated
     public TranslationRequestDTO createTranslationRequest(TranslationRequestDTO dto) {
         TranslationRequestEntity entity = TranslationRequestConverter.fullDTO2Entity(dto);
+        entity.setCustomer(getCurrentCustomer(req.getRemoteUser()));
         return TranslationRequestConverter.fullEntity2DTO(translationRequestLogic.createTranslationRequest(entity));
     }
 

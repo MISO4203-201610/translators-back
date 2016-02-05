@@ -19,6 +19,8 @@ import co.edu.uniandes.csw.translationservice.api.ICorrectionRequestLogic;
 import co.edu.uniandes.csw.translationservice.dtos.CorrectionRequestDTO;
 import co.edu.uniandes.csw.translationservice.entities.CorrectionRequestEntity;
 import co.edu.uniandes.csw.translationservice.converters.CorrectionRequestConverter;
+import static co.edu.uniandes.csw.translationservice.services.AccountService.getCurrentCustomer;
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * @generated
@@ -29,6 +31,7 @@ import co.edu.uniandes.csw.translationservice.converters.CorrectionRequestConver
 public class CorrectionRequestService {
 
     @Inject private ICorrectionRequestLogic correctionRequestLogic;
+    @Context private HttpServletRequest req;
     @Context private HttpServletResponse response;
     @QueryParam("page") private Integer page;
     @QueryParam("maxRecords") private Integer maxRecords;
@@ -72,6 +75,7 @@ public class CorrectionRequestService {
     @StatusCreated
     public CorrectionRequestDTO createCorrectionRequest(CorrectionRequestDTO dto) {
         CorrectionRequestEntity entity = CorrectionRequestConverter.fullDTO2Entity(dto);
+        entity.setCustomer(getCurrentCustomer(req.getRemoteUser()));
         return CorrectionRequestConverter.fullEntity2DTO(correctionRequestLogic.createCorrectionRequest(entity));
     }
 

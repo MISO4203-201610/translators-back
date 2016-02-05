@@ -2,6 +2,7 @@ package co.edu.uniandes.csw.translationservice.tests;
 
 import co.edu.uniandes.csw.auth.model.UserDTO;
 import co.edu.uniandes.csw.auth.security.JWT;
+import co.edu.uniandes.csw.translationservice.dtos.CustomerDTO;
 import co.edu.uniandes.csw.translationservice.dtos.TranslationRequestDTO;
 import co.edu.uniandes.csw.translationservice.services.TranslationRequestService;
 import java.io.File;
@@ -41,6 +42,7 @@ public class TranslationRequestTest {
     private final int Created = Status.CREATED.getStatusCode();
     private final int OkWithoutContent = Status.NO_CONTENT.getStatusCode();
     private final String translationRequestPath = "translationRequests";
+    private final String customerPath = "customers";
     private final static List<TranslationRequestDTO> oraculo = new ArrayList<>();
     private WebTarget target;
     private final String apiPath = "api";
@@ -116,12 +118,18 @@ public class TranslationRequestTest {
     @Test
     @InSequence(1)
     public void createTranslationRequestTest() throws IOException {
-        TranslationRequestDTO translationRequest = oraculo.get(0);
+        PodamFactory factory = new PodamFactoryImpl();
+        CustomerDTO customer = factory.manufacturePojo(CustomerDTO.class);;
         Cookie cookieSessionId = login(username, password);
+        target.path(customerPath)
+                .request().cookie(cookieSessionId)
+                .post(Entity.entity(customer, MediaType.APPLICATION_JSON));
+
+        TranslationRequestDTO translationRequest = oraculo.get(0);
         Response response = target.path(translationRequestPath)
                 .request().cookie(cookieSessionId)
                 .post(Entity.entity(translationRequest, MediaType.APPLICATION_JSON));
-        TranslationRequestDTO  translationrequestTest = (TranslationRequestDTO) response.readEntity(TranslationRequestDTO.class);
+        TranslationRequestDTO translationrequestTest = (TranslationRequestDTO) response.readEntity(TranslationRequestDTO.class);
         Assert.assertEquals(translationRequest.getId(), translationrequestTest.getId());
         Assert.assertEquals(translationRequest.getName(), translationrequestTest.getName());
         Assert.assertEquals(translationRequest.getCreationDate(), translationrequestTest.getCreationDate());

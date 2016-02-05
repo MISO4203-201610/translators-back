@@ -3,6 +3,7 @@ package co.edu.uniandes.csw.translationservice.tests;
 import co.edu.uniandes.csw.auth.model.UserDTO;
 import co.edu.uniandes.csw.auth.security.JWT;
 import co.edu.uniandes.csw.translationservice.dtos.CorrectionRequestDTO;
+import co.edu.uniandes.csw.translationservice.dtos.CustomerDTO;
 import co.edu.uniandes.csw.translationservice.services.CorrectionRequestService;
 import java.io.File;
 import java.io.IOException;
@@ -41,6 +42,7 @@ public class CorrectionRequestTest {
     private final int Created = Status.CREATED.getStatusCode();
     private final int OkWithoutContent = Status.NO_CONTENT.getStatusCode();
     private final String correctionRequestPath = "correctionRequests";
+    private final String customerPath = "customers";
     private final static List<CorrectionRequestDTO> oraculo = new ArrayList<>();
     private WebTarget target;
     private final String apiPath = "api";
@@ -116,12 +118,18 @@ public class CorrectionRequestTest {
     @Test
     @InSequence(1)
     public void createCorrectionRequestTest() throws IOException {
-        CorrectionRequestDTO correctionRequest = oraculo.get(0);
+        PodamFactory factory = new PodamFactoryImpl();
+        CustomerDTO customer = factory.manufacturePojo(CustomerDTO.class);;
         Cookie cookieSessionId = login(username, password);
+        target.path(customerPath)
+                .request().cookie(cookieSessionId)
+                .post(Entity.entity(customer, MediaType.APPLICATION_JSON));
+
+        CorrectionRequestDTO correctionRequest = oraculo.get(0);
         Response response = target.path(correctionRequestPath)
                 .request().cookie(cookieSessionId)
                 .post(Entity.entity(correctionRequest, MediaType.APPLICATION_JSON));
-        CorrectionRequestDTO  correctionrequestTest = (CorrectionRequestDTO) response.readEntity(CorrectionRequestDTO.class);
+        CorrectionRequestDTO correctionrequestTest = (CorrectionRequestDTO) response.readEntity(CorrectionRequestDTO.class);
         Assert.assertEquals(correctionRequest.getId(), correctionrequestTest.getId());
         Assert.assertEquals(correctionRequest.getName(), correctionrequestTest.getName());
         Assert.assertEquals(correctionRequest.getCreationDate(), correctionrequestTest.getCreationDate());
