@@ -1,11 +1,9 @@
 package co.edu.uniandes.csw.translationservice.dtos;
 
-import co.edu.uniandes.csw.auth.model.DateAdapter;
 import co.edu.uniandes.csw.crud.api.podam.strategy.DateStrategy;
 import java.util.Date;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlSeeAlso;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import uk.co.jemos.podam.common.PodamExclude;
 import uk.co.jemos.podam.common.PodamStrategyValue;
 
@@ -15,10 +13,8 @@ public abstract class RequestDTO {
 
     private Long id;
     private String name;
-    @XmlJavaTypeAdapter(DateAdapter.class)
     @PodamStrategyValue(DateStrategy.class)
     private Date creationDate;
-    @XmlJavaTypeAdapter(DateAdapter.class)
     @PodamStrategyValue(DateStrategy.class)
     private Date dueDate;
     @PodamExclude

@@ -1,14 +1,11 @@
 package co.edu.uniandes.csw.translationservice.dtos;
 
-import co.edu.uniandes.csw.auth.model.DateAdapter;
 import co.edu.uniandes.csw.auth.model.UserDTO;
 import com.stormpath.sdk.account.Account;
 import java.util.Date;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 public class ProfileDTO extends UserDTO {
 
-    @XmlJavaTypeAdapter(DateAdapter.class)
     private Date birthDate;
 
     private String picture;
