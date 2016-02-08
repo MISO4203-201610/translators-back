@@ -1,6 +1,7 @@
 package co.edu.uniandes.csw.translationservice.services;
 
 import co.edu.uniandes.csw.auth.provider.StatusCreated;
+import co.edu.uniandes.csw.translationservice.api.ICustomerLogic;
 import java.util.List;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletResponse;
@@ -30,28 +31,38 @@ import javax.servlet.http.HttpServletRequest;
 @Produces(MediaType.APPLICATION_JSON)
 public class TranslationRequestService {
 
-    @Inject private ITranslationRequestLogic translationRequestLogic;
-    @Context private HttpServletRequest req;
-    @Context private HttpServletResponse response;
-    @QueryParam("page") private Integer page;
-    @QueryParam("maxRecords") private Integer maxRecords;
+    @Inject
+    private ITranslationRequestLogic translationRequestLogic;
+    @Inject
+    private ICustomerLogic customerLogic;
+    @Context
+    private HttpServletRequest req;
+    @Context
+    private HttpServletResponse response;
+    @QueryParam("page")
+    private Integer page;
+    @QueryParam("maxRecords")
+    private Integer maxRecords;
 
     /**
      * Obtiene la lista de los registros de Book.
      *
-     * @return Colección de objetos de TranslationRequestDTO cada uno con sus respectivos Review
+     * @return Colección de objetos de TranslationRequestDTO cada uno con sus
+     * respectivos Review
      * @generated
      */
     @GET
     public List<TranslationRequestDTO> getTranslationRequests() {
-        return TranslationRequestConverter.listEntity2DTO(getCurrentCustomer(req.getRemoteUser()).getTranslationRequests());
+        Long id = getCurrentCustomer(req.getRemoteUser()).getId();
+        return TranslationRequestConverter.listEntity2DTO(customerLogic.getCustomer(id).getTranslationRequests());
     }
 
     /**
      * Obtiene los datos de una instancia de Book a partir de su ID.
      *
      * @param id Identificador de la instancia a consultar
-     * @return Instancia de TranslationRequestDTO con los datos del Book consultado y sus Review
+     * @return Instancia de TranslationRequestDTO con los datos del Book
+     * consultado y sus Review
      * @generated
      */
     @GET

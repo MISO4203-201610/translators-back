@@ -16,6 +16,7 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import co.edu.uniandes.csw.translationservice.api.ICorrectionRequestLogic;
+import co.edu.uniandes.csw.translationservice.api.ICustomerLogic;
 import co.edu.uniandes.csw.translationservice.dtos.CorrectionRequestDTO;
 import co.edu.uniandes.csw.translationservice.entities.CorrectionRequestEntity;
 import co.edu.uniandes.csw.translationservice.converters.CorrectionRequestConverter;
@@ -30,32 +31,38 @@ import javax.servlet.http.HttpServletRequest;
 @Produces(MediaType.APPLICATION_JSON)
 public class CorrectionRequestService {
 
-    @Inject private ICorrectionRequestLogic correctionRequestLogic;
-    @Context private HttpServletRequest req;
-    @Context private HttpServletResponse response;
-    @QueryParam("page") private Integer page;
-    @QueryParam("maxRecords") private Integer maxRecords;
+    @Inject
+    private ICorrectionRequestLogic correctionRequestLogic;
+    @Inject
+    private ICustomerLogic customerLogic;
+    @Context
+    private HttpServletRequest req;
+    @Context
+    private HttpServletResponse response;
+    @QueryParam("page")
+    private Integer page;
+    @QueryParam("maxRecords")
+    private Integer maxRecords;
 
     /**
      * Obtiene la lista de los registros de Book.
      *
-     * @return Colección de objetos de CorrectionRequestDTO cada uno con sus respectivos Review
+     * @return Colección de objetos de CorrectionRequestDTO cada uno con sus
+     * respectivos Review
      * @generated
      */
     @GET
     public List<CorrectionRequestDTO> getCorrectionRequests() {
-        if (page != null && maxRecords != null) {
-            this.response.setIntHeader("X-Total-Count", correctionRequestLogic.countCorrectionRequests());
-            return CorrectionRequestConverter.listEntity2DTO(correctionRequestLogic.getCorrectionRequests(page, maxRecords));
-        }
-        return CorrectionRequestConverter.listEntity2DTO(getCurrentCustomer(req.getRemoteUser()).getCorrectionRequests());
+        Long id = getCurrentCustomer(req.getRemoteUser()).getId();
+        return CorrectionRequestConverter.listEntity2DTO(customerLogic.getCustomer(id).getCorrectionRequests());
     }
 
     /**
      * Obtiene los datos de una instancia de Book a partir de su ID.
      *
      * @param id Identificador de la instancia a consultar
-     * @return Instancia de CorrectionRequestDTO con los datos del Book consultado y sus Review
+     * @return Instancia de CorrectionRequestDTO con los datos del Book
+     * consultado y sus Review
      * @generated
      */
     @GET
