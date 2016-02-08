@@ -44,11 +44,7 @@ public class TranslationRequestService {
      */
     @GET
     public List<TranslationRequestDTO> getTranslationRequests() {
-        if (page != null && maxRecords != null) {
-            this.response.setIntHeader("X-Total-Count", translationRequestLogic.countTranslationRequests());
-            return TranslationRequestConverter.listEntity2DTO(translationRequestLogic.getTranslationRequests(page, maxRecords));
-        }
-        return TranslationRequestConverter.listEntity2DTO(translationRequestLogic.getTranslationRequests());
+        return TranslationRequestConverter.listEntity2DTO(getCurrentCustomer(req.getRemoteUser()).getTranslationRequests());
     }
 
     /**

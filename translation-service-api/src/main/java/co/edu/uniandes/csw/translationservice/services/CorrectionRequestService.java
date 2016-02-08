@@ -48,7 +48,7 @@ public class CorrectionRequestService {
             this.response.setIntHeader("X-Total-Count", correctionRequestLogic.countCorrectionRequests());
             return CorrectionRequestConverter.listEntity2DTO(correctionRequestLogic.getCorrectionRequests(page, maxRecords));
         }
-        return CorrectionRequestConverter.listEntity2DTO(correctionRequestLogic.getCorrectionRequests());
+        return CorrectionRequestConverter.listEntity2DTO(getCurrentCustomer(req.getRemoteUser()).getCorrectionRequests());
     }
 
     /**
