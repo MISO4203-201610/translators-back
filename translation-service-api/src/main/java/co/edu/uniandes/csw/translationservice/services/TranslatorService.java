@@ -1,6 +1,7 @@
 package co.edu.uniandes.csw.translationservice.services;
 
 import co.edu.uniandes.csw.auth.provider.StatusCreated;
+import static co.edu.uniandes.csw.auth.stormpath.Utils.getClient;
 import java.util.List;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletResponse;
@@ -21,6 +22,10 @@ import co.edu.uniandes.csw.translationservice.entities.TranslatorEntity;
 import co.edu.uniandes.csw.translationservice.converters.TranslatorConverter;
 import co.edu.uniandes.csw.translationservice.dtos.LanguageDTO;
 import co.edu.uniandes.csw.translationservice.converters.LanguageConverter;
+import com.stormpath.sdk.account.Account;
+import com.stormpath.sdk.group.Group;
+import java.util.ArrayList;
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * @generated
@@ -29,8 +34,11 @@ import co.edu.uniandes.csw.translationservice.converters.LanguageConverter;
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 public class TranslatorService {
+    private static final String TRANSLATOR_GROUP_HREF = "https://api.stormpath.com/v1/groups/6rX3H3p1Ig7nAJOQDvBHDd";
+    private static final String ADMIN_HREF = "https://api.stormpath.com/v1/groups/67wGeCpvQ2RfK2vMXvzFTw";    
 
     @Inject private ITranslatorLogic translatorLogic;
+    @Context private HttpServletRequest req;
     @Context private HttpServletResponse response;
     @QueryParam("page") private Integer page;
     @QueryParam("maxRecords") private Integer maxRecords;
@@ -43,11 +51,28 @@ public class TranslatorService {
      */
     @GET
     public List<TranslatorDTO> getTranslators() {
-        if (page != null && maxRecords != null) {
-            this.response.setIntHeader("X-Total-Count", translatorLogic.countTranslators());
-            return TranslatorConverter.listEntity2DTO(translatorLogic.getTranslators(page, maxRecords));
+        boolean all = false;
+        String accountHref = req.getRemoteUser();
+        if (accountHref != null) {
+            Account account = getClient().getResource(accountHref, Account.class);
+            for (Group gr : account.getGroups()) {
+                switch (gr.getHref()) {                    
+                    case ADMIN_HREF:
+                        if (page != null && maxRecords != null) {
+                            this.response.setIntHeader("X-Total-Count", translatorLogic.countTranslators());
+                            return TranslatorConverter.listEntity2DTO(translatorLogic.getTranslators(page, maxRecords));
+                        }
+                        return TranslatorConverter.listEntity2DTO(translatorLogic.getTranslators());
+                    case TRANSLATOR_GROUP_HREF:
+                        Integer id = (int) account.getCustomData().get("translatorId");
+                        List<TranslatorDTO> list = new ArrayList();
+                        list.add(TranslatorConverter.fullEntity2DTO(translatorLogic.getTranslator(id.longValue())));
+                        return list;    
+                }
+            }
+
         }
-        return TranslatorConverter.listEntity2DTO(translatorLogic.getTranslators());
+        return null;
     }
 
     /**
