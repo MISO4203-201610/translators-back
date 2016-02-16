@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>co.edu.uniandes.csw.translationservice</groupId>
     <artifactId>translation-service</artifactId>
-    <name>TranslationService</name>
+    <name>MPTranslationService-back</name>
     <packaging>pom</packaging>
     <version>0.1.0</version>
     <modules>
