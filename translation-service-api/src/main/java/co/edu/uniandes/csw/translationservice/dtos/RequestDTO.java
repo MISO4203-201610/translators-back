@@ -21,6 +21,8 @@ public abstract class RequestDTO {
     private StatusDTO status;
     @PodamExclude
     private CustomerDTO customer;
+    
+    private String description; 
 
     /**
      * @return the id
@@ -104,5 +106,19 @@ public abstract class RequestDTO {
      */
     public void setCustomer(CustomerDTO customer) {
         this.customer = customer;
+    }
+
+    /**
+     * @return the description
+     */
+    public String getDescription() {
+        return description;
+    }
+
+    /**
+     * @param description the description to set
+     */
+    public void setDescription(String description) {
+        this.description = description;
     }
 }
