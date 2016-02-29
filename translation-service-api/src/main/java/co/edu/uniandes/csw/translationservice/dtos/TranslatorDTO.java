@@ -23,6 +23,8 @@ public class TranslatorDTO {
     private List<EducationDTO> education = new ArrayList<>();
     @PodamExclude
     private List<LanguageDTO> languages = new ArrayList<>();
+    @PodamExclude
+    private List<ReviewDTO> reviews;
 
     /**
      * @generated
@@ -106,6 +108,14 @@ public class TranslatorDTO {
      */
     public void setLanguages(List<LanguageDTO> languages) {
         this.languages = languages;
+    }
+    
+    public List<ReviewDTO> getReviews() {
+        return reviews;
+    }
+
+    public void setReviews(List<ReviewDTO> reviews) {
+        this.reviews = reviews;
     }
 
 }

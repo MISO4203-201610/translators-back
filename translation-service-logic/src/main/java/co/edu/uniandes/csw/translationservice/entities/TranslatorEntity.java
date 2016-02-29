@@ -21,6 +21,10 @@ import javax.persistence.CascadeType;
 public class TranslatorEntity extends BaseEntity implements Serializable {
 
     private String picture;
+    
+    @PodamExclude
+    @OneToMany(mappedBy = "translator", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ReviewEntity> reviews;
 
     @Temporal(TemporalType.DATE)
     @PodamStrategyValue(DateStrategy.class)
@@ -88,5 +92,13 @@ public class TranslatorEntity extends BaseEntity implements Serializable {
      */
     public void setLanguages(List<LanguageEntity> languages) {
         this.languages = languages;
+    }
+    
+    public List<ReviewEntity> getReviews() {
+        return reviews;
+    }
+
+    public void setReviews(List<ReviewEntity> reviews) {
+        this.reviews = reviews;
     }
 }
