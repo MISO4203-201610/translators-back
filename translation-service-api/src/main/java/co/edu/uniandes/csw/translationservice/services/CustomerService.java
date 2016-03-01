@@ -36,8 +36,8 @@ import javax.servlet.http.HttpServletRequest;
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 public class CustomerService {
-    private static final String CUSTOMER_GROUP_HREF = "https://api.stormpath.com/v1/groups/5EWhrKIYWtDBCdO4u1bUgY";
-    private static final String ADMIN_HREF = "https://api.stormpath.com/v1/groups/4zGzOwt5iHukIgZ7aQmN1q";    
+    private static final String CUSTOMER_GROUP_HREF = "https://api.stormpath.com/v1/groups/6Sx6sEZ85WJtoFDza3R9GD";
+    private static final String ADMIN_HREF = "https://api.stormpath.com/v1/groups/67wGeCpvQ2RfK2vMXvzFTw";    
 
     @Inject private ICustomerLogic customerLogic;
     @Context private HttpServletRequest req;

@@ -13,6 +13,7 @@ public class TranslationRequestDTO extends RequestDTO {
     private LanguageDTO originalLanguage;
     @PodamExclude
     private LanguageDTO targetLanguage;
+    private String description;
 
     /**
      * @generated
@@ -42,4 +43,17 @@ public class TranslationRequestDTO extends RequestDTO {
         this.targetLanguage = targetlanguage;
     }
 
+    /**
+     * @return the description
+     */
+    public String getDescription() {
+        return description;
+    }
+
+    /**
+     * @param description the description to set
+     */
+    public void setDescription(String description) {
+        this.description = description;
+    }
 }

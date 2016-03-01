@@ -5,6 +5,7 @@ import co.edu.uniandes.csw.auth.security.JWT;
 import co.edu.uniandes.csw.translationservice.dtos.TranslatorDTO;
 import co.edu.uniandes.csw.translationservice.dtos.EducationDTO;
 import co.edu.uniandes.csw.translationservice.dtos.LanguageDTO;
+import co.edu.uniandes.csw.translationservice.dtos.ReviewDTO;
 import co.edu.uniandes.csw.translationservice.services.TranslatorService;
 import java.io.File;
 import java.io.IOException;
@@ -101,6 +102,16 @@ public class TranslatorTest {
             }
 
             translator.setEducation(educationList);
+            
+            List<ReviewDTO> listReviews = new ArrayList<>();
+            for (int j = 0; j < 5; j++)
+            {
+                ReviewDTO review = factory.manufacturePojo(ReviewDTO.class);
+                review.setId(i + 1L);
+                listReviews.add(review);
+            }
+            
+            translator.setReviews(listReviews);
 
             oraculo.add(translator);
 

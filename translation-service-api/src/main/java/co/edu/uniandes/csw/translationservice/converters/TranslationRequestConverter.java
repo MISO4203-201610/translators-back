@@ -33,7 +33,6 @@ public abstract class TranslationRequestConverter {
             dto.setName(entity.getName());
             dto.setCreationDate(entity.getCreationDate());
             dto.setDueDate(entity.getDueDate());
-            
             dto.setDescription(entity.getDescription());
 
             return dto;

@@ -34,8 +34,8 @@ import javax.servlet.http.HttpServletRequest;
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 public class TranslatorService {
-    private static final String TRANSLATOR_GROUP_HREF = "https://api.stormpath.com/v1/groups/5UP7pBTeTzylso9xmxWaPW";
-    private static final String ADMIN_HREF = "https://api.stormpath.com/v1/groups/4zGzOwt5iHukIgZ7aQmN1q";    
+    private static final String TRANSLATOR_GROUP_HREF = "https://api.stormpath.com/v1/groups/6rX3H3p1Ig7nAJOQDvBHDd";
+    private static final String ADMIN_HREF = "https://api.stormpath.com/v1/groups/67wGeCpvQ2RfK2vMXvzFTw";    
 
     @Inject private ITranslatorLogic translatorLogic;
     @Context private HttpServletRequest req;
