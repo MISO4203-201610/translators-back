@@ -134,6 +134,7 @@ public class TranslationRequestTest {
         Assert.assertEquals(translationRequest.getName(), translationrequestTest.getName());
         Assert.assertEquals(translationRequest.getCreationDate(), translationrequestTest.getCreationDate());
         Assert.assertEquals(translationRequest.getDueDate(), translationrequestTest.getDueDate());
+        Assert.assertEquals(translationRequest.getContexto(), translationrequestTest.getContexto());
         Assert.assertEquals(Created, response.getStatus());
     }
 
@@ -148,6 +149,7 @@ public class TranslationRequestTest {
         Assert.assertEquals(translationrequestTest.getName(), oraculo.get(0).getName());
         Assert.assertEquals(translationrequestTest.getCreationDate(), oraculo.get(0).getCreationDate());
         Assert.assertEquals(translationrequestTest.getDueDate(), oraculo.get(0).getDueDate());
+        Assert.assertEquals(translationrequestTest.getContexto(), oraculo.get(0).getContexto());
     }
 
     @Test
@@ -172,6 +174,7 @@ public class TranslationRequestTest {
         translationRequest.setName(translationRequestChanged.getName());
         translationRequest.setCreationDate(translationRequestChanged.getCreationDate());
         translationRequest.setDueDate(translationRequestChanged.getDueDate());
+        translationRequest.setContexto(translationRequestChanged.getContexto());
         Response response = target.path(translationRequestPath).path(translationRequest.getId().toString())
                 .request().cookie(cookieSessionId).put(Entity.entity(translationRequest, MediaType.APPLICATION_JSON));
         TranslationRequestDTO translationrequestTest = (TranslationRequestDTO) response.readEntity(TranslationRequestDTO.class);
@@ -179,6 +182,7 @@ public class TranslationRequestTest {
         Assert.assertEquals(translationRequest.getName(), translationrequestTest.getName());
         Assert.assertEquals(translationRequest.getCreationDate(), translationrequestTest.getCreationDate());
         Assert.assertEquals(translationRequest.getDueDate(), translationrequestTest.getDueDate());
+        Assert.assertEquals(translationRequest.getContexto(), translationrequestTest.getContexto());
     }
 
     @Test

@@ -181,6 +181,7 @@ public class TranslationRequestLogicTest {
         Assert.assertEquals(result.getName(), entity.getName());
         Assert.assertEquals(result.getCreationDate(), entity.getCreationDate());
         Assert.assertEquals(result.getDueDate(), entity.getDueDate());
+        Assert.assertEquals(result.getContexto(), entity.getContexto());
     }
 
     /**
@@ -213,6 +214,7 @@ public class TranslationRequestLogicTest {
         Assert.assertEquals(entity.getName(), resultEntity.getName());
         Assert.assertEquals(entity.getCreationDate(), resultEntity.getCreationDate());
         Assert.assertEquals(entity.getDueDate(), resultEntity.getDueDate());
+        Assert.assertEquals(entity.getContexto(), resultEntity.getContexto());
     }
 
     /**
@@ -244,5 +246,6 @@ public class TranslationRequestLogicTest {
         Assert.assertEquals(pojoEntity.getName(), resp.getName());
         Assert.assertEquals(pojoEntity.getCreationDate(), resp.getCreationDate());
         Assert.assertEquals(pojoEntity.getDueDate(), resp.getDueDate());
+        Assert.assertEquals(pojoEntity.getContexto(), resp.getContexto());
     }
 }

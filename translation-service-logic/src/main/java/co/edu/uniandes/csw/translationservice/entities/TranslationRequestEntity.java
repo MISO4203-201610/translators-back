@@ -42,6 +42,8 @@ public class TranslationRequestEntity extends BaseEntity implements Serializable
     private LanguageEntity targetLanguage;
     
     private String description;
+    
+    private String contexto;
 
     /**
      * @generated
@@ -139,5 +141,19 @@ public class TranslationRequestEntity extends BaseEntity implements Serializable
      */
     public void setDescription(String description) {
         this.description = description;
+    }
+    
+    /**
+     * @return the contexto
+     */
+    public String getContexto() {
+        return contexto;
+    }
+
+    /**
+     * @param contexto the contexto to set
+     */
+    public void setContexto(String contexto) {
+        this.contexto = contexto;
     }
 }

@@ -34,6 +34,7 @@ public abstract class TranslationRequestConverter {
             dto.setCreationDate(entity.getCreationDate());
             dto.setDueDate(entity.getDueDate());
             dto.setDescription(entity.getDescription());
+            dto.setContexto(entity.getContexto());
 
             return dto;
         } else {
@@ -82,6 +83,7 @@ public abstract class TranslationRequestConverter {
             dto.setTargetLanguage(LanguageConverter.refEntity2DTO(entity.getTargetLanguage()));
             
             dto.setDescription(entity.getDescription());
+            dto.setContexto(entity.getContexto());
 
             return dto;
         } else {
@@ -111,6 +113,7 @@ public abstract class TranslationRequestConverter {
             entity.setTargetLanguage(LanguageConverter.refDTO2Entity(dto.getTargetLanguage()));
             
             entity.setDescription(dto.getDescription());
+            entity.setContexto(dto.getContexto());
 
             return entity;
         } else {

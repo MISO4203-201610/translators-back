@@ -14,6 +14,7 @@ public class TranslationRequestDTO extends RequestDTO {
     @PodamExclude
     private LanguageDTO targetLanguage;
     private String description;
+    private String contexto;
 
     /**
      * @generated
@@ -55,5 +56,19 @@ public class TranslationRequestDTO extends RequestDTO {
      */
     public void setDescription(String description) {
         this.description = description;
+    }
+    
+    /**
+     * @return the contexto
+     */
+    public String getContexto() {
+        return contexto;
+    }
+
+    /**
+     * @param contexto the contexto to set
+     */
+    public void setContexto(String contexto) {
+        this.contexto = contexto;
     }
 }
