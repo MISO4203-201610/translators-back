@@ -51,28 +51,32 @@ public class TranslatorService {
      */
     @GET
     public List<TranslatorDTO> getTranslators() {
-        boolean all = false;
         String accountHref = req.getRemoteUser();
-        if (accountHref != null) {
-            Account account = getClient().getResource(accountHref, Account.class);
-            for (Group gr : account.getGroups()) {
-                switch (gr.getHref()) {                    
-                    case ADMIN_HREF:
-                        if (page != null && maxRecords != null) {
-                            this.response.setIntHeader("X-Total-Count", translatorLogic.countTranslators());
-                            return TranslatorConverter.listEntity2DTO(translatorLogic.getTranslators(page, maxRecords));
-                        }
-                        return TranslatorConverter.listEntity2DTO(translatorLogic.getTranslators());
-                    case TRANSLATOR_GROUP_HREF:
-                        Integer id = (int) account.getCustomData().get("translatorId");
-                        List<TranslatorDTO> list = new ArrayList();
-                        list.add(TranslatorConverter.fullEntity2DTO(translatorLogic.getTranslator(id.longValue())));
-                        return list;    
-                }
+        
+        if (accountHref == null)
+            return new ArrayList<TranslatorDTO>();
+        
+        Account account = getClient().getResource(accountHref, Account.class);
+        for (Group gr : account.getGroups()) {
+            switch (gr.getHref()) {                    
+                case ADMIN_HREF:
+                    if (page != null && maxRecords != null) {
+                        this.response.setIntHeader("X-Total-Count", translatorLogic.countTranslators());
+                        return TranslatorConverter.listEntity2DTO(translatorLogic.getTranslators(page, maxRecords));
+                    }
+                    return TranslatorConverter.listEntity2DTO(translatorLogic.getTranslators());
+                case TRANSLATOR_GROUP_HREF:
+                    Integer id = (int) account.getCustomData().get("translatorId");
+                    List<TranslatorDTO> list = new ArrayList();
+                    list.add(TranslatorConverter.fullEntity2DTO(translatorLogic.getTranslator(id.longValue())));
+                    return list;
+                default:
+                    return new ArrayList<TranslatorDTO>();
             }
-
         }
-        return null;
+        
+        // Nothing?
+        return new ArrayList<TranslatorDTO>();
     }
 
     /**

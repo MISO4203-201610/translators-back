@@ -6,6 +6,7 @@ import co.edu.uniandes.csw.translationservice.entities.TranslatorEntity;
 import static co.edu.uniandes.csw.translationservice.services.AccountService.getCurrentAccount;
 import static co.edu.uniandes.csw.translationservice.services.AccountService.getCurrentCustomer;
 import static co.edu.uniandes.csw.translationservice.services.AccountService.getCurrentTranslator;
+import static com.sun.xml.internal.ws.spi.db.BindingContextFactory.LOGGER;
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -25,14 +26,20 @@ public class ProfileService {
             CustomerEntity customer = getCurrentCustomer(req.getRemoteUser());
             profile.setBirthDate(customer.getBirthDate());
             profile.setPicture(customer.getPicture());
-        } catch (WebApplicationException e) {
         }
+        catch (WebApplicationException e) {
+            LOGGER.severe(e.getMessage());
+        }
+        
         try {
             TranslatorEntity translator = getCurrentTranslator(req.getRemoteUser());
             profile.setBirthDate(translator.getBirthDate());
             profile.setPicture(translator.getPicture());
-        } catch (WebApplicationException e) {
         }
+        catch (WebApplicationException e) {
+            LOGGER.severe(e.getMessage());
+        }
+        
         return profile;
     }
 }
