@@ -11,15 +11,19 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Context;
+import java.util.logging.Logger;
 
 @Path("profile")
 public class ProfileService {
 
     @Context
     private HttpServletRequest req;
+    
+    // Our logger
+    private static final Logger log = Logger.getLogger( ProfileService.class.getName() );
 
     @GET
-    public ProfileDTO getProfile() throws Exception {
+    public ProfileDTO getProfile() {
         ProfileDTO profile = new ProfileDTO(getCurrentAccount(req.getRemoteUser()));
         try {
             CustomerEntity customer = getCurrentCustomer(req.getRemoteUser());
@@ -27,7 +31,7 @@ public class ProfileService {
             profile.setPicture(customer.getPicture());
         }
         catch (WebApplicationException e) {
-            throw new Exception(e.getMessage());
+            log.info(e.getMessage());
         }
         
         try {
@@ -36,7 +40,7 @@ public class ProfileService {
             profile.setPicture(translator.getPicture());
         }
         catch (WebApplicationException e) {
-            throw new Exception(e.getMessage());
+            log.info(e.getMessage());
         }
         
         return profile;
