@@ -61,7 +61,6 @@ public class StatusLogic implements IStatusLogic {
     @Override
     public StatusEntity updateStatus(StatusEntity entity) {
         StatusEntity newEntity = entity;
-        StatusEntity oldEntity = persistence.find(entity.getId());
         return persistence.update(newEntity);
     }
 

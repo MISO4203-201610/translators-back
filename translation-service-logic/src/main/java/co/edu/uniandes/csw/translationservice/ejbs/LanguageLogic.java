@@ -61,7 +61,6 @@ public class LanguageLogic implements ILanguageLogic {
     @Override
     public LanguageEntity updateLanguage(LanguageEntity entity) {
         LanguageEntity newEntity = entity;
-        LanguageEntity oldEntity = persistence.find(entity.getId());
         return persistence.update(newEntity);
     }
 

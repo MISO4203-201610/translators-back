@@ -61,7 +61,6 @@ public class CorrectionRequestLogic implements ICorrectionRequestLogic {
     @Override
     public CorrectionRequestEntity updateCorrectionRequest(CorrectionRequestEntity entity) {
         CorrectionRequestEntity newEntity = entity;
-        CorrectionRequestEntity oldEntity = persistence.find(entity.getId());
         return persistence.update(newEntity);
     }
 

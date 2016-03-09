@@ -61,7 +61,6 @@ public class TranslationRequestLogic implements ITranslationRequestLogic {
     @Override
     public TranslationRequestEntity updateTranslationRequest(TranslationRequestEntity entity) {
         TranslationRequestEntity newEntity = entity;
-        TranslationRequestEntity oldEntity = persistence.find(entity.getId());
         return persistence.update(newEntity);
     }
 
