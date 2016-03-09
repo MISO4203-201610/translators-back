@@ -6,7 +6,6 @@ import co.edu.uniandes.csw.translationservice.entities.TranslatorEntity;
 import static co.edu.uniandes.csw.translationservice.services.AccountService.getCurrentAccount;
 import static co.edu.uniandes.csw.translationservice.services.AccountService.getCurrentCustomer;
 import static co.edu.uniandes.csw.translationservice.services.AccountService.getCurrentTranslator;
-import static com.sun.xml.internal.ws.spi.db.BindingContextFactory.LOGGER;
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -20,7 +19,7 @@ public class ProfileService {
     private HttpServletRequest req;
 
     @GET
-    public ProfileDTO getProfile() {
+    public ProfileDTO getProfile() throws Exception {
         ProfileDTO profile = new ProfileDTO(getCurrentAccount(req.getRemoteUser()));
         try {
             CustomerEntity customer = getCurrentCustomer(req.getRemoteUser());
@@ -28,7 +27,7 @@ public class ProfileService {
             profile.setPicture(customer.getPicture());
         }
         catch (WebApplicationException e) {
-            LOGGER.severe(e.getMessage());
+            throw new Exception(e.getMessage());
         }
         
         try {
@@ -37,7 +36,7 @@ public class ProfileService {
             profile.setPicture(translator.getPicture());
         }
         catch (WebApplicationException e) {
-            LOGGER.severe(e.getMessage());
+            throw new Exception(e.getMessage());
         }
         
         return profile;
