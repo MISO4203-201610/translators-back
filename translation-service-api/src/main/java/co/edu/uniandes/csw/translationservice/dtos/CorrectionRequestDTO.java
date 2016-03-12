@@ -12,8 +12,10 @@ public class CorrectionRequestDTO extends RequestDTO {
     @PodamExclude
     private LanguageDTO language;
     
+    @PodamExclude
     private String desctiption;
     
+    @PodamExclude
     private int numberOfWords;
 
     /**

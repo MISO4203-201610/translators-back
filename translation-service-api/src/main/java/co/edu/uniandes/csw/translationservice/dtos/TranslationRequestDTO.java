@@ -13,8 +13,11 @@ public class TranslationRequestDTO extends RequestDTO {
     private LanguageDTO originalLanguage;
     @PodamExclude
     private LanguageDTO targetLanguage;
+    @PodamExclude
     private String description;
+    @PodamExclude
     private String contexto;
+    @PodamExclude
     private int numberOfWords;
 
     /**
