@@ -4,6 +4,7 @@ import co.edu.uniandes.csw.translationservice.api.ITranslatorLogic;
 import co.edu.uniandes.csw.translationservice.entities.TranslatorEntity;
 import co.edu.uniandes.csw.translationservice.persistence.TranslatorPersistence;
 import co.edu.uniandes.csw.translationservice.entities.LanguageEntity;
+import co.edu.uniandes.csw.translationservice.entities.KnowledgeAreaEntity;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -129,5 +130,61 @@ public class TranslatorLogic implements ITranslatorLogic {
         LanguageEntity languagesEntity = new LanguageEntity();
         languagesEntity.setId(languagesId);
         entity.getLanguages().remove(languagesEntity);
+    }
+    
+    /**
+     * @generated
+     */
+    @Override
+    public List<KnowledgeAreaEntity> listKnowledgeAreas(Long translatorId) {
+        return persistence.find(translatorId).getKnowledgeAreas();
+    }
+
+    /**
+     * @generated
+     */
+    @Override
+    public KnowledgeAreaEntity getKnowledgeAreas(Long translatorId, Long knowledgeAreasId) {
+        List<KnowledgeAreaEntity> list = persistence.find(translatorId).getKnowledgeAreas();
+        KnowledgeAreaEntity knowledgeAreasEntity = new KnowledgeAreaEntity();
+        knowledgeAreasEntity.setId(knowledgeAreasId);
+        int index = list.indexOf(knowledgeAreasEntity);
+        if (index >= 0) {
+            return list.get(index);
+        }
+        return null;
+    }
+
+    /**
+     * @generated
+     */
+    @Override
+    public KnowledgeAreaEntity addKnowledgeAreas(Long translatorId, Long knowledgeAreasId) {
+        TranslatorEntity translatorEntity = persistence.find(translatorId);
+        KnowledgeAreaEntity knowledgeAreasEntity = new KnowledgeAreaEntity();
+        knowledgeAreasEntity.setId(knowledgeAreasId);
+        translatorEntity.getKnowledgeAreas().add(knowledgeAreasEntity);
+        return getKnowledgeAreas(translatorId, knowledgeAreasId);
+    }
+
+    /**
+     * @generated
+     */
+    @Override
+    public List<KnowledgeAreaEntity> replaceKnowledgeAreas(Long translatorId, List<KnowledgeAreaEntity> list) {
+        TranslatorEntity translatorEntity = persistence.find(translatorId);
+        translatorEntity.setKnowledgeAreas(list);
+        return translatorEntity.getKnowledgeAreas();
+    }
+
+    /**
+     * @generated
+     */
+    @Override
+    public void removeKnowledgeAreas(Long translatorId, Long knowledgeAreasId) {
+        TranslatorEntity entity = persistence.find(translatorId);
+        KnowledgeAreaEntity knowledgeAreasEntity = new KnowledgeAreaEntity();
+        knowledgeAreasEntity.setId(knowledgeAreasId);
+        entity.getKnowledgeAreas().remove(knowledgeAreasEntity);
     }
 }

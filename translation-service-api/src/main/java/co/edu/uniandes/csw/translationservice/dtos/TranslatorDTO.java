@@ -24,6 +24,8 @@ public class TranslatorDTO {
     @PodamExclude
     private List<LanguageDTO> languages = new ArrayList<>();
     @PodamExclude
+    private List<KnowledgeAreaDTO> knowledgeAreas = new ArrayList<>();
+    @PodamExclude
     private List<ReviewDTO> reviews;
 
     /**
@@ -108,6 +110,14 @@ public class TranslatorDTO {
      */
     public void setLanguages(List<LanguageDTO> languages) {
         this.languages = languages;
+    }
+    
+    public List<KnowledgeAreaDTO> getKnowledgeAreas() {
+        return knowledgeAreas;
+    }
+
+    public void setKnowledgeAreas(List<KnowledgeAreaDTO> knowledgeAreas) {
+        this.knowledgeAreas = knowledgeAreas;
     }
     
     public List<ReviewDTO> getReviews() {

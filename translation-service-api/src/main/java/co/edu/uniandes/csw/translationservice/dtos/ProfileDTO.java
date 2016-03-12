@@ -11,6 +11,7 @@ public class ProfileDTO extends UserDTO {
     private String picture;
 
     public ProfileDTO() {
+        // No se necesita instanciarlo debido a que se creara con el UserDTO
     }
 
     public ProfileDTO(Account account) {
