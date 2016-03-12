@@ -35,6 +35,7 @@ public abstract class TranslationRequestConverter {
             dto.setDueDate(entity.getDueDate());
             dto.setDescription(entity.getDescription());
             dto.setContexto(entity.getContexto());
+            dto.setNumberOfWords(entity.getNumeroPalabras());
 
             return dto;
         } else {
@@ -84,6 +85,7 @@ public abstract class TranslationRequestConverter {
             
             dto.setDescription(entity.getDescription());
             dto.setContexto(entity.getContexto());
+            dto.setNumberOfWords(entity.getNumeroPalabras());
 
             return dto;
         } else {
@@ -114,6 +116,8 @@ public abstract class TranslationRequestConverter {
             
             entity.setDescription(dto.getDescription());
             entity.setContexto(dto.getContexto());
+            
+            entity.setNumeroPalabras(dto.getNumberOfWords());
 
             return entity;
         } else {

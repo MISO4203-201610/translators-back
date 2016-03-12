@@ -36,6 +36,10 @@ public class CorrectionRequestEntity extends BaseEntity implements Serializable 
     @PodamExclude
     @ManyToOne
     private CustomerEntity customer;
+    
+    private String description;
+    
+    private int numberOfWords;
 
     /**
      * @generated
@@ -105,5 +109,33 @@ public class CorrectionRequestEntity extends BaseEntity implements Serializable 
      */
     public void setCustomer(CustomerEntity customer) {
         this.customer = customer;
+    }
+    
+    /**
+     * @return the description
+     */
+    public String getDescription() {
+        return description;
+    }
+
+    /**
+     * @param description the description to set
+     */
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    /**
+     * @return the numeroPalabras
+     */
+    public int getNumeroPalabras() {
+        return numberOfWords;
+    }
+
+    /**
+     * @param numeroPalabras the numero palabras to set
+     */
+    public void setNumeroPalabras(int numeroPalabras) {
+        this.numberOfWords = numeroPalabras;
     }
 }

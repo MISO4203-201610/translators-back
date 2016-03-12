@@ -15,6 +15,7 @@ public class TranslationRequestDTO extends RequestDTO {
     private LanguageDTO targetLanguage;
     private String description;
     private String contexto;
+    private int numberOfWords;
 
     /**
      * @generated
@@ -71,4 +72,13 @@ public class TranslationRequestDTO extends RequestDTO {
     public void setContexto(String contexto) {
         this.contexto = contexto;
     }
+
+    public int getNumberOfWords() {
+        return numberOfWords;
+    }
+
+    public void setNumberOfWords(int numberOfWords) {
+        this.numberOfWords = numberOfWords;
+    }
+    
 }

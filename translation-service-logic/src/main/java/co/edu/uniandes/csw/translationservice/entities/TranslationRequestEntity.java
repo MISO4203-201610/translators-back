@@ -44,6 +44,8 @@ public class TranslationRequestEntity extends BaseEntity implements Serializable
     private String description;
     
     private String contexto;
+    
+    private int numberOfWords;
 
     /**
      * @generated
@@ -155,5 +157,13 @@ public class TranslationRequestEntity extends BaseEntity implements Serializable
      */
     public void setContexto(String contexto) {
         this.contexto = contexto;
+    }
+
+    public int getNumeroPalabras() {
+        return numberOfWords;
+    }
+
+    public void setNumeroPalabras(int numeroPalabras) {
+        this.numberOfWords = numeroPalabras;
     }
 }
