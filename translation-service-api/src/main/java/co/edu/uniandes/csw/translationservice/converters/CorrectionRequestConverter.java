@@ -33,6 +33,8 @@ public abstract class CorrectionRequestConverter {
             dto.setName(entity.getName());
             dto.setCreationDate(entity.getCreationDate());
             dto.setDueDate(entity.getDueDate());
+            dto.setDesctiption(entity.getDescription());
+            dto.setNumberOfWords(entity.getNumberOfWords());
 
             return dto;
         } else {
@@ -79,7 +81,7 @@ public abstract class CorrectionRequestConverter {
             dto.setLanguage(LanguageConverter.refEntity2DTO(entity.getLanguage()));
             dto.setCustomer(CustomerConverter.refEntity2DTO(entity.getCustomer()));
             dto.setDesctiption(entity.getDescription());
-            dto.setNumberOfWords(entity.getNumeroPalabras());
+            dto.setNumberOfWords(entity.getNumberOfWords());
 
             return dto;
         } else {
@@ -107,7 +109,7 @@ public abstract class CorrectionRequestConverter {
             entity.setLanguage(LanguageConverter.refDTO2Entity(dto.getLanguage()));
             entity.setCustomer(CustomerConverter.refDTO2Entity(dto.getCustomer()));
             entity.setDescription(dto.getDesctiption());
-            entity.setNumeroPalabras(dto.getNumberOfWords());
+            entity.setNumberOfWords(dto.getNumberOfWords());
 
             return entity;
         } else {

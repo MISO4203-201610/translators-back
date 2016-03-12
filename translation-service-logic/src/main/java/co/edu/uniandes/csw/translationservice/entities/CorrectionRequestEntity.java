@@ -128,14 +128,14 @@ public class CorrectionRequestEntity extends BaseEntity implements Serializable 
     /**
      * @return the numeroPalabras
      */
-    public int getNumeroPalabras() {
+    public int getNumberOfWords() {
         return numberOfWords;
     }
 
     /**
      * @param numeroPalabras the numero palabras to set
      */
-    public void setNumeroPalabras(int numeroPalabras) {
-        this.numberOfWords = numeroPalabras;
+    public void setNumberOfWords(int numberOfWords) {
+        this.numberOfWords = numberOfWords;
     }
 }

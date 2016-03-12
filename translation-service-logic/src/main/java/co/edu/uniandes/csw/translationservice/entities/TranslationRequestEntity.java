@@ -159,11 +159,11 @@ public class TranslationRequestEntity extends BaseEntity implements Serializable
         this.contexto = contexto;
     }
 
-    public int getNumeroPalabras() {
+    public int getNumberOfWords() {
         return numberOfWords;
     }
 
-    public void setNumeroPalabras(int numeroPalabras) {
-        this.numberOfWords = numeroPalabras;
+    public void setNumberOfWords(int numberOfWords) {
+        this.numberOfWords = numberOfWords;
     }
 }
