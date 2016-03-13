@@ -37,6 +37,8 @@ public class TranslatorEntity extends BaseEntity implements Serializable {
     @PodamExclude
     @OneToMany
     private List<LanguageEntity> languages = new ArrayList<>();
+    
+    private String email;
 
     /**
      * @generated
@@ -100,5 +102,19 @@ public class TranslatorEntity extends BaseEntity implements Serializable {
 
     public void setReviews(List<ReviewEntity> reviews) {
         this.reviews = reviews;
+    }
+
+    /**
+     * @return the email
+     */
+    public String getEmail() {
+        return email;
+    }
+
+    /**
+     * @param email the email to set
+     */
+    public void setEmail(String email) {
+        this.email = email;
     }
 }

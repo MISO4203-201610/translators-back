@@ -42,6 +42,7 @@ public class AccountService extends AuthService {
                     case TRANSLATOR_GROUP_HREF:
                         TranslatorEntity translator = new TranslatorEntity();
                         translator.setName(acc.getFullName());
+                        translator.setEmail(acc.getEmail());
                         translator = translatorLogic.createTranslator(translator);
                         acc.getCustomData().put(TRANSLATOR_CUSTOM_DATA_KEY, translator.getId());
                         break;

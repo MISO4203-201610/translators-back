@@ -33,6 +33,7 @@ public abstract class TranslatorConverter {
             dto.setName(entity.getName());
             dto.setPicture(entity.getPicture());
             dto.setBirthDate(entity.getBirthDate());
+            dto.setEmail(entity.getEmail());
 
             return dto;
         } else {
@@ -75,6 +76,7 @@ public abstract class TranslatorConverter {
             dto.setName(entity.getName());
             dto.setPicture(entity.getPicture());
             dto.setBirthDate(entity.getBirthDate());
+            dto.setEmail(entity.getEmail());
 
             return dto;
         } else {
@@ -98,6 +100,7 @@ public abstract class TranslatorConverter {
             entity.setName(dto.getName());
             entity.setPicture(dto.getPicture());
             entity.setBirthDate(dto.getBirthDate());
+            entity.setEmail(dto.getEmail());
 
             return entity;
         } else {

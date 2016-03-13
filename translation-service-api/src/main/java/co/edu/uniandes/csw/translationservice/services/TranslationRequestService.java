@@ -1,6 +1,7 @@
 package co.edu.uniandes.csw.translationservice.services;
 
 import co.edu.uniandes.csw.auth.provider.StatusCreated;
+import static co.edu.uniandes.csw.auth.stormpath.Utils.getClient;
 import co.edu.uniandes.csw.translationservice.api.ICustomerLogic;
 import java.util.List;
 import javax.inject.Inject;
@@ -17,11 +18,19 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import co.edu.uniandes.csw.translationservice.api.ITranslationRequestLogic;
+import co.edu.uniandes.csw.translationservice.api.ITranslatorLogic;
 import co.edu.uniandes.csw.translationservice.dtos.TranslationRequestDTO;
 import co.edu.uniandes.csw.translationservice.entities.TranslationRequestEntity;
 import co.edu.uniandes.csw.translationservice.converters.TranslationRequestConverter;
+import co.edu.uniandes.csw.translationservice.converters.TranslatorConverter;
+import co.edu.uniandes.csw.translationservice.dtos.TranslatorDTO;
 import static co.edu.uniandes.csw.translationservice.services.AccountService.getCurrentCustomer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.stormpath.sdk.account.Account;
+import com.stormpath.sdk.group.Group;
+import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
+
 
 /**
  * @generated
@@ -43,6 +52,10 @@ public class TranslationRequestService {
     private Integer page;
     @QueryParam("maxRecords")
     private Integer maxRecords;
+    
+    private static final int MAX_EMAIL =40;
+    
+    @Inject private ITranslatorLogic translatorLogic;
 
     /**
      * Obtiene la lista de los registros de Book.
@@ -84,8 +97,25 @@ public class TranslationRequestService {
         TranslationRequestEntity entity = TranslationRequestConverter.fullDTO2Entity(dto);
         entity.setCustomer(getCurrentCustomer(req.getRemoteUser()));
         
-        String[] to = {"jhonyt37@gmail.com"};
-        String subject = "New Request Translation has been created ";
+        String[] to= new String[MAX_EMAIL];
+        to[0]= "jhonyt37@gmail.com";
+        
+        List<TranslatorDTO> list = TranslatorConverter.listEntity2DTO(translatorLogic.getTranslators());
+        int i=1;
+        if(!list.isEmpty()){
+            for(TranslatorDTO item:list){
+                System.out.println("item name: "+item.getName());
+                System.out.println("item email: "+item.getEmail());
+                if(item.getEmail()!=null)
+                {
+                to[i]=item.getEmail();
+                i++;
+                }
+            }
+            
+        }
+        
+        String subject = "New Translation Request has been created ";
         
         int words =dto.getNumberOfWords();
         String origin="none";
@@ -97,13 +127,19 @@ public class TranslationRequestService {
         if(dto.getTargetLanguage()!=null)
          target =dto.getTargetLanguage().getName();
        
-        String body = "Hi," + "Traslator" + ", a new Translation Request has been created with a total of: "+
+        String body = "Hi Traslator, a new Translation Request has been created with a total of: "+
                words+ " words. This has a "+origin+" origin language and must be translated to "+target+" language. ";
 
-        String link = "http://localhost:9000";
+        String link = "http://localhost:9000/cnfirmTranslate";
         body += "To review the Request go to "+link;
         System.out.println("body: "+body);
-
+        
+        
+        System.out.println("to: "+to);
+        for(String it:to){
+            System.out.println("tounit: "+it);
+            
+        }
         MailService.sendMailAdmin(to, subject, body);
 
         return TranslationRequestConverter.fullEntity2DTO(translationRequestLogic.createTranslationRequest(entity));

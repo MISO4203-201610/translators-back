@@ -189,6 +189,7 @@ public class TranslatorTest {
         PodamFactory factory = new PodamFactoryImpl();
         TranslatorDTO translatorChanged = factory.manufacturePojo(TranslatorDTO.class);
         translator.setName(translatorChanged.getName());
+        translator.setEmail(translatorChanged.getEmail());
         translator.setPicture(translatorChanged.getPicture());
         translator.setBirthDate(translatorChanged.getBirthDate());
         Response response = target.path(translatorPath).path(translator.getId().toString())

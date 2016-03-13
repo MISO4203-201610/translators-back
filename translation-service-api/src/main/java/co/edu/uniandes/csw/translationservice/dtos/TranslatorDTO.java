@@ -17,6 +17,9 @@ public class TranslatorDTO {
     private Long id;
     private String name;
     private String picture;
+    
+    private String email;
+    
     @PodamStrategyValue(DateStrategy.class)
     private Date birthDate;
 
@@ -116,6 +119,20 @@ public class TranslatorDTO {
 
     public void setReviews(List<ReviewDTO> reviews) {
         this.reviews = reviews;
+    }
+
+    /**
+     * @return the email
+     */
+    public String getEmail() {
+        return email;
+    }
+
+    /**
+     * @param email the email to set
+     */
+    public void setEmail(String email) {
+        this.email = email;
     }
 
 }

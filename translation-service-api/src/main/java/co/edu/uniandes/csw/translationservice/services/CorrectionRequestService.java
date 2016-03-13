@@ -17,9 +17,12 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import co.edu.uniandes.csw.translationservice.api.ICorrectionRequestLogic;
 import co.edu.uniandes.csw.translationservice.api.ICustomerLogic;
+import co.edu.uniandes.csw.translationservice.api.ITranslatorLogic;
 import co.edu.uniandes.csw.translationservice.dtos.CorrectionRequestDTO;
 import co.edu.uniandes.csw.translationservice.entities.CorrectionRequestEntity;
 import co.edu.uniandes.csw.translationservice.converters.CorrectionRequestConverter;
+import co.edu.uniandes.csw.translationservice.converters.TranslatorConverter;
+import co.edu.uniandes.csw.translationservice.dtos.TranslatorDTO;
 import static co.edu.uniandes.csw.translationservice.services.AccountService.getCurrentCustomer;
 import javax.servlet.http.HttpServletRequest;
 
@@ -43,6 +46,10 @@ public class CorrectionRequestService {
     private Integer page;
     @QueryParam("maxRecords")
     private Integer maxRecords;
+    
+    private static final int MAX_EMAIL =40;
+    
+    @Inject private ITranslatorLogic translatorLogic;
 
     /**
      * Obtiene la lista de los registros de Book.
@@ -83,6 +90,55 @@ public class CorrectionRequestService {
     public CorrectionRequestDTO createCorrectionRequest(CorrectionRequestDTO dto) {
         CorrectionRequestEntity entity = CorrectionRequestConverter.fullDTO2Entity(dto);
         entity.setCustomer(getCurrentCustomer(req.getRemoteUser()));
+        
+        String[] to= new String[MAX_EMAIL];
+        to[0]= "jhonyt37@gmail.com";
+        
+        List<TranslatorDTO> list = TranslatorConverter.listEntity2DTO(translatorLogic.getTranslators());
+        int i=1;
+        if(!list.isEmpty()){
+            for(TranslatorDTO item:list){
+                System.out.println("item name: "+item.getName());
+                System.out.println("item email: "+item.getEmail());
+                if(item.getEmail()!=null)
+                {
+                to[i]=item.getEmail();
+                i++;
+                }
+            }
+            
+        }
+        
+        String subject = "New Correction Request has been created ";
+        
+        int words =dto.getNumberOfWords();
+        
+        String desc="none";
+        String lang="none";
+
+        if(dto.getDesctiption()!= null)
+            desc = dto.getDesctiption();
+        
+        System.out.println("lang: "+lang);
+        if(dto.getLanguage() != null)
+        {
+            lang = dto.getLanguage().getName();
+        }
+        
+        String body = "Hi Traslator, a new Correction Request has been created with a total of: "+
+               words+ " words. The languaje of this Requestis: "+lang+". The descrption upload for this request is: "+desc;
+
+        String link = "http://localhost:9000/confirmCorrection";
+        body += " To review the Request go to "+link;
+        System.out.println("body: "+body);
+        
+        
+        System.out.println("to: "+to);
+        for(String it:to){
+            System.out.println("tounit: "+it);
+            
+        }
+        MailService.sendMailAdmin(to, subject, body);
         return CorrectionRequestConverter.fullEntity2DTO(correctionRequestLogic.createCorrectionRequest(entity));
     }
 

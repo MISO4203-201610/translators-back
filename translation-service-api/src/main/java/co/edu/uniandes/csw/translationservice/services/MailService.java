@@ -42,7 +42,8 @@ public class MailService {
 
             // To get the array of addresses
             for (int i = 0; i < to.length; i++) {
-                message.addRecipient(Message.RecipientType.TO, new InternetAddress(to[i]));
+                if(to[i]!=null)
+                    message.addRecipient(Message.RecipientType.TO, new InternetAddress(to[i]));
             }
 
             message.setSubject(subject);
