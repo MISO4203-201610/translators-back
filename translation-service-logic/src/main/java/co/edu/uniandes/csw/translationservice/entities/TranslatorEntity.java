@@ -37,6 +37,10 @@ public class TranslatorEntity extends BaseEntity implements Serializable {
     @PodamExclude
     @OneToMany
     private List<LanguageEntity> languages = new ArrayList<>();
+    
+    @PodamExclude
+    @OneToMany
+    private List<KnowledgeAreaEntity> knowledgeAreas = new ArrayList<>();
 
     /**
      * @generated
@@ -100,5 +104,13 @@ public class TranslatorEntity extends BaseEntity implements Serializable {
 
     public void setReviews(List<ReviewEntity> reviews) {
         this.reviews = reviews;
+    }
+    
+    public List<KnowledgeAreaEntity> getKnowledgeAreas() {
+        return knowledgeAreas;
+    }
+    
+    public void setKnowledgeAreas(List<KnowledgeAreaEntity> knowledgeAreas) {
+        this.knowledgeAreas = knowledgeAreas;
     }
 }

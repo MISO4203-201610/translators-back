@@ -1,0 +1,12 @@
+package co.edu.uniandes.csw.translationservice.entities;
+
+import java.io.Serializable;
+import javax.persistence.Entity;
+import co.edu.uniandes.csw.crud.spi.entity.BaseEntity;
+
+/**
+ * @generated
+ */
+@Entity
+public class KnowledgeAreaEntity extends BaseEntity implements Serializable {
+}
