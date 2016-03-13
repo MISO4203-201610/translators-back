@@ -6,6 +6,7 @@ import co.edu.uniandes.csw.translationservice.entities.TranslatorEntity;
 import co.edu.uniandes.csw.translationservice.persistence.TranslatorPersistence;
 import co.edu.uniandes.csw.translationservice.entities.EducationEntity;
 import co.edu.uniandes.csw.translationservice.entities.LanguageEntity;
+import co.edu.uniandes.csw.translationservice.entities.KnowledgeAreaEntity;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Date;
@@ -62,6 +63,8 @@ public class TranslatorLogicTest {
      * @generated
      */
     private List<LanguageEntity> languagesData = new ArrayList<>();
+    
+    private List<KnowledgeAreaEntity> knowledgeAreasData = new ArrayList<>();
 
     /**
      * @generated
@@ -104,6 +107,7 @@ public class TranslatorLogicTest {
         em.createQuery("delete from EducationEntity").executeUpdate();
         em.createQuery("delete from TranslatorEntity").executeUpdate();
         em.createQuery("delete from LanguageEntity").executeUpdate();
+        em.createQuery("delete from KnowledgeAreaEntity").executeUpdate();
     }
 
     /**
@@ -115,6 +119,12 @@ public class TranslatorLogicTest {
             em.persist(languages);
             languagesData.add(languages);
         }
+        
+        for (int i = 0; i < 3; i++) {
+            KnowledgeAreaEntity knowledgeAreas = factory.manufacturePojo(KnowledgeAreaEntity.class);
+            em.persist(knowledgeAreas);
+            knowledgeAreasData.add(knowledgeAreas);
+        }
 
         for (int i = 0; i < 3; i++) {
             TranslatorEntity entity = factory.manufacturePojo(TranslatorEntity.class);
@@ -124,6 +134,7 @@ public class TranslatorLogicTest {
             }
 
             entity.getLanguages().add(languagesData.get(0));
+            entity.getKnowledgeAreas().add(knowledgeAreasData.get(0));
 
             em.persist(entity);
             data.add(entity);
@@ -264,6 +275,62 @@ public class TranslatorLogicTest {
     public void removeLanguagesTest() {
         translatorLogic.removeLanguages(data.get(0).getId(), languagesData.get(0).getId());
         LanguageEntity response = translatorLogic.getLanguages(data.get(0).getId(), languagesData.get(0).getId());
+        Assert.assertNull(response);
+    }
+    
+    public void getKnowledgeAreasTest() {
+        TranslatorEntity entity = data.get(0);
+        KnowledgeAreaEntity knowledgeAreaEntity = knowledgeAreasData.get(0);
+        KnowledgeAreaEntity response = translatorLogic.getKnowledgeAreas(entity.getId(), knowledgeAreaEntity.getId());
+
+        Assert.assertEquals(knowledgeAreaEntity.getId(), response.getId());
+        Assert.assertEquals(knowledgeAreaEntity.getName(), response.getName());
+    }
+
+    /**
+     * @generated
+     */
+    @Test
+    public void listKnowledgeAreasTest() {
+        List<KnowledgeAreaEntity> list = translatorLogic.listKnowledgeAreas(data.get(0).getId());
+        Assert.assertEquals(1, list.size());
+    }
+
+    /**
+     * @generated
+     */
+    @Test
+    public void addKnowledgeAreasTest() {
+        TranslatorEntity entity = data.get(0);
+        KnowledgeAreaEntity knowledgeAreaEntity = knowledgeAreasData.get(1);
+        KnowledgeAreaEntity response = translatorLogic.addKnowledgeAreas(entity.getId(), knowledgeAreaEntity.getId());
+
+        Assert.assertNotNull(response);
+        Assert.assertEquals(knowledgeAreaEntity.getId(), response.getId());
+    }
+
+    /**
+     * @generated
+     */
+    @Test
+    public void replaceKnowledgeAreasTest() {
+        TranslatorEntity entity = data.get(0);
+        List<KnowledgeAreaEntity> list = knowledgeAreasData.subList(1, 3);
+        translatorLogic.replaceKnowledgeAreas(entity.getId(), list);
+
+        entity = translatorLogic.getTranslator(entity.getId());
+        Assert.assertFalse(entity.getKnowledgeAreas().contains(knowledgeAreasData.get(0)));
+        Assert.assertTrue(entity.getKnowledgeAreas().contains(knowledgeAreasData.get(1)));
+        Assert.assertTrue(entity.getKnowledgeAreas().contains(knowledgeAreasData.get(2)));
+    }
+
+    /**
+     * @generated
+     */
+    @Test
+    public void removeKnowledgeAreasTest() {
+        translatorLogic.removeKnowledgeAreas(data.get(0).getId(), knowledgeAreasData.get(0).getId());
+        KnowledgeAreaEntity response = translatorLogic.getKnowledgeAreas(data.get(0).getId(), knowledgeAreasData.get(0).getId());
         Assert.assertNull(response);
     }
 }

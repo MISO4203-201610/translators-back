@@ -10,6 +10,7 @@
     <class>co.edu.uniandes.csw.translationservice.entities.TranslationRequestEntity</class>
     <class>co.edu.uniandes.csw.translationservice.entities.TranslatorEntity</class>
     <class>co.edu.uniandes.csw.translationservice.entities.ReviewEntity</class>
+    <class>co.edu.uniandes.csw.translationservice.entities.KnowledgeAreaEntity</class>
     <exclude-unlisted-classes>true</exclude-unlisted-classes>
     <shared-cache-mode>NONE</shared-cache-mode>
     <properties>

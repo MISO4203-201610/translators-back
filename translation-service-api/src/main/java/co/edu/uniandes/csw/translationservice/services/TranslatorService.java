@@ -22,6 +22,8 @@ import co.edu.uniandes.csw.translationservice.entities.TranslatorEntity;
 import co.edu.uniandes.csw.translationservice.converters.TranslatorConverter;
 import co.edu.uniandes.csw.translationservice.dtos.LanguageDTO;
 import co.edu.uniandes.csw.translationservice.converters.LanguageConverter;
+import co.edu.uniandes.csw.translationservice.dtos.KnowledgeAreaDTO;
+import co.edu.uniandes.csw.translationservice.converters.KnowledgeAreaConverter;
 import com.stormpath.sdk.account.Account;
 import com.stormpath.sdk.group.Group;
 import java.util.ArrayList;
@@ -200,5 +202,73 @@ public class TranslatorService {
     @Path("{translatorId: \\d+}/languages/{languageId: \\d+}")
     public void removeLanguages(@PathParam("translatorId") Long translatorId, @PathParam("languageId") Long languageId) {
         translatorLogic.removeLanguages(translatorId, languageId);
+    }
+    
+    /**
+     * Obtiene una colección de instancias de knowledgeAreaDTO asociadas a una
+     * instancia de Translator
+     *
+     * @param translatorId Identificador de la instancia de Translator
+     * @return Colección de instancias de knowledgeAreaDTO asociadas a la instancia de Translator
+     * @generated
+     */
+    @GET
+    @Path("{translatorId: \\d+}/knowledgeAreas")
+    public List<KnowledgeAreaDTO> listKnowledgeAreas(@PathParam("translatorId") Long translatorId) {
+        return KnowledgeAreaConverter.listEntity2DTO(translatorLogic.listKnowledgeAreas(translatorId));
+    }
+
+    /**
+     * Obtiene una instancia de knowledgeArea asociada a una instancia de Translator
+     *
+     * @param translatorId Identificador de la instancia de Translator
+     * @param knowledgeAreaId Identificador de la instancia de knowledgeArea
+     * @generated
+     */
+    @GET
+    @Path("{translatorId: \\d+}/knowledgeAreas/{knowledgeAreaId: \\d+}")
+    public KnowledgeAreaDTO getknowledgeAreas(@PathParam("translatorId") Long translatorId, @PathParam("knowledgeAreaId") Long knowledgeAreaId) {
+        return KnowledgeAreaConverter.fullEntity2DTO(translatorLogic.getKnowledgeAreas(translatorId, knowledgeAreaId));
+    }
+
+    /**
+     * Asocia un knowledgeArea existente a un Translator
+     *
+     * @param translatorId Identificador de la instancia de Translator
+     * @param knowledgeAreaId Identificador de la instancia de knowledgeArea
+     * @return Instancia de knowledgeAreaDTO que fue asociada a Translator
+     * @generated
+     */
+    @POST
+    @Path("{translatorId: \\d+}/knowledgeAreas/{knowledgeAreaId: \\d+}")
+    public KnowledgeAreaDTO addknowledgeAreas(@PathParam("translatorId") Long translatorId, @PathParam("knowledgeAreaId") Long knowledgeAreaId) {
+        return KnowledgeAreaConverter.fullEntity2DTO(translatorLogic.addKnowledgeAreas(translatorId, knowledgeAreaId));
+    }
+
+    /**
+     * Remplaza las instancias de knowledgeArea asociadas a una instancia de Translator
+     *
+     * @param translatorId Identificador de la instancia de Translator
+     * @param knowledgeAreas Colección de instancias de knowledgeAreaDTO a asociar a instancia de Translator
+     * @return Nueva colección de knowledgeAreaDTO asociada a la instancia de Translator
+     * @generated
+     */
+    @PUT
+    @Path("{translatorId: \\d+}/knowledgeAreas")
+    public List<KnowledgeAreaDTO> replaceKnowledgeAreas(@PathParam("translatorId") Long translatorId, List<KnowledgeAreaDTO> knowledgeAreas) {
+        return KnowledgeAreaConverter.listEntity2DTO(translatorLogic.replaceKnowledgeAreas(translatorId, KnowledgeAreaConverter.listDTO2Entity(knowledgeAreas)));
+    }
+
+    /**
+     * Desasocia un knowledgeArea existente de un Translator existente
+     *
+     * @param translatorId Identificador de la instancia de Translator
+     * @param knowledgeAreaId Identificador de la instancia de knowledgeArea
+     * @generated
+     */
+    @DELETE
+    @Path("{translatorId: \\d+}/knowledgeAreas/{knowledgeAreaId: \\d+}")
+    public void removeknowledgeAreas(@PathParam("translatorId") Long translatorId, @PathParam("knowledgeAreaId") Long knowledgeAreaId) {
+        translatorLogic.removeKnowledgeAreas(translatorId, knowledgeAreaId);
     }
 }
