@@ -2,7 +2,6 @@ package co.edu.uniandes.csw.translationservice.api;
 
 import co.edu.uniandes.csw.translationservice.entities.TranslatorEntity;
 import co.edu.uniandes.csw.translationservice.entities.LanguageEntity;
-import co.edu.uniandes.csw.translationservice.entities.KnowledgeAreaEntity;
 import java.util.List;
 
 public interface ITranslatorLogic {
@@ -18,9 +17,4 @@ public interface ITranslatorLogic {
     public LanguageEntity addLanguages(Long translatorId, Long languagesId);
     public List<LanguageEntity> replaceLanguages(Long translatorId, List<LanguageEntity> list);
     public void removeLanguages(Long translatorId, Long languagesId);
-    public List<KnowledgeAreaEntity> listKnowledgeAreas(Long translatorId);
-    public KnowledgeAreaEntity getKnowledgeAreas(Long translatorId, Long knowledgeAreaId);
-    public KnowledgeAreaEntity addKnowledgeAreas(Long translatorId, Long knowledgeAreaId);
-    public List<KnowledgeAreaEntity> replaceKnowledgeAreas(Long translatorId, List<KnowledgeAreaEntity> list);
-    public void removeKnowledgeAreas(Long translatorId, Long languagesId);
 }

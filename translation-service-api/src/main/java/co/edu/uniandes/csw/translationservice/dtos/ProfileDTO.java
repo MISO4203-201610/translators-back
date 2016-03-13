@@ -11,7 +11,6 @@ public class ProfileDTO extends UserDTO {
     private String picture;
 
     public ProfileDTO() {
-        // UserDTO takes care of this
     }
 
     public ProfileDTO(Account account) {
