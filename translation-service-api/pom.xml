@@ -129,5 +129,10 @@
                 <artifactId>maven-failsafe-plugin</artifactId>
             </plugin>
         </plugins>
+        <resources>
+            <resource>
+                <directory>conf/</directory>
+            </resource>
+        </resources>
     </build>
 </project>

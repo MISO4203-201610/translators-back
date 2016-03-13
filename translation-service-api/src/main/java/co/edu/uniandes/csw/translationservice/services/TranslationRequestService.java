@@ -83,6 +83,29 @@ public class TranslationRequestService {
     public TranslationRequestDTO createTranslationRequest(TranslationRequestDTO dto) {
         TranslationRequestEntity entity = TranslationRequestConverter.fullDTO2Entity(dto);
         entity.setCustomer(getCurrentCustomer(req.getRemoteUser()));
+        
+        String[] to = {"jhonyt37@gmail.com"};
+        String subject = "New Request Translation has been created ";
+        
+        int words =dto.getNumberOfWords();
+        String origin="none";
+        String target="none";
+        
+        if(dto.getOriginalLanguage()!=null)
+          origin=dto.getOriginalLanguage().getName();
+       
+        if(dto.getTargetLanguage()!=null)
+         target =dto.getTargetLanguage().getName();
+       
+        String body = "Hi," + "Traslator" + ", a new Translation Request has been created with a total of: "+
+               words+ " words. This has a "+origin+" origin language and must be translated to "+target+" language. ";
+
+        String link = "http://localhost:9000";
+        body += "To review the Request go to "+link;
+        System.out.println("body: "+body);
+
+        MailService.sendMailAdmin(to, subject, body);
+
         return TranslationRequestConverter.fullEntity2DTO(translationRequestLogic.createTranslationRequest(entity));
     }
 
