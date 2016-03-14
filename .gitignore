@@ -24,3 +24,4 @@ nbactions.xml
 /translation-service-logic/derby.log
 /translation-service-api/derby.log
 
+/translation-service-logic/nbproject/

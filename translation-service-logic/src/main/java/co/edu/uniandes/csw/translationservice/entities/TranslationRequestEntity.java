@@ -8,8 +8,11 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import uk.co.jemos.podam.common.PodamStrategyValue;
 import co.edu.uniandes.csw.crud.api.podam.strategy.DateStrategy;
+import java.util.ArrayList;
+import java.util.List;
 import uk.co.jemos.podam.common.PodamExclude;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 /**
  * @generated
@@ -40,6 +43,10 @@ public class TranslationRequestEntity extends BaseEntity implements Serializable
     @PodamExclude
     @ManyToOne
     private LanguageEntity targetLanguage;
+    
+    @PodamExclude
+    @OneToMany(mappedBy = "translationRequest")
+    private List<TranslatorOfertEntity> translatorOferts = new ArrayList<>();
     
     private String description;
     

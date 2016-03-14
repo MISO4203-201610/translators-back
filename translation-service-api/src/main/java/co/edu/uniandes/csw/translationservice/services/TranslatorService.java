@@ -125,7 +125,7 @@ public class TranslatorService {
     }
 
     /**
-     * Elimina una instancia de Book de la base de datos.
+     * Elimina una instancia de Translator de la base de datos.
      *
      * @param id Identificador de la instancia a eliminar.
      * @generated
