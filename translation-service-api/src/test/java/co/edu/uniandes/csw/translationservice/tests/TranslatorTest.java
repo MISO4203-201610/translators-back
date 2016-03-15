@@ -5,6 +5,7 @@ import co.edu.uniandes.csw.auth.security.JWT;
 import co.edu.uniandes.csw.translationservice.dtos.TranslatorDTO;
 import co.edu.uniandes.csw.translationservice.dtos.EducationDTO;
 import co.edu.uniandes.csw.translationservice.dtos.KnowledgeAreaDTO;
+import co.edu.uniandes.csw.translationservice.dtos.TranslatorOfertDTO;
 import co.edu.uniandes.csw.translationservice.dtos.LanguageDTO;
 import co.edu.uniandes.csw.translationservice.dtos.ReviewDTO;
 import co.edu.uniandes.csw.translationservice.services.TranslatorService;
@@ -50,6 +51,8 @@ public class TranslatorTest {
     private final static List<LanguageDTO> oraculoLanguages = new ArrayList<>();
     private final String knowledgeAreasPath = "knowledgeAreas";
     private final static List<KnowledgeAreaDTO> oraculoKnowledgeAreas = new ArrayList<>();
+    private final String translatorOfertsPath = "translatorOferts";
+    private final static List<TranslatorOfertDTO> oraculoTranslatorOferts = new ArrayList<>();
     private WebTarget target;
     private final String apiPath = "api";
     private final String username = System.getenv("USERNAME_USER");
@@ -125,6 +128,10 @@ public class TranslatorTest {
             KnowledgeAreaDTO knowledgeAreas = factory.manufacturePojo(KnowledgeAreaDTO.class);
             knowledgeAreas.setId(i + 1L);
             oraculoKnowledgeAreas.add(knowledgeAreas);
+            
+            TranslatorOfertDTO translatorOferts = factory.manufacturePojo(TranslatorOfertDTO.class);
+            translatorOferts.setId(i + 1L);
+            oraculoTranslatorOferts.add(translatorOferts);
         }
     }
 
@@ -209,16 +216,6 @@ public class TranslatorTest {
     }
 
     @Test
-    @InSequence(9)
-    public void deleteTranslatorTest() {
-        Cookie cookieSessionId = login(username, password);
-        TranslatorDTO translator = oraculo.get(0);
-        Response response = target.path(translatorPath).path(translator.getId().toString())
-                .request().cookie(cookieSessionId).delete();
-        Assert.assertEquals(OkWithoutContent, response.getStatus());
-    }
-
-    @Test
     @InSequence(5)
     public void addLanguagesTest() {
         Cookie cookieSessionId = login(username, password);
@@ -294,7 +291,7 @@ public class TranslatorTest {
     }
     
     @Test
-    @InSequence(5)
+    @InSequence(9)
     public void addKnowledgeAreasTest() {
         Cookie cookieSessionId = login(username, password);
 
@@ -322,7 +319,7 @@ public class TranslatorTest {
     }
 
     @Test
-    @InSequence(6)
+    @InSequence(10)
     public void listKnowledgeAreasTest() throws IOException {
         Cookie cookieSessionId = login(username, password);
         TranslatorDTO translator = oraculo.get(0);
@@ -339,7 +336,7 @@ public class TranslatorTest {
     }
 
     @Test
-    @InSequence(7)
+    @InSequence(11)
     public void getKnowledgeAreasTest() throws IOException {
         Cookie cookieSessionId = login(username, password);
         KnowledgeAreaDTO knowledgeAreas = oraculoKnowledgeAreas.get(0);
@@ -355,7 +352,7 @@ public class TranslatorTest {
     }
 
     @Test
-    @InSequence(8)
+    @InSequence(12)
     public void removeKnowledgeAreasTest() {
         Cookie cookieSessionId = login(username, password);
 
@@ -364,6 +361,92 @@ public class TranslatorTest {
 
         Response response = target.path(translatorPath).path(translator.getId().toString())
                 .path(knowledgeAreasPath).path(knowledgeAreas.getId().toString())
+                .request().cookie(cookieSessionId).delete();
+        Assert.assertEquals(OkWithoutContent, response.getStatus());
+    }
+    
+    @Test
+    @InSequence(13)
+    public void addTranslatorOfertsTest() {
+        Cookie cookieSessionId = login(username, password);
+
+        TranslatorOfertDTO translatorOferts = oraculoTranslatorOferts.get(0);
+        TranslatorDTO translator = oraculo.get(0);
+
+
+        Response response = target.path("translatorOferts")
+                .request().cookie(cookieSessionId)
+                .post(Entity.entity(translatorOferts, MediaType.APPLICATION_JSON));
+
+        TranslatorOfertDTO translatorOfertsTest = (TranslatorOfertDTO) response.readEntity(TranslatorOfertDTO.class);
+        Assert.assertEquals(translatorOferts.getId(), translatorOfertsTest.getId());
+        Assert.assertEquals(translatorOferts.getPrice(), translatorOfertsTest.getPrice());
+        Assert.assertEquals(translatorOferts.getComment(), translatorOfertsTest.getComment());
+
+        response = target.path(translatorPath).path(translator.getId().toString())
+                .path(translatorOfertsPath).path(translatorOferts.getId().toString())
+                .request().cookie(cookieSessionId)
+                .post(Entity.entity(translatorOferts, MediaType.APPLICATION_JSON));
+        
+        translatorOfertsTest = (TranslatorOfertDTO) response.readEntity(TranslatorOfertDTO.class);
+        Assert.assertEquals(Ok, response.getStatus());
+        Assert.assertEquals(translatorOferts.getId(), translatorOfertsTest.getId());
+    }
+
+    @Test
+    @InSequence(14)
+    public void listTranslatorOfertsTest() throws IOException {
+        Cookie cookieSessionId = login(username, password);
+        TranslatorDTO translator = oraculo.get(0);
+
+        Response response = target.path(translatorPath)
+                .path(translator.getId().toString())
+                .path(translatorOfertsPath)
+                .request().cookie(cookieSessionId).get();
+
+        String translatorOfertsList = response.readEntity(String.class);
+        List<TranslatorOfertDTO> translatorOfertsListTest = new ObjectMapper().readValue(translatorOfertsList, List.class);
+        Assert.assertEquals(Ok, response.getStatus());
+        Assert.assertEquals(1, translatorOfertsListTest.size());
+    }
+
+    @Test
+    @InSequence(15)
+    public void getTranslatorOfertsTest() throws IOException {
+        Cookie cookieSessionId = login(username, password);
+        TranslatorOfertDTO translatorOferts = oraculoTranslatorOferts.get(0);
+        TranslatorDTO translator = oraculo.get(0);
+
+        TranslatorOfertDTO translatorOfertsTest = target.path(translatorPath)
+                .path(translator.getId().toString()).path(translatorOfertsPath)
+                .path(translatorOferts.getId().toString())
+                .request().cookie(cookieSessionId).get(TranslatorOfertDTO.class);
+
+        Assert.assertEquals(translatorOferts.getId(), translatorOfertsTest.getId());
+        Assert.assertEquals(translatorOferts.getPrice(), translatorOfertsTest.getPrice());
+        Assert.assertEquals(translatorOferts.getComment(), translatorOfertsTest.getComment());
+    }
+
+    @Test
+    @InSequence(16)
+    public void removeTranslatorOfertsTest() {
+        Cookie cookieSessionId = login(username, password);
+
+        TranslatorOfertDTO translatorOferts = oraculoTranslatorOferts.get(0);
+        TranslatorDTO translator = oraculo.get(0);
+
+        Response response = target.path(translatorPath).path(translator.getId().toString())
+                .path(translatorOfertsPath).path(translatorOferts.getId().toString())
+                .request().cookie(cookieSessionId).delete();
+        Assert.assertEquals(OkWithoutContent, response.getStatus());
+    }
+    
+    @Test
+    @InSequence(17)
+    public void deleteTranslatorTest() {
+        Cookie cookieSessionId = login(username, password);
+        TranslatorDTO translator = oraculo.get(0);
+        Response response = target.path(translatorPath).path(translator.getId().toString())
                 .request().cookie(cookieSessionId).delete();
         Assert.assertEquals(OkWithoutContent, response.getStatus());
     }

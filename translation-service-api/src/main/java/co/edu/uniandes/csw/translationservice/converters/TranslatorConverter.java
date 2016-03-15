@@ -123,6 +123,7 @@ public abstract class TranslatorConverter {
             dto.setLanguages(LanguageConverter.listEntity2DTO(entity.getLanguages()));
             dto.setKnowledgeAreas(KnowledgeAreaConverter.listEntity2DTO(entity.getKnowledgeAreas()));
             dto.setReviews(ReviewConverter.listEntity2DTO(entity.getReviews()));
+            dto.setTranslatorOferts(TranslatorOfertConverter.listEntity2DTO(entity.getTranslatorOferts()));
             return dto;
         } else {
             return null;
@@ -144,6 +145,7 @@ public abstract class TranslatorConverter {
             entity.setLanguages(LanguageConverter.listDTO2Entity(dto.getLanguages()));
             entity.setKnowledgeAreas(KnowledgeAreaConverter.listDTO2Entity(dto.getKnowledgeAreas()));
             entity.setReviews(ReviewConverter.childListDTO2Entity(dto.getReviews(), entity));
+            entity.setTranslatorOferts(TranslatorOfertConverter.listDTO2Entity(dto.getTranslatorOferts()));
             return entity;
         } else {
             return null;

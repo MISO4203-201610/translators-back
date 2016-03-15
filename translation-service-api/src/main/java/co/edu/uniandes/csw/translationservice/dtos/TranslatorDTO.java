@@ -29,6 +29,8 @@ public class TranslatorDTO {
     @PodamExclude
     private List<KnowledgeAreaDTO> knowledgeAreas = new ArrayList<>();
     @PodamExclude
+    private List<TranslatorOfertDTO> translatorOferts = new ArrayList<>();
+    @PodamExclude
     private List<ReviewDTO> reviews;
 
     /**
@@ -143,5 +145,13 @@ public class TranslatorDTO {
     
     public void setKnowledgeAreas(List<KnowledgeAreaDTO> knowledgeAreas) {
         this.knowledgeAreas = knowledgeAreas;
+    }
+    
+    public List<TranslatorOfertDTO> getTranslatorOferts() {
+        return translatorOferts;
+    }
+    
+    public void setTranslatorOferts(List<TranslatorOfertDTO> translatorOferts) {
+        this.translatorOferts = translatorOferts;
     }
 }

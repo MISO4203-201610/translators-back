@@ -13,6 +13,7 @@ public class TranslatorOfertDTO {
     private String price;
     private String comment;
     
+    @PodamExclude
     private TranslatorDTO translator;
     @PodamExclude
     private TranslationRequestDTO translationRequest;

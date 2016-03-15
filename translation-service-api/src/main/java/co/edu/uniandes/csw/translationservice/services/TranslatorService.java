@@ -24,6 +24,8 @@ import co.edu.uniandes.csw.translationservice.dtos.LanguageDTO;
 import co.edu.uniandes.csw.translationservice.converters.LanguageConverter;
 import co.edu.uniandes.csw.translationservice.dtos.KnowledgeAreaDTO;
 import co.edu.uniandes.csw.translationservice.converters.KnowledgeAreaConverter;
+import co.edu.uniandes.csw.translationservice.converters.TranslatorOfertConverter;
+import co.edu.uniandes.csw.translationservice.dtos.TranslatorOfertDTO;
 import com.stormpath.sdk.account.Account;
 import com.stormpath.sdk.group.Group;
 import java.util.ArrayList;
@@ -270,5 +272,73 @@ public class TranslatorService {
     @Path("{translatorId: \\d+}/knowledgeAreas/{knowledgeAreaId: \\d+}")
     public void removeknowledgeAreas(@PathParam("translatorId") Long translatorId, @PathParam("knowledgeAreaId") Long knowledgeAreaId) {
         translatorLogic.removeKnowledgeAreas(translatorId, knowledgeAreaId);
+    }
+    
+    /**
+     * Obtiene una colección de instancias de translatorOfertDTO asociadas a una
+     * instancia de Translator
+     *
+     * @param translatorId Identificador de la instancia de Translator
+     * @return Colección de instancias de translatorOfertDTO asociadas a la instancia de Translator
+     * @generated
+     */
+    @GET
+    @Path("{translatorId: \\d+}/translatorOferts")
+    public List<TranslatorOfertDTO> listTranslatorOferts(@PathParam("translatorId") Long translatorId) {
+        return TranslatorOfertConverter.listEntity2DTO(translatorLogic.listTranslatorOferts(translatorId));
+    }
+
+    /**
+     * Obtiene una instancia de translatorOfert asociada a una instancia de Translator
+     *
+     * @param translatorId Identificador de la instancia de Translator
+     * @param translatorOfertId Identificador de la instancia de translatorOfert
+     * @generated
+     */
+    @GET
+    @Path("{translatorId: \\d+}/translatorOferts/{translatorOfertId: \\d+}")
+    public TranslatorOfertDTO getTranslatorOferts(@PathParam("translatorId") Long translatorId, @PathParam("translatorOfertId") Long translatorOfertId) {
+        return TranslatorOfertConverter.fullEntity2DTO(translatorLogic.getTranslatorOferts(translatorId, translatorOfertId));
+    }
+
+    /**
+     * Asocia un translatorOfert existente a un Translator
+     *
+     * @param translatorId Identificador de la instancia de Translator
+     * @param translatorOfertId Identificador de la instancia de translatorOfert
+     * @return Instancia de translatorOfertDTO que fue asociada a Translator
+     * @generated
+     */
+    @POST
+    @Path("{translatorId: \\d+}/translatorOferts/{translatorOfertId: \\d+}")
+    public TranslatorOfertDTO addTranslatorOferts(@PathParam("translatorId") Long translatorId, @PathParam("translatorOfertId") Long translatorOfertId) {
+        return TranslatorOfertConverter.fullEntity2DTO(translatorLogic.addTranslatorOferts(translatorId, translatorOfertId));
+    }
+
+    /**
+     * Remplaza las instancias de translatorOfert asociadas a una instancia de Translator
+     *
+     * @param translatorId Identificador de la instancia de Translator
+     * @param translatorOferts Colección de instancias de translatorOfertDTO a asociar a instancia de Translator
+     * @return Nueva colección de translatorOfertDTO asociada a la instancia de Translator
+     * @generated
+     */
+    @PUT
+    @Path("{translatorId: \\d+}/translatorOferts")
+    public List<TranslatorOfertDTO> replaceTranslatorOferts(@PathParam("translatorId") Long translatorId, List<TranslatorOfertDTO> translatorOferts) {
+        return TranslatorOfertConverter.listEntity2DTO(translatorLogic.replaceTranslatorOferts(translatorId, TranslatorOfertConverter.listDTO2Entity(translatorOferts)));
+    }
+
+    /**
+     * Desasocia un translatorOfert existente de un Translator existente
+     *
+     * @param translatorId Identificador de la instancia de Translator
+     * @param translatorOfertId Identificador de la instancia de translatorOfert
+     * @generated
+     */
+    @DELETE
+    @Path("{translatorId: \\d+}/translatorOferts/{translatorOfertId: \\d+}")
+    public void removeTranslatorOferts(@PathParam("translatorId") Long translatorId, @PathParam("translatorOfertId") Long translatorOfertId) {
+        translatorLogic.removeTranslatorOferts(translatorId, translatorOfertId);
     }
 }

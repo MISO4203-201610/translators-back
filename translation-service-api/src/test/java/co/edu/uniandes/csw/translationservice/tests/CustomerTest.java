@@ -186,16 +186,6 @@ public class CustomerTest {
     }
 
     @Test
-    @InSequence(13)
-    public void deleteCustomerTest() {
-        Cookie cookieSessionId = login(username, password);
-        CustomerDTO customer = oraculo.get(0);
-        Response response = target.path(customerPath).path(customer.getId().toString())
-                .request().cookie(cookieSessionId).delete();
-        Assert.assertEquals(OkWithoutContent, response.getStatus());
-    }
-
-    @Test
     @InSequence(5)
     public void addTranslationRequestsTest() {
         Cookie cookieSessionId = login(username, password);
@@ -219,7 +209,7 @@ public class CustomerTest {
                 .path(translationRequestsPath).path(translationRequests.getId().toString())
                 .request().cookie(cookieSessionId)
                 .post(Entity.entity(translationRequests, MediaType.APPLICATION_JSON));
-
+        
         translationrequestsTest = (TranslationRequestDTO) response.readEntity(TranslationRequestDTO.class);
         Assert.assertEquals(Ok, response.getStatus());
         Assert.assertEquals(translationRequests.getId(), translationrequestsTest.getId());
@@ -349,6 +339,16 @@ public class CustomerTest {
 
         Response response = target.path(customerPath).path(customer.getId().toString())
                 .path(correctionRequestsPath).path(correctionRequests.getId().toString())
+                .request().cookie(cookieSessionId).delete();
+        Assert.assertEquals(OkWithoutContent, response.getStatus());
+    }
+    
+    @Test
+    @InSequence(13)
+    public void deleteCustomerTest() {
+        Cookie cookieSessionId = login(username, password);
+        CustomerDTO customer = oraculo.get(0);
+        Response response = target.path(customerPath).path(customer.getId().toString())
                 .request().cookie(cookieSessionId).delete();
         Assert.assertEquals(OkWithoutContent, response.getStatus());
     }

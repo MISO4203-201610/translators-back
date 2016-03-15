@@ -3,6 +3,8 @@ package co.edu.uniandes.csw.translationservice.ejbs;
 import co.edu.uniandes.csw.translationservice.api.ITranslatorLogic;
 import co.edu.uniandes.csw.translationservice.entities.TranslatorEntity;
 import co.edu.uniandes.csw.translationservice.persistence.TranslatorPersistence;
+import co.edu.uniandes.csw.translationservice.entities.TranslatorOfertEntity;
+import co.edu.uniandes.csw.translationservice.api.ITranslatorOfertLogic;
 import co.edu.uniandes.csw.translationservice.entities.LanguageEntity;
 import co.edu.uniandes.csw.translationservice.entities.KnowledgeAreaEntity;
 import java.util.List;
@@ -16,6 +18,10 @@ import javax.inject.Inject;
 public class TranslatorLogic implements ITranslatorLogic {
 
     @Inject private TranslatorPersistence persistence;
+    
+    @Inject private ITranslatorOfertLogic translatorOfertLogic;
+    
+    
 
     /**
      * @generated
@@ -64,6 +70,7 @@ public class TranslatorLogic implements ITranslatorLogic {
     public TranslatorEntity updateTranslator(TranslatorEntity entity) {
         TranslatorEntity newEntity = entity;
         TranslatorEntity oldEntity = persistence.find(entity.getId());
+        newEntity.setTranslatorOferts(oldEntity.getTranslatorOferts());
         newEntity.setLanguages(oldEntity.getLanguages());
         return persistence.update(newEntity);
     }
@@ -76,6 +83,69 @@ public class TranslatorLogic implements ITranslatorLogic {
         persistence.delete(id);
     }
 
+    /**
+     * @generated
+     */
+    @Override
+    public List<TranslatorOfertEntity> listTranslatorOferts(Long translatorId) {
+        return persistence.find(translatorId).getTranslatorOferts();
+    }
+
+    /**
+     * @generated
+     */
+    @Override
+    public TranslatorOfertEntity getTranslatorOferts(Long translatorId, Long translatorOfertsId) {
+        List<TranslatorOfertEntity> list = persistence.find(translatorId).getTranslatorOferts();
+        TranslatorOfertEntity translatorOfertsEntity = new TranslatorOfertEntity();
+        translatorOfertsEntity.setId(translatorOfertsId);
+        int index = list.indexOf(translatorOfertsEntity);
+        if (index >= 0) {
+            return list.get(index);
+        }
+        return null;
+    }
+
+    /**
+     * @generated
+     */
+    @Override
+    public TranslatorOfertEntity addTranslatorOferts(Long translatorId, Long translatorOfertsId) {
+        TranslatorEntity translatorEntity = persistence.find(translatorId);
+        TranslatorOfertEntity translatorOfertsEntity = translatorOfertLogic.getTranslatorOfert(translatorOfertsId);
+        translatorOfertsEntity.setTranslator(translatorEntity);
+        return translatorOfertsEntity;
+    }
+
+    /**
+     * @generated
+     */
+    @Override
+    public List<TranslatorOfertEntity> replaceTranslatorOferts(Long translatorId, List<TranslatorOfertEntity> list) {
+        TranslatorEntity translatorEntity = persistence.find(translatorId);
+        List<TranslatorOfertEntity> translatorOfertList = translatorOfertLogic.getTranslatorOferts();
+        for (TranslatorOfertEntity translatorOfert : translatorOfertList) {
+            if (list.contains(translatorOfert)) {
+                translatorOfert.setTranslator(translatorEntity);
+            } else {
+                if (translatorOfert.getTranslator() != null && translatorOfert.getTranslator().equals(translatorEntity)) {
+                    translatorOfert.setTranslator(null);
+                }
+            }
+        }
+        translatorEntity.setTranslatorOferts(list);
+        return translatorEntity.getTranslatorOferts();
+    }
+
+    /**
+     * @generated
+     */
+    @Override
+    public void removeTranslatorOferts(Long translatorId, Long translatorOfertsId) {
+        TranslatorOfertEntity entity = translatorOfertLogic.getTranslatorOfert(translatorOfertsId);
+        entity.setTranslator(null);
+    }
+    
     /**
      * @generated
      */

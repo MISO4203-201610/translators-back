@@ -7,9 +7,9 @@ import co.edu.uniandes.csw.translationservice.persistence.TranslatorPersistence;
 import co.edu.uniandes.csw.translationservice.entities.EducationEntity;
 import co.edu.uniandes.csw.translationservice.entities.LanguageEntity;
 import co.edu.uniandes.csw.translationservice.entities.KnowledgeAreaEntity;
+import co.edu.uniandes.csw.translationservice.entities.TranslatorOfertEntity;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Date;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -65,6 +65,11 @@ public class TranslatorLogicTest {
     private List<LanguageEntity> languagesData = new ArrayList<>();
     
     private List<KnowledgeAreaEntity> knowledgeAreasData = new ArrayList<>();
+    
+    /**
+     * @generated
+     */
+    private List<TranslatorOfertEntity> translatorOfertsData = new ArrayList<>();
 
     /**
      * @generated
@@ -108,6 +113,7 @@ public class TranslatorLogicTest {
         em.createQuery("delete from TranslatorEntity").executeUpdate();
         em.createQuery("delete from LanguageEntity").executeUpdate();
         em.createQuery("delete from KnowledgeAreaEntity").executeUpdate();
+        em.createQuery("delete from TranslatorOfert").executeUpdate();
     }
 
     /**
@@ -127,10 +133,19 @@ public class TranslatorLogicTest {
         }
 
         for (int i = 0; i < 3; i++) {
+            TranslatorOfertEntity translatorOferts = factory.manufacturePojo(TranslatorOfertEntity.class);
+            em.persist(translatorOferts);
+            translatorOfertsData.add(translatorOferts);
+        }
+        
+        for (int i = 0; i < 3; i++) {
             TranslatorEntity entity = factory.manufacturePojo(TranslatorEntity.class);
 
             for (EducationEntity item : entity.getEducation()) {
                 item.setTranslator(entity);
+            }
+            if (i == 0) {
+                translatorOfertsData.get(i).setTranslator(entity);
             }
 
             entity.getLanguages().add(languagesData.get(0));
@@ -331,6 +346,67 @@ public class TranslatorLogicTest {
     public void removeKnowledgeAreasTest() {
         translatorLogic.removeKnowledgeAreas(data.get(0).getId(), knowledgeAreasData.get(0).getId());
         KnowledgeAreaEntity response = translatorLogic.getKnowledgeAreas(data.get(0).getId(), knowledgeAreasData.get(0).getId());
+        Assert.assertNull(response);
+    }
+    
+    /**
+     * @generated
+     */
+    @Test
+    public void getTranslatorOfertsTest() {
+        TranslatorEntity entity = data.get(0);
+        TranslatorOfertEntity translatorOfertEntity = translatorOfertsData.get(0);
+        TranslatorOfertEntity response = translatorLogic.getTranslatorOferts(entity.getId(), translatorOfertEntity.getId());
+
+        Assert.assertEquals(translatorOfertEntity.getId(), response.getId());
+        Assert.assertEquals(translatorOfertEntity.getPrice(), response.getPrice());
+        Assert.assertEquals(translatorOfertEntity.getComment(), response.getComment());
+    }
+
+    /**
+     * @generated
+     */
+    @Test
+    public void listTranslatorOfertsTest() {
+        List<TranslatorOfertEntity> list = translatorLogic.listTranslatorOferts(data.get(0).getId());
+        Assert.assertEquals(1, list.size());
+    }
+
+    /**
+     * @generated
+     */
+    @Test
+    public void addTranslatorOfertsTest() {
+        TranslatorEntity entity = data.get(0);
+        TranslatorOfertEntity translatorOfertEntity = translatorOfertsData.get(1);
+        TranslatorOfertEntity response = translatorLogic.addTranslatorOferts(entity.getId(), translatorOfertEntity.getId());
+
+        Assert.assertNotNull(response);
+        Assert.assertEquals(translatorOfertEntity.getId(), response.getId());
+    }
+
+    /**
+     * @generated
+     */
+    @Test
+    public void replaceTranslatorOfertsTest() {
+        TranslatorEntity entity = data.get(0);
+        List<TranslatorOfertEntity> list = translatorOfertsData.subList(1, 3);
+        translatorLogic.replaceTranslatorOferts(entity.getId(), list);
+
+        entity = translatorLogic.getTranslator(entity.getId());
+        Assert.assertFalse(entity.getTranslatorOferts().contains(translatorOfertsData.get(0)));
+        Assert.assertTrue(entity.getTranslatorOferts().contains(translatorOfertsData.get(1)));
+        Assert.assertTrue(entity.getTranslatorOferts().contains(translatorOfertsData.get(2)));
+    }
+
+    /**
+     * @generated
+     */
+    @Test
+    public void removeTranslatorOfertsTest() {
+        translatorLogic.removeTranslatorOferts(data.get(0).getId(), translatorOfertsData.get(0).getId());
+        TranslatorOfertEntity response = translatorLogic.getTranslatorOferts(data.get(0).getId(), translatorOfertsData.get(0).getId());
         Assert.assertNull(response);
     }
 }

@@ -1,8 +1,6 @@
 package co.edu.uniandes.csw.translationservice.services;
 
 import co.edu.uniandes.csw.auth.provider.StatusCreated;
-import static co.edu.uniandes.csw.auth.stormpath.Utils.getClient;
-import co.edu.uniandes.csw.translationservice.api.ICustomerLogic;
 import java.util.List;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletResponse;
@@ -19,16 +17,11 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import co.edu.uniandes.csw.translationservice.api.ITranslatorOfertLogic;
 import co.edu.uniandes.csw.translationservice.api.ITranslatorLogic;
+import co.edu.uniandes.csw.translationservice.converters.TranslationRequestConverter;
 import co.edu.uniandes.csw.translationservice.dtos.TranslatorOfertDTO;
 import co.edu.uniandes.csw.translationservice.entities.TranslatorOfertEntity;
 import co.edu.uniandes.csw.translationservice.converters.TranslatorOfertConverter;
-import co.edu.uniandes.csw.translationservice.converters.TranslatorConverter;
-import co.edu.uniandes.csw.translationservice.dtos.TranslatorDTO;
 import static co.edu.uniandes.csw.translationservice.services.AccountService.getCurrentTranslator;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.stormpath.sdk.account.Account;
-import com.stormpath.sdk.group.Group;
-import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 
 
@@ -43,7 +36,7 @@ public class TranslatorOfertService {
     @Inject
     private ITranslatorOfertLogic translatorOfertLogic;
     @Inject
-    private ICustomerLogic customerLogic;
+    private ITranslatorLogic translatorLogic;
     @Context
     private HttpServletRequest req;
     @Context
@@ -55,7 +48,6 @@ public class TranslatorOfertService {
     
     private static final int MAX_EMAIL =40;
     
-    @Inject private ITranslatorLogic translatorLogic;
 
     /**
      * Obtiene la lista de los registros de TranslatorOfert.
@@ -96,6 +88,7 @@ public class TranslatorOfertService {
     public TranslatorOfertDTO createTranslatorOfert(TranslatorOfertDTO dto) {
         TranslatorOfertEntity entity = TranslatorOfertConverter.fullDTO2Entity(dto);
         entity.setTranslator(getCurrentTranslator(req.getRemoteUser()));
+        entity.setTranslationRequest(TranslationRequestConverter.fullDTO2Entity(dto.getTranslationRequest()));
         
         String[] to = new String[MAX_EMAIL];
         to[0]= "ing.rojas.m@gmail.com";
@@ -104,12 +97,12 @@ public class TranslatorOfertService {
        
         String body = "Hi Customer, a new TranslatorOfert has been created";
         
-        System.out.println("body: "+body);
+        //System.out.println("body: "+body);
         
         
-        System.out.println("to: "+to);
+        //System.out.println("to: "+to);
         for(String it:to){
-            System.out.println("tounit: "+it);
+            //System.out.println("tounit: "+it);
             
         }
         MailService.sendMailAdmin(to, subject, body);
@@ -129,6 +122,7 @@ public class TranslatorOfertService {
     @Path("{id: \\d+}")
     public TranslatorOfertDTO updateTranslatorOfert(@PathParam("id") Long id, TranslatorOfertDTO dto) {
         TranslatorOfertEntity entity = TranslatorOfertConverter.fullDTO2Entity(dto);
+        entity.setTranslationRequest(TranslationRequestConverter.fullDTO2Entity(dto.getTranslationRequest()));
         entity.setId(id);
         return TranslatorOfertConverter.fullEntity2DTO(translatorOfertLogic.updateTranslatorOfert(entity));
     }

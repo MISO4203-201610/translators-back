@@ -1,7 +1,6 @@
 package co.edu.uniandes.csw.translationservice.services;
 
 import co.edu.uniandes.csw.auth.provider.StatusCreated;
-import static co.edu.uniandes.csw.auth.stormpath.Utils.getClient;
 import co.edu.uniandes.csw.translationservice.api.ICustomerLogic;
 import java.util.List;
 import javax.inject.Inject;
@@ -25,10 +24,6 @@ import co.edu.uniandes.csw.translationservice.converters.TranslationRequestConve
 import co.edu.uniandes.csw.translationservice.converters.TranslatorConverter;
 import co.edu.uniandes.csw.translationservice.dtos.TranslatorDTO;
 import static co.edu.uniandes.csw.translationservice.services.AccountService.getCurrentCustomer;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.stormpath.sdk.account.Account;
-import com.stormpath.sdk.group.Group;
-import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 
 
