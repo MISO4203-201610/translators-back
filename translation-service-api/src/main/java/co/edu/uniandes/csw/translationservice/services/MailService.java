@@ -26,6 +26,7 @@ public class MailService {
     private MailService(){
     }
 
+    //metodo para enviar mail a traslators
     public static void sendMailAdmin(List<TranslatorDTO> list, String subject, String body) {
 
     String[] to= new String[MAX_EMAIL];
@@ -50,7 +51,6 @@ public class MailService {
                     to[i] = item.getEmail();
                     i++;
                 }
-
             }
 
             message.setFrom(new InternetAddress(from));
