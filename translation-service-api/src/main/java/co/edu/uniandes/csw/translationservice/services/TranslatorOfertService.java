@@ -18,11 +18,9 @@ import javax.ws.rs.core.MediaType;
 import co.edu.uniandes.csw.translationservice.api.ITranslatorOfertLogic;
 import co.edu.uniandes.csw.translationservice.api.ITranslatorLogic;
 import co.edu.uniandes.csw.translationservice.converters.TranslationRequestConverter;
-import co.edu.uniandes.csw.translationservice.converters.TranslatorConverter;
 import co.edu.uniandes.csw.translationservice.dtos.TranslatorOfertDTO;
 import co.edu.uniandes.csw.translationservice.entities.TranslatorOfertEntity;
 import co.edu.uniandes.csw.translationservice.converters.TranslatorOfertConverter;
-import co.edu.uniandes.csw.translationservice.dtos.TranslatorDTO;
 import static co.edu.uniandes.csw.translationservice.services.AccountService.getCurrentTranslator;
 import javax.servlet.http.HttpServletRequest;
 
@@ -107,8 +105,7 @@ public class TranslatorOfertService {
             //System.out.println("tounit: "+it);
             
         }
-        List<TranslatorDTO> list = TranslatorConverter.listEntity2DTO(translatorLogic.getTranslators());
-        MailService.sendMailAdmin(list, subject, body);
+        MailService.sendMailAdmin(to, subject, body);
 
         return TranslatorOfertConverter.fullEntity2DTO(translatorOfertLogic.createTranslatorOfert(entity));
     }
