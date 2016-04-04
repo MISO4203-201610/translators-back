@@ -28,11 +28,3 @@ nbactions.xml
 sonar-project.properties
 
 
-
-.sonar/.sonartmp/caches/journal.000000000000
-
-.sonar/.sonartmp/caches/persistit
-
-.sonar/.sonartmp/caches/persistit.lck
-
-.sonar/.sonartmp/caches/persistit_tempvol_937985938236256214.tmp
