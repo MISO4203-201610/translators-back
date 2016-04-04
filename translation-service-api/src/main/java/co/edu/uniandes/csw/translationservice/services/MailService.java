@@ -5,58 +5,43 @@
  */
 package co.edu.uniandes.csw.translationservice.services;
 
-import co.edu.uniandes.csw.translationservice.dtos.TranslatorDTO;
 import javax.mail.*;
 
 import javax.mail.internet.*;
 
+import java.io.File;
+
+import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.Properties;
 
 /**
  *
  * @author jhony
  */
 public class MailService {
-    
-    private static final int MAX_EMAIL =40;
-    
-    private MailService(){
-    }
 
-    public static void sendMailAdmin(List<TranslatorDTO> list, String subject, String body) {
+    public static void sendMailAdmin(String[] to, String subject, String body) {
 
-    String[] to= new String[MAX_EMAIL];
-    to[0]= "jhonyt37@gmail.com";
+        PropertyReader.initializePropertyReader();
+        String from = PropertyReader.getPropertyValue("userAdmin");
+        String pass = PropertyReader.getPropertyValue("pass");
+        String host = PropertyReader.getPropertyValue("mail.smtp.host");
+        
+        System.out.println("from: "+from);
+        
+        Session session = Session.getDefaultInstance(PropertyReader.getProperties());
+
+        MimeMessage message = new MimeMessage(session);
+
         try {
-            PropertyReader.initializePropertyReader();
-            String from = PropertyReader.getPropertyValue("userAdmin");
-            String pass = PropertyReader.getPropertyValue("pass");
-            String host = PropertyReader.getPropertyValue("mail.smtp.host");
-            
-            Session session = Session.getDefaultInstance(PropertyReader.getProperties());
-            
-            MimeMessage message = new MimeMessage(session);
-            
-            int i = 1;
-            if (list.isEmpty()) {
-                Logger.getLogger(MailService.class.getName()).log(Level.SEVERE, null, "lista vacia");
-                return;
-            }
-            for (TranslatorDTO item : list) {
-                if (item.getEmail() != null) {
-                    to[i] = item.getEmail();
-                    i++;
-                }
-
-            }
-
             message.setFrom(new InternetAddress(from));
+            InternetAddress[] toAddress = new InternetAddress[to.length];
 
             // To get the array of addresses
-            for ( i = 0; i < to.length; i++) {
+            for (int i = 0; i < to.length; i++) {
                 if(to[i]!=null)
                     message.addRecipient(Message.RecipientType.TO, new InternetAddress(to[i]));
             }
@@ -74,8 +59,10 @@ public class MailService {
 
             transport.sendMessage(message, message.getAllRecipients());
             transport.close();
-        } catch (MessagingException ex) {
-            Logger.getLogger(MailService.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (AddressException ae) {
+            ae.printStackTrace();
+        } catch (MessagingException me) {
+            me.printStackTrace();
         }
 
     }
