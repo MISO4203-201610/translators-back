@@ -7,38 +7,40 @@ package co.edu.uniandes.csw.translationservice.services;
 
 import java.io.*;
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 /**
  *
  * @author jhony
  */
 public class PropertyReader {
     
-    private static Properties prop = null;
-
+    private static Properties prop;
+    
+    private PropertyReader(){
+    }
+    
     public static void initializePropertyReader(){
 
         InputStream is = null;
-        try {
             prop = new Properties();
 
             is = Thread.currentThread().getContextClassLoader().getResourceAsStream("mail.properties");
-            //String log4jConfPath = System.getProperty("user.dir") + "/config/log.properties";
             if(is == null) {
-                System.out.println("No se puedo cargar el archivo mail.properties");
+                Logger.getLogger(PropertyReader.class.getName()).log(Level.SEVERE, null, "No se puedo cargar el archivo mail.properties");
             }
             else {
-                System.out.println("is: "+is);
+            try {
                 prop.load(is);
+            } catch (IOException ex) {
+                Logger.getLogger(PropertyReader.class.getName()).log(Level.SEVERE, null, ex);
             }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+            }
     }
 
     public static Set<Object> getAllKeys(){
-        Set<Object> keys = prop.keySet();
+        Set<Object> keys;
+            keys= prop.keySet();
         return keys;
     }
 

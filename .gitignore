@@ -23,5 +23,8 @@ nbactions.xml
 #Tests
 /translation-service-logic/derby.log
 /translation-service-api/derby.log
-
 /translation-service-logic/nbproject/
+
+sonar-project.properties
+
+
