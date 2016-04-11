@@ -1,5 +1,6 @@
 package co.edu.uniandes.csw.translationservice.converters;
 
+import co.edu.uniandes.csw.translationservice.dtos.TranslatorDTO;
 import co.edu.uniandes.csw.translationservice.dtos.CorrectionRequestDTO;
 import co.edu.uniandes.csw.translationservice.entities.CorrectionRequestEntity;
 import java.util.ArrayList;
@@ -186,5 +187,29 @@ public abstract class CorrectionRequestConverter {
             }
         }
         return entities;
+    }
+    
+    /**
+     * Convierte una instancias de CorrectionRequestEntity a instancias de
+     * TranslatorDTO que representan los traductores a invitar
+     *
+     * @param dto Correction Request DTO
+     * @param list Colección de traductores
+     * @return Colección de instancias de TranslatorDTO filtrados
+     */
+    public static List<TranslatorDTO> fullEntity2RecommendationDTO(CorrectionRequestDTO dto, List<TranslatorDTO> list) {
+        List<TranslatorDTO> dtos = new ArrayList<TranslatorDTO>();
+        
+        if (list != null)
+        {
+            for (TranslatorDTO translatorDto : list) {
+                
+                // Add it!
+                if (translatorDto.getLanguages().contains(dto.getLanguage()))
+                    dtos.add(translatorDto);
+            }
+        }
+        
+        return dtos;
     }
 }

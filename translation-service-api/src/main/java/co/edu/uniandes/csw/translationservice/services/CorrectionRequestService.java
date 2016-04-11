@@ -55,17 +55,33 @@ public class CorrectionRequestService {
     }
 
     /**
-     * Obtiene los datos de una instancia de Book a partir de su ID.
+     * Obtiene los datos de una instancia de CorrectionRequest a partir de su ID.
      *
      * @param id Identificador de la instancia a consultar
-     * @return Instancia de CorrectionRequestDTO con los datos del Book
-     * consultado y sus Review
-     * @generated
+     * @return Instancia de CorrectionRequestDTO con los datos de la
+     * instancia
      */
     @GET
     @Path("{id: \\d+}")
     public CorrectionRequestDTO getCorrectionRequest(@PathParam("id") Long id) {
         return CorrectionRequestConverter.fullEntity2DTO(correctionRequestLogic.getCorrectionRequest(id));
+    }
+    
+    /**
+     * Obtiene los traductores a recomendar para determinado correction request
+     *
+     * @param id Identificador de la instancia a recomendar
+     * @return Colección de TranslatorDTO con los datos de los Translator
+     * a recomendar
+     */
+    @GET
+    @Path("/recommendations/{id: \\d+}")
+    public List<TranslatorDTO> getRecommendationsCorrectionRequest(@PathParam("id") Long id) {
+        List<TranslatorDTO> list = TranslatorConverter.listEntity2DTO(translatorLogic.getTranslators());
+        return CorrectionRequestConverter.fullEntity2RecommendationDTO(
+                CorrectionRequestConverter.fullEntity2DTO(correctionRequestLogic.getCorrectionRequest(id)),
+                list
+        );
     }
 
     /**
