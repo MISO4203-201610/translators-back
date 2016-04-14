@@ -16,10 +16,12 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import co.edu.uniandes.csw.translationservice.api.ITranslationRequestLogic;
 import co.edu.uniandes.csw.translationservice.api.ITranslatorLogic;
+import co.edu.uniandes.csw.translationservice.converters.KnowledgeAreaConverter;
 import co.edu.uniandes.csw.translationservice.dtos.TranslationRequestDTO;
 import co.edu.uniandes.csw.translationservice.entities.TranslationRequestEntity;
 import co.edu.uniandes.csw.translationservice.converters.TranslationRequestConverter;
 import co.edu.uniandes.csw.translationservice.converters.TranslatorConverter;
+import co.edu.uniandes.csw.translationservice.dtos.KnowledgeAreaDTO;
 import co.edu.uniandes.csw.translationservice.dtos.TranslatorDTO;
 import static co.edu.uniandes.csw.translationservice.services.AccountService.getCurrentCustomer;
 import javax.servlet.http.HttpServletRequest;
@@ -133,5 +135,36 @@ public class TranslationRequestService {
     @Path("{id: \\d+}")
     public void deleteTranslationRequest(@PathParam("id") Long id) {
         translationRequestLogic.deleteTranslationRequest(id);
+    }
+    
+
+    @GET
+    @Path("{id: \\d+}/knowledges")
+    public List<KnowledgeAreaDTO> listKnowledgeAreas(@PathParam("id") Long id) {
+        return KnowledgeAreaConverter.listEntity2DTO(translationRequestLogic.listKnowledgeAreas(id));
+    }
+
+    @GET
+    @Path("{id: \\d+}/knowledges/{knowledgeId: \\d+}")
+    public KnowledgeAreaDTO getKnowledgeAreas(@PathParam("id") Long id, @PathParam("knowledgeId") Long knowledgeId) {
+        return KnowledgeAreaConverter.fullEntity2DTO(translationRequestLogic.getKnowledgeAreas(id, knowledgeId));
+    }
+
+    @POST
+    @Path("{id: \\d+}/knowledges/{knowledgeId: \\d+}")
+    public KnowledgeAreaDTO addKnowledgeAreas(@PathParam("id") Long id, @PathParam("knowledgeId") Long knowledgeId) {
+        return KnowledgeAreaConverter.fullEntity2DTO(translationRequestLogic.addKnowledgeAreas(id, knowledgeId));
+    }
+
+    @PUT
+    @Path("{id: \\d+}/knowledges")
+    public List<KnowledgeAreaDTO> replaceKnowledgeAreas(@PathParam("id") Long id, List<KnowledgeAreaDTO> knowledges) {
+        return KnowledgeAreaConverter.listEntity2DTO(translationRequestLogic.replaceKnowledgeAreas(id, KnowledgeAreaConverter.listDTO2Entity(knowledges)));
+    }
+
+    @DELETE
+    @Path("{id: \\d+}/knowledges/{knowledgeId: \\d+}")
+    public void removeKnowledgeAreas(@PathParam("id") Long id, @PathParam("knowledgeId") Long knowledgeId) {
+        translationRequestLogic.removeKnowledgeAreas(id, knowledgeId);
     }
 }

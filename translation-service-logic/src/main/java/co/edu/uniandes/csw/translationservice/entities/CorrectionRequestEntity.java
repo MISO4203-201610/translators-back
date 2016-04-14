@@ -8,8 +8,12 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import uk.co.jemos.podam.common.PodamStrategyValue;
 import co.edu.uniandes.csw.crud.api.podam.strategy.DateStrategy;
+import java.util.ArrayList;
+import java.util.List;
+import javax.persistence.ManyToMany;
 import uk.co.jemos.podam.common.PodamExclude;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 /**
  * @generated
@@ -40,6 +44,10 @@ public class CorrectionRequestEntity extends BaseEntity implements Serializable 
     private String description;
     
     private int numberOfWords;
+    
+    @PodamExclude
+    @OneToMany
+    private List<KnowledgeAreaEntity> skillsRequested = new ArrayList<>();
 
     /**
      * @generated
@@ -137,5 +145,19 @@ public class CorrectionRequestEntity extends BaseEntity implements Serializable 
      */
     public void setNumberOfWords(int numberOfWords) {
         this.numberOfWords = numberOfWords;
+    }
+
+    /**
+     * @return the skillsRequested
+     */
+    public List<KnowledgeAreaEntity> getSkillsRequested() {
+        return skillsRequested;
+    }
+
+    /**
+     * @param skillsRequested the skillsRequested to set
+     */
+    public void setSkillsRequested(List<KnowledgeAreaEntity> skillsRequested) {
+        this.skillsRequested = skillsRequested;
     }
 }

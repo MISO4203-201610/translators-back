@@ -10,6 +10,7 @@ import uk.co.jemos.podam.common.PodamStrategyValue;
 import co.edu.uniandes.csw.crud.api.podam.strategy.DateStrategy;
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.ManyToMany;
 import uk.co.jemos.podam.common.PodamExclude;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -53,6 +54,10 @@ public class TranslationRequestEntity extends BaseEntity implements Serializable
     private String contexto;
     
     private int numberOfWords;
+    
+    @PodamExclude
+    @OneToMany
+    private List<KnowledgeAreaEntity> knowledgeAreasRequested = new ArrayList<>();
 
     /**
      * @generated
@@ -172,5 +177,19 @@ public class TranslationRequestEntity extends BaseEntity implements Serializable
 
     public void setNumberOfWords(int numberOfWords) {
         this.numberOfWords = numberOfWords;
+    }
+
+    /**
+     * @return the knowledgeAreasRequested
+     */
+    public List<KnowledgeAreaEntity> getKnowledgeAreasRequested() {
+        return knowledgeAreasRequested;
+    }
+
+    /**
+     * @param knowledgeAreasRequested the knowledgeAreasRequested to set
+     */
+    public void setKnowledgeAreasRequested(List<KnowledgeAreaEntity> knowledgeAreasRequested) {
+        this.knowledgeAreasRequested = knowledgeAreasRequested;
     }
 }

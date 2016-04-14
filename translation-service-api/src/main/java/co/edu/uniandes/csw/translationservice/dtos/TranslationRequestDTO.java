@@ -1,5 +1,7 @@
 package co.edu.uniandes.csw.translationservice.dtos;
 
+import java.util.ArrayList;
+import java.util.List;
 import javax.xml.bind.annotation.XmlRootElement;
 import uk.co.jemos.podam.common.PodamExclude;
 
@@ -19,6 +21,9 @@ public class TranslationRequestDTO extends RequestDTO {
     private String contexto;
     @PodamExclude
     private int numberOfWords;
+    
+    @PodamExclude
+    private List<KnowledgeAreaDTO> knowledgeAreas = new ArrayList<>();    
 
     /**
      * @generated
@@ -82,6 +87,20 @@ public class TranslationRequestDTO extends RequestDTO {
 
     public void setNumberOfWords(int numberOfWords) {
         this.numberOfWords = numberOfWords;
+    }
+
+    /**
+     * @return the knowledgeAreas
+     */
+    public List<KnowledgeAreaDTO> getKnowledgeAreas() {
+        return knowledgeAreas;
+    }
+
+    /**
+     * @param knowledgeAreas the knowledgeAreas to set
+     */
+    public void setKnowledgeAreas(List<KnowledgeAreaDTO> knowledgeAreas) {
+        this.knowledgeAreas = knowledgeAreas;
     }
     
 }

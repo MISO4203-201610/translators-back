@@ -135,7 +135,8 @@ public abstract class TranslationRequestConverter {
      */
     public static TranslationRequestDTO fullEntity2DTO(TranslationRequestEntity entity) {
         if (entity != null) {
-            TranslationRequestDTO dto = basicEntity2DTO(entity);
+            TranslationRequestDTO dto = basicEntity2DTO(entity);        
+            dto.setKnowledgeAreas(KnowledgeAreaConverter.listEntity2DTO(entity.getKnowledgeAreasRequested()));
             return dto;
         } else {
             return null;
@@ -153,6 +154,7 @@ public abstract class TranslationRequestConverter {
     public static TranslationRequestEntity fullDTO2Entity(TranslationRequestDTO dto) {
         if (dto != null) {
             TranslationRequestEntity entity = basicDTO2Entity(dto);
+            entity.setKnowledgeAreasRequested(KnowledgeAreaConverter.listDTO2Entity(dto.getKnowledgeAreas()));
             return entity;
         } else {
             return null;
@@ -195,4 +197,5 @@ public abstract class TranslationRequestConverter {
         }
         return entities;
     }
+
 }
