@@ -95,12 +95,9 @@ public class TranslationRequestLogic implements ITranslationRequestLogic {
    
     @Override
     public KnowledgeAreaEntity addKnowledgeAreas(Long id, Long KnowledgeAreaId){
-        //TranslationRequestEntity entity = persistence.find(id);
+
         KnowledgeAreaEntity knowledgeAreasEntity = knowledgeAreaLogic.getKnowledgeArea(KnowledgeAreaId);
-        //knowledgeAreEntity.setTraslationRequest(entity);
-        //entity.get(knowledgeAreasRequested);
-        //return knowledgeAreEntity;
-        
+
         TranslationRequestEntity entity = persistence.find(id);
         knowledgeAreasEntity.setId(KnowledgeAreaId);
         entity.getKnowledgeAreasRequested().add(knowledgeAreasEntity);

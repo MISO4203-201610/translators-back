@@ -47,7 +47,7 @@ public class CorrectionRequestEntity extends BaseEntity implements Serializable 
     
     @PodamExclude
     @OneToMany
-    private List<KnowledgeAreaEntity> skillsRequested = new ArrayList<>();
+    private List<KnowledgeAreaEntity> knowledgeAreasRequested = new ArrayList<>();
 
     /**
      * @generated
@@ -148,16 +148,17 @@ public class CorrectionRequestEntity extends BaseEntity implements Serializable 
     }
 
     /**
-     * @return the skillsRequested
+     * @return the knowledgeAreasRequested
      */
-    public List<KnowledgeAreaEntity> getSkillsRequested() {
-        return skillsRequested;
+    public List<KnowledgeAreaEntity> getKnowledgeAreasRequested() {
+        return knowledgeAreasRequested;
     }
 
     /**
-     * @param skillsRequested the skillsRequested to set
+     * @param knowledgeAreasRequested the knowledgeAreasRequested to set
      */
-    public void setSkillsRequested(List<KnowledgeAreaEntity> skillsRequested) {
-        this.skillsRequested = skillsRequested;
+    public void setKnowledgeAreasRequested(List<KnowledgeAreaEntity> knowledgeAreasRequested) {
+        this.knowledgeAreasRequested = knowledgeAreasRequested;
     }
+
 }
