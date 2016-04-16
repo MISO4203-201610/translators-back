@@ -188,4 +188,23 @@ public abstract class TranslatorConverter {
         }
         return entities;
     }
+    
+    /**
+     * Convierte una colección de instancias de TranslatorEntity a TranslatorDTO. Para cada
+     * instancia de TranslatorEntity en la lista, invoca fullEntity2DTO y añade el
+     * nuevo TranslatorDTO a una nueva lista
+     *
+     * @param entities Colección de entidades a convertir
+     * @return Collección de instancias de TranslatorDTO
+     * @generated
+     */
+    public static List<TranslatorDTO> listFullEntity2DTO(List<TranslatorEntity> entities) {
+        List<TranslatorDTO> dtos = new ArrayList<TranslatorDTO>();
+        if (entities != null) {
+            for (TranslatorEntity entity : entities) {
+                dtos.add(fullEntity2DTO(entity));
+            }
+        }
+        return dtos;
+    }
 }

@@ -20,6 +20,10 @@ public class ReviewDTO {
     private String description;
 
     private TranslatorDTO translator;
+    
+    private CustomerDTO customer;
+    
+    private int value;
 
     public Long getId() {
         return id;
@@ -59,5 +63,21 @@ public class ReviewDTO {
 
     public void setTranslator(TranslatorDTO translator) {
         this.translator = translator;
+    }
+    
+    public CustomerDTO getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(CustomerDTO customer) {
+        this.customer = customer;
+    }
+    
+    public int getValue() {
+        return value;
+    }
+
+    public void setValue(int value) {
+        this.value = value;
     }
 }

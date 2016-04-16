@@ -13,6 +13,19 @@ public class ReviewEntity extends BaseEntity implements Serializable {
     
     private String description;
     
+    private int value;
+    
+    /**
+     * Relación Muchos a uno con CustomerEntity
+     * Esta relación es mapeada desde CustomerEntity por la relación en el atributo
+     * reviews.
+     * La anotación crea una llave foránea en la base de datos que
+     * apunta a la tabla de TranslatorEntity
+     */
+    @PodamExclude
+    @ManyToOne
+    private CustomerEntity customer;
+    
     /**
      * Relación Muchos a uno con TranslatorEntity
      * Esta relación es mapeada desde TranslatorEntity por la relación en el atributo
@@ -46,5 +59,21 @@ public class ReviewEntity extends BaseEntity implements Serializable {
 
     public void setTranslator(TranslatorEntity translator) {
         this.translator = translator;
+    }
+    
+    public CustomerEntity getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(CustomerEntity customer) {
+        this.customer = customer;
+    }
+    
+    public int getValue() {
+        return value;
+    }
+
+    public void setValue(int value) {
+        this.value = value;
     }
 }

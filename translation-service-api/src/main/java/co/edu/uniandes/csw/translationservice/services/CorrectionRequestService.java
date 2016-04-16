@@ -22,6 +22,7 @@ import co.edu.uniandes.csw.translationservice.converters.CorrectionRequestConver
 import co.edu.uniandes.csw.translationservice.converters.TranslatorConverter;
 import co.edu.uniandes.csw.translationservice.dtos.TranslatorDTO;
 import static co.edu.uniandes.csw.translationservice.services.AccountService.getCurrentCustomer;
+import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 
 /**
@@ -75,13 +76,38 @@ public class CorrectionRequestService {
      * a recomendar
      */
     @GET
-    @Path("/recommendations/{id: \\d+}")
+    @Path("recommendations/{id: \\d+}/invite/{translatorId: \\d+}")
+    public void sendInvitationCorrectionRequest(@PathParam("id") Long id, @PathParam("translatorId") Long translatorId) {
+        
+        // Email them
+        List<TranslatorDTO> translator = new ArrayList<TranslatorDTO>();
+        translator.add(TranslatorConverter.refEntity2DTO(translatorLogic.getTranslator(translatorId)));
+        
+        // Invite them
+        String subject = "You've got an invitation";
+        String body = "You've being invited to quote a correction request. To give a quote go to: http://localhost:9000/#/confirmCorrection";
+        MailService.sendMailAdmin(translator, subject, body);
+    }
+    
+    /**
+     * Obtiene los traductores a recomendar para determinado correction request
+     *
+     * @param id Identificador de la instancia a recomendar
+     * @return Colección de TranslatorDTO con los datos de los Translator
+     * a recomendar
+     */
+    @GET
+    @Path("recommendations/{id: \\d+}")
     public List<TranslatorDTO> getRecommendationsCorrectionRequest(@PathParam("id") Long id) {
-        List<TranslatorDTO> list = TranslatorConverter.listEntity2DTO(translatorLogic.getTranslators());
-        return CorrectionRequestConverter.fullEntity2RecommendationDTO(
-                CorrectionRequestConverter.fullEntity2DTO(correctionRequestLogic.getCorrectionRequest(id)),
-                list
+        
+        // Filtrar las recomendaciones
+        List<TranslatorDTO> recommendations = CorrectionRequestConverter.fullEntity2RecommendationDTO(
+            correctionRequestLogic.getCorrectionRequest(id),
+            translatorLogic.getTranslators()
         );
+        
+        // Retornar las recomendaciones
+        return recommendations;
     }
 
     /**

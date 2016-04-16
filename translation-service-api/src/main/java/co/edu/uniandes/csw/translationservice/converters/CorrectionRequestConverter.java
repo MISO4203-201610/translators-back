@@ -1,8 +1,12 @@
 package co.edu.uniandes.csw.translationservice.converters;
 
+import co.edu.uniandes.csw.translationservice.converters.TranslatorConverter;
 import co.edu.uniandes.csw.translationservice.dtos.TranslatorDTO;
 import co.edu.uniandes.csw.translationservice.dtos.CorrectionRequestDTO;
+import co.edu.uniandes.csw.translationservice.entities.TranslatorEntity;
 import co.edu.uniandes.csw.translationservice.entities.CorrectionRequestEntity;
+import co.edu.uniandes.csw.translationservice.entities.ReviewEntity;
+import co.edu.uniandes.csw.translationservice.entities.KnowledgeAreaEntity;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -197,16 +201,32 @@ public abstract class CorrectionRequestConverter {
      * @param list Colección de traductores
      * @return Colección de instancias de TranslatorDTO filtrados
      */
-    public static List<TranslatorDTO> fullEntity2RecommendationDTO(CorrectionRequestDTO dto, List<TranslatorDTO> list) {
+    public static List<TranslatorDTO> fullEntity2RecommendationDTO(CorrectionRequestEntity entity, List<TranslatorEntity> list) {
+        
         List<TranslatorDTO> dtos = new ArrayList<TranslatorDTO>();
         
         if (list != null)
         {
-            for (TranslatorDTO translatorDto : list) {
+            for (TranslatorEntity translatorEntity : list) {
                 
-                // Add it!
-                if (translatorDto.getLanguages().contains(dto.getLanguage()))
-                    dtos.add(translatorDto);
+                // Does it speaks the language?
+                if (!translatorEntity.getLanguages().contains(entity.getLanguage()))
+                    continue;
+                
+                // Verify knowledge areas
+                boolean todas = true;
+                for (KnowledgeAreaEntity knowledgeAreaEntity : entity.getSkillsRequested()) {
+                    
+                    if (!translatorEntity.getKnowledgeAreas().contains(knowledgeAreaEntity))
+                    {
+                        todas = false;
+                        break;
+                    }
+                }
+                
+                // We need to add him
+                if (todas)
+                    dtos.add(TranslatorConverter.fullEntity2DTO(translatorEntity));
             }
         }
         

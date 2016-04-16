@@ -25,7 +25,9 @@ public abstract class ReviewConverter {
             dto.setName(entity.getName());
             dto.setSource(entity.getSource());
             dto.setDescription(entity.getDescription());
+            dto.setValue(entity.getValue());
             dto.setTranslator(TranslatorConverter.refEntity2DTO(entity.getTranslator()));
+            dto.setCustomer(CustomerConverter.refEntity2DTO(entity.getCustomer()));
 
             return dto;
         }
@@ -47,7 +49,9 @@ public abstract class ReviewConverter {
             entity.setName(dto.getName());
             entity.setSource(dto.getSource());
             entity.setDescription(dto.getDescription());
+            entity.setValue(dto.getValue());
             entity.setTranslator(TranslatorConverter.refDTO2Entity(dto.getTranslator()));
+            entity.setCustomer(CustomerConverter.refDTO2Entity(dto.getCustomer()));
 
             return entity;
         }

@@ -225,9 +225,6 @@ public class TranslatorLogic implements ITranslatorLogic {
         return null;
     }
 
-    /**
-     * @generated
-     */
     @Override
     public KnowledgeAreaEntity addKnowledgeAreas(Long translatorId, Long knowledgeAreasId) {
         TranslatorEntity translatorEntity = persistence.find(translatorId);
