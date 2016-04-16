@@ -113,7 +113,7 @@ public class TranslatorLogicTest {
         em.createQuery("delete from TranslatorEntity").executeUpdate();
         em.createQuery("delete from LanguageEntity").executeUpdate();
         em.createQuery("delete from KnowledgeAreaEntity").executeUpdate();
-        em.createQuery("delete from TranslatorOfert").executeUpdate();
+        em.createQuery("delete from TranslatorOfertEntity").executeUpdate();
     }
 
     /**
@@ -293,6 +293,7 @@ public class TranslatorLogicTest {
         Assert.assertNull(response);
     }
     
+    @Test
     public void getKnowledgeAreasTest() {
         TranslatorEntity entity = data.get(0);
         KnowledgeAreaEntity knowledgeAreaEntity = knowledgeAreasData.get(0);
