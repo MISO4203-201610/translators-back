@@ -3,7 +3,6 @@ package co.edu.uniandes.csw.translationservice.tests;
 import co.edu.uniandes.csw.auth.model.UserDTO;
 import co.edu.uniandes.csw.auth.security.JWT;
 import co.edu.uniandes.csw.translationservice.dtos.ReviewDTO;
-import co.edu.uniandes.csw.translationservice.dtos.CustomerDTO;
 import co.edu.uniandes.csw.translationservice.services.ReviewService;
 import java.io.File;
 import java.io.IOException;
@@ -41,9 +40,7 @@ public class ReviewTest {
     private final int Ok = Status.OK.getStatusCode();
     private final int Created = Status.CREATED.getStatusCode();
     private final int OkWithoutContent = Status.NO_CONTENT.getStatusCode();
-    private final String correctionRequestPath = "reviews";
-    private final String translatorPath = "translators";
-    private final String customerPath = "customers";
+    private final String reviewPath = "reviews";
     private final static List<ReviewDTO> oraculo = new ArrayList<>();
     private WebTarget target;
     private final String apiPath = "api";
@@ -89,10 +86,10 @@ public class ReviewTest {
     public static void insertData() {
         for (int i = 0; i < 5; i++) {
             PodamFactory factory = new PodamFactoryImpl();
-            ReviewDTO correctionRequest = factory.manufacturePojo(ReviewDTO.class);
-            correctionRequest.setId(i + 1L);
+            ReviewDTO review = factory.manufacturePojo(ReviewDTO.class);
+            review.setId(i + 1L);
 
-            oraculo.add(correctionRequest);
+            oraculo.add(review);
 
         }
     }
@@ -119,21 +116,14 @@ public class ReviewTest {
     @Test
     @InSequence(1)
     public void createReviewTest() throws IOException {
-        PodamFactory factory = new PodamFactoryImpl();
-        CustomerDTO customer = factory.manufacturePojo(CustomerDTO.class);;
+        ReviewDTO review = oraculo.get(0);
         Cookie cookieSessionId = login(username, password);
-        target.path(customerPath)
+        Response response = target.path(reviewPath)
                 .request().cookie(cookieSessionId)
-                .post(Entity.entity(customer, MediaType.APPLICATION_JSON));
-
-        ReviewDTO correctionRequest = oraculo.get(0);
-        Response response = target.path(correctionRequestPath)
-                .request().cookie(cookieSessionId)
-                .post(Entity.entity(correctionRequest, MediaType.APPLICATION_JSON));
-        ReviewDTO correctionrequestTest = (ReviewDTO) response.readEntity(ReviewDTO.class);
-        Assert.assertEquals(correctionRequest.getId(), correctionrequestTest.getId());
-        Assert.assertEquals(correctionRequest.getName(), correctionrequestTest.getName());
-        Assert.assertEquals(correctionRequest.getDescription(), correctionrequestTest.getDescription());
+                .post(Entity.entity(review, MediaType.APPLICATION_JSON));
+        ReviewDTO  reviewTest = (ReviewDTO) response.readEntity(ReviewDTO.class);
+        Assert.assertEquals(review.getId(), reviewTest.getId());
+        Assert.assertEquals(review.getName(), reviewTest.getName());
         Assert.assertEquals(Created, response.getStatus());
     }
 
@@ -141,19 +131,18 @@ public class ReviewTest {
     @InSequence(2)
     public void getReviewById() {
         Cookie cookieSessionId = login(username, password);
-        ReviewDTO correctionrequestTest = target.path(correctionRequestPath)
+        ReviewDTO reviewTest = target.path(reviewPath)
                 .path(oraculo.get(0).getId().toString())
                 .request().cookie(cookieSessionId).get(ReviewDTO.class);
-        Assert.assertEquals(correctionrequestTest.getId(), oraculo.get(0).getId());
-        Assert.assertEquals(correctionrequestTest.getName(), oraculo.get(0).getName());
-        Assert.assertEquals(correctionrequestTest.getDescription(), oraculo.get(0).getDescription());
+        Assert.assertEquals(reviewTest.getId(), oraculo.get(0).getId());
+        Assert.assertEquals(reviewTest.getName(), oraculo.get(0).getName());
     }
 
     @Test
     @InSequence(3)
     public void listReviewTest() throws IOException {
         Cookie cookieSessionId = login(username, password);
-        Response response = target.path(correctionRequestPath)
+        Response response = target.path(reviewPath)
                 .request().cookie(cookieSessionId).get();
         String listReview = response.readEntity(String.class);
         List<ReviewDTO> listReviewTest = new ObjectMapper().readValue(listReview, List.class);
@@ -165,26 +154,23 @@ public class ReviewTest {
     @InSequence(4)
     public void updateReviewTest() throws IOException {
         Cookie cookieSessionId = login(username, password);
-        ReviewDTO correctionRequest = oraculo.get(0);
+        ReviewDTO review = oraculo.get(0);
         PodamFactory factory = new PodamFactoryImpl();
-        ReviewDTO correctionRequestChanged = factory.manufacturePojo(ReviewDTO.class);
-        correctionRequest.setName(correctionRequestChanged.getName());
-        correctionRequest.setDescription(correctionRequestChanged.getDescription());
-        
-        Response response = target.path(correctionRequestPath).path(correctionRequest.getId().toString())
-                .request().cookie(cookieSessionId).put(Entity.entity(correctionRequest, MediaType.APPLICATION_JSON));
-        ReviewDTO correctionrequestTest = (ReviewDTO) response.readEntity(ReviewDTO.class);
+        ReviewDTO reviewChanged = factory.manufacturePojo(ReviewDTO.class);
+        review.setName(reviewChanged.getName());
+        Response response = target.path(reviewPath).path(review.getId().toString())
+                .request().cookie(cookieSessionId).put(Entity.entity(review, MediaType.APPLICATION_JSON));
+        ReviewDTO reviewTest = (ReviewDTO) response.readEntity(ReviewDTO.class);
         Assert.assertEquals(Ok, response.getStatus());
-        Assert.assertEquals(correctionRequest.getName(), correctionrequestTest.getName());
-        Assert.assertEquals(correctionRequest.getDescription(), correctionrequestTest.getDescription());
+        Assert.assertEquals(review.getName(), reviewTest.getName());
     }
 
     @Test
     @InSequence(5)
     public void deleteReviewTest() {
         Cookie cookieSessionId = login(username, password);
-        ReviewDTO correctionRequest = oraculo.get(0);
-        Response response = target.path(correctionRequestPath).path(correctionRequest.getId().toString())
+        ReviewDTO review = oraculo.get(0);
+        Response response = target.path(reviewPath).path(review.getId().toString())
                 .request().cookie(cookieSessionId).delete();
         Assert.assertEquals(OkWithoutContent, response.getStatus());
     }

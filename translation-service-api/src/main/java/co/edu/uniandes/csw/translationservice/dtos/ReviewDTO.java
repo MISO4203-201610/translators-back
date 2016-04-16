@@ -5,6 +5,8 @@
  */
 package co.edu.uniandes.csw.translationservice.dtos;
 
+import uk.co.jemos.podam.common.PodamExclude;
+
 /**
  *
  * @author af.esguerra10
@@ -19,8 +21,10 @@ public class ReviewDTO {
 
     private String description;
 
+    @PodamExclude
     private TranslatorDTO translator;
     
+    @PodamExclude
     private CustomerDTO customer;
     
     private int value;
