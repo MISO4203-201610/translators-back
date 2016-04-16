@@ -223,7 +223,7 @@ public abstract class CorrectionRequestConverter {
                 
                 // Verify knowledge areas
                 boolean todas = true;
-                for (KnowledgeAreaEntity knowledgeAreaEntity : entity.getSkillsRequested()) {
+                for (KnowledgeAreaEntity knowledgeAreaEntity : entity.getKnowledgeAreasRequested()) {
                     
                     if (!translatorEntity.getKnowledgeAreas().contains(knowledgeAreaEntity))
                     {
