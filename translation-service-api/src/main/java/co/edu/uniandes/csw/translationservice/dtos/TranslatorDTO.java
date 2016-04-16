@@ -22,8 +22,7 @@ public class TranslatorDTO {
     
     @PodamStrategyValue(DateStrategy.class)
     private Date birthDate;
-
-    @PodamExclude
+    
     private List<EducationDTO> education = new ArrayList<>();
     @PodamExclude
     private List<LanguageDTO> languages = new ArrayList<>();
