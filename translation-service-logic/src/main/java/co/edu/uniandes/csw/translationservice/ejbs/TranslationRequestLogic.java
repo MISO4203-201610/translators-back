@@ -92,15 +92,16 @@ public class TranslationRequestLogic implements ITranslationRequestLogic {
         }
         return null;
     }
-
-    
-    
+   
     @Override
     public KnowledgeAreaEntity addKnowledgeAreas(Long id, Long KnowledgeAreaId){
+
+        KnowledgeAreaEntity knowledgeAreasEntity = knowledgeAreaLogic.getKnowledgeArea(KnowledgeAreaId);
+
         TranslationRequestEntity entity = persistence.find(id);
-        KnowledgeAreaEntity knowledgeAreEntity = knowledgeAreaLogic.getKnowledgeArea(KnowledgeAreaId);
-        //knowledgeAreEntity.setTraslationRequested(TraslationRequested);Author(entity);
-        return knowledgeAreEntity;
+        knowledgeAreasEntity.setId(KnowledgeAreaId);
+        entity.getKnowledgeAreasRequested().add(knowledgeAreasEntity);
+        return getKnowledgeAreas(id, KnowledgeAreaId);
     }
 
     @Override
@@ -109,11 +110,11 @@ public class TranslationRequestLogic implements ITranslationRequestLogic {
         List<KnowledgeAreaEntity> knowledgeList = knowledgeAreaLogic.getKnowledgeAreas();
         for (KnowledgeAreaEntity knowledge : knowledgeList) {
             if (list.contains(knowledge)) {
-                //knowledge.setAuthor(authorEntity);
+                knowledge.setTraslationRequest(entity);
             } else {
-                //if (knowledge.getAuthor()!= null && award.getAuthor().equals(authorEntity)) {
-                //    knowledge.setAuthor(null);
-                //}
+                if (knowledge.getTraslationRequest()!= null && knowledge.getTraslationRequest().equals(entity)) {
+                    knowledge.setTraslationRequest(null);
+                }
             }
         }
         entity.setKnowledgeAreasRequested(list);
@@ -123,7 +124,9 @@ public class TranslationRequestLogic implements ITranslationRequestLogic {
     
     @Override
     public void removeKnowledgeAreas(Long id, Long KnowledgeAreaId) {
-        KnowledgeAreaEntity entity = knowledgeAreaLogic.getKnowledgeArea(KnowledgeAreaId);
-        //entity.setAuthor(null);
+        
+        TranslationRequestEntity entity = persistence.find(id);
+        KnowledgeAreaEntity knowledgeAreasEntity = knowledgeAreaLogic.getKnowledgeArea(KnowledgeAreaId);
+        entity.getKnowledgeAreasRequested().remove(knowledgeAreasEntity);
     }   
 }

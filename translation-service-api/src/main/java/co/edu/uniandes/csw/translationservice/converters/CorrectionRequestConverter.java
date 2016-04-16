@@ -40,6 +40,8 @@ public abstract class CorrectionRequestConverter {
             dto.setDueDate(entity.getDueDate());
             dto.setDesctiption(entity.getDescription());
             dto.setNumberOfWords(entity.getNumberOfWords());
+            
+            dto.setKnowledgeAreas(KnowledgeAreaConverter.listEntity2DTO(entity.getKnowledgeAreasRequested()));
 
             return dto;
         } else {
@@ -87,6 +89,8 @@ public abstract class CorrectionRequestConverter {
             dto.setCustomer(CustomerConverter.refEntity2DTO(entity.getCustomer()));
             dto.setDesctiption(entity.getDescription());
             dto.setNumberOfWords(entity.getNumberOfWords());
+            
+            dto.setKnowledgeAreas(KnowledgeAreaConverter.listEntity2DTO(entity.getKnowledgeAreasRequested()));
 
             return dto;
         } else {
@@ -115,6 +119,8 @@ public abstract class CorrectionRequestConverter {
             entity.setCustomer(CustomerConverter.refDTO2Entity(dto.getCustomer()));
             entity.setDescription(dto.getDesctiption());
             entity.setNumberOfWords(dto.getNumberOfWords());
+            
+            entity.setKnowledgeAreasRequested(KnowledgeAreaConverter.listDTO2Entity(dto.getKnowledgeAreas()));
 
             return entity;
         } else {
@@ -133,6 +139,7 @@ public abstract class CorrectionRequestConverter {
     public static CorrectionRequestDTO fullEntity2DTO(CorrectionRequestEntity entity) {
         if (entity != null) {
             CorrectionRequestDTO dto = basicEntity2DTO(entity);
+            dto.setKnowledgeAreas(KnowledgeAreaConverter.listEntity2DTO(entity.getKnowledgeAreasRequested()));
             return dto;
         } else {
             return null;
@@ -150,6 +157,7 @@ public abstract class CorrectionRequestConverter {
     public static CorrectionRequestEntity fullDTO2Entity(CorrectionRequestDTO dto) {
         if (dto != null) {
             CorrectionRequestEntity entity = basicDTO2Entity(dto);
+            entity.setKnowledgeAreasRequested(KnowledgeAreaConverter.listDTO2Entity(dto.getKnowledgeAreas()));
             return entity;
         } else {
             return null;

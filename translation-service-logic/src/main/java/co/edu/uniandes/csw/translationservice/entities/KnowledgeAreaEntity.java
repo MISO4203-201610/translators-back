@@ -3,10 +3,7 @@ package co.edu.uniandes.csw.translationservice.entities;
 import java.io.Serializable;
 import javax.persistence.Entity;
 import co.edu.uniandes.csw.crud.spi.entity.BaseEntity;
-import java.util.ArrayList;
-import java.util.List;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToOne;
 import uk.co.jemos.podam.common.PodamExclude;
 
 /**
@@ -16,22 +13,39 @@ import uk.co.jemos.podam.common.PodamExclude;
 public class KnowledgeAreaEntity extends BaseEntity implements Serializable {
     
     @PodamExclude
-    @OneToMany
-    private List<TranslationRequestEntity> TraslationRequested = new ArrayList<>();
+    @ManyToOne
+    private TranslationRequestEntity traslationRequest;
+    
+    @PodamExclude
+    @ManyToOne
+    private CorrectionRequestEntity correctionRequest;
 
     /**
-     * @return the TraslationRequested
+     * @return the traslationRequest
      */
-    public List<TranslationRequestEntity> getTraslationRequested() {
-        return TraslationRequested;
+    public TranslationRequestEntity getTraslationRequest() {
+        return traslationRequest;
     }
 
     /**
-     * @param TraslationRequested the TraslationRequested to set
+     * @param traslationRequest the traslationRequest to set
      */
-    public void setTraslationRequested(List<TranslationRequestEntity> TraslationRequested) {
-        this.TraslationRequested = TraslationRequested;
+    public void setTraslationRequest(TranslationRequestEntity traslationRequest) {
+        this.traslationRequest = traslationRequest;
     }
 
+    /**
+     * @return the correctionRequest
+     */
+    public CorrectionRequestEntity getCorrectionRequest() {
+        return correctionRequest;
+    }
+
+    /**
+     * @param correctionRequest the correctionRequest to set
+     */
+    public void setCorrectionRequest(CorrectionRequestEntity correctionRequest) {
+        this.correctionRequest = correctionRequest;
+    }
     
 }

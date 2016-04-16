@@ -130,6 +130,10 @@ public class TranslationRequestTest {
                 .request().cookie(cookieSessionId)
                 .post(Entity.entity(translationRequest, MediaType.APPLICATION_JSON));
         TranslationRequestDTO translationrequestTest = (TranslationRequestDTO) response.readEntity(TranslationRequestDTO.class);
+        if(translationRequest==null)
+            System.err.println("null uno");
+        if(translationrequestTest==null)
+            System.err.println("null dos");
         Assert.assertEquals(translationRequest.getId(), translationrequestTest.getId());
         Assert.assertEquals(translationRequest.getName(), translationrequestTest.getName());
         Assert.assertEquals(translationRequest.getCreationDate(), translationrequestTest.getCreationDate());
@@ -147,6 +151,12 @@ public class TranslationRequestTest {
         TranslationRequestDTO translationrequestTest = target.path(translationRequestPath)
                 .path(oraculo.get(0).getId().toString())
                 .request().cookie(cookieSessionId).get(TranslationRequestDTO.class);
+        
+        if(oraculo.get(0)==null)
+            System.err.println("null unos "+oraculo.get(0));
+        if(translationrequestTest==null)
+            System.err.println("null doss ");
+        
         Assert.assertEquals(translationrequestTest.getId(), oraculo.get(0).getId());
         Assert.assertEquals(translationrequestTest.getName(), oraculo.get(0).getName());
         Assert.assertEquals(translationrequestTest.getCreationDate(), oraculo.get(0).getCreationDate());

@@ -23,7 +23,7 @@ public class TranslationRequestDTO extends RequestDTO {
     private int numberOfWords;
     
     @PodamExclude
-    private List<KnowledgeAreaDTO> knowledgeAreas = new ArrayList<>();    
+    private List<KnowledgeAreaDTO> knowledgeAreas = new ArrayList<>();
 
     /**
      * @generated
