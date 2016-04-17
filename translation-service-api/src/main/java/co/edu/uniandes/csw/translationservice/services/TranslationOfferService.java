@@ -93,7 +93,7 @@ public class TranslationOfferService {
         entity.setTranslationRequest(TranslationRequestConverter.fullDTO2Entity(dto.getTranslationRequest()));
         
         String[] to = new String[MAX_EMAIL];
-        to[0]= "ing.rojas.m@gmail.com";
+        to[0]= "sotomelendez@gmail.com";
         
         String subject = "New Translator Offer was created ";
        
