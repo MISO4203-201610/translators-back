@@ -14,11 +14,11 @@ public class TranslationOfferEntity extends BaseEntity implements Serializable {
     
     @PodamExclude
     @ManyToOne
-    private TranslatorEntity translator;
+    private TranslatorEntity translationOfferTranslator;
     
     @PodamExclude
     @ManyToOne
-    private TranslationRequestEntity translationRequest;
+    private TranslationRequestEntity translationOfferRequest;
     
     private String price;
     
@@ -56,27 +56,27 @@ public class TranslationOfferEntity extends BaseEntity implements Serializable {
      * @generated
      */
     public TranslatorEntity getTranslator() {
-        return translator;
+        return translationOfferTranslator;
     }
 
     /**
      * @generated
      */
     public void setTranslator(TranslatorEntity translator) {
-        this.translator = translator;
+        this.translationOfferTranslator = translator;
     }
     
     /**
      * @generated
      */
     public TranslationRequestEntity getTranslationRequest() {
-        return translationRequest;
+        return translationOfferRequest;
     }
 
     /**
      * @generated
      */
     public void setTranslationRequest(TranslationRequestEntity translationRequest) {
-        this.translationRequest = translationRequest;
+        this.translationOfferRequest = translationRequest;
     }    
 }

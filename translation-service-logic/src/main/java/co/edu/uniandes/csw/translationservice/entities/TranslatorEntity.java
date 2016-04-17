@@ -43,7 +43,7 @@ public class TranslatorEntity extends BaseEntity implements Serializable {
     private List<KnowledgeAreaEntity> knowledgeAreas = new ArrayList<>();
     
     @PodamExclude
-    @OneToMany(mappedBy = "translator")
+    @OneToMany(mappedBy = "translationOfferTranslator")
     private List<TranslationOfferEntity> translationOffers = new ArrayList<>();
     
     private String email;
