@@ -1,20 +1,20 @@
 package co.edu.uniandes.csw.translationservice.converters;
 
-import co.edu.uniandes.csw.translationservice.dtos.TranslatorOfertDTO;
-import co.edu.uniandes.csw.translationservice.entities.TranslatorOfertEntity;
+import co.edu.uniandes.csw.translationservice.dtos.TranslationOfferDTO;
+import co.edu.uniandes.csw.translationservice.entities.TranslationOfferEntity;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * @author: Germán
  */
-public abstract class TranslatorOfertConverter {
+public abstract class TranslationOfferConverter {
 
     /**
      * Constructor privado para evitar la creación del constructor implícito de Java
      * @generated
      */
-    private TranslatorOfertConverter() {
+    private TranslationOfferConverter() {
     }
 
     /**
@@ -26,9 +26,9 @@ public abstract class TranslatorOfertConverter {
      * @return instancia de TranslatorOfertDTO con los datos recibidos por parámetro
      * @generated
      */
-    public static TranslatorOfertDTO refEntity2DTO(TranslatorOfertEntity entity) {
+    public static TranslationOfferDTO refEntity2DTO(TranslationOfferEntity entity) {
         if (entity != null) {
-            TranslatorOfertDTO dto = new TranslatorOfertDTO();
+            TranslationOfferDTO dto = new TranslationOfferDTO();
             dto.setId(entity.getId());
             dto.setPrice(entity.getPrice());
             dto.setComment(entity.getComment());
@@ -48,9 +48,9 @@ public abstract class TranslatorOfertConverter {
      * @return instancia de TranslatorOfertEntity con los datos recibidos por parámetro
      * @generated
      */
-    public static TranslatorOfertEntity refDTO2Entity(TranslatorOfertDTO dto) {
+    public static TranslationOfferEntity refDTO2Entity(TranslationOfferDTO dto) {
         if (dto != null) {
-            TranslatorOfertEntity entity = new TranslatorOfertEntity();
+            TranslationOfferEntity entity = new TranslationOfferEntity();
             entity.setId(dto.getId());
 
             return entity;
@@ -67,9 +67,9 @@ public abstract class TranslatorOfertConverter {
      * @return Instancia de TranslatorOfertDTO con los datos recibidos por parámetro
      * @generated
      */
-    private static TranslatorOfertDTO basicEntity2DTO(TranslatorOfertEntity entity) {
+    private static TranslationOfferDTO basicEntity2DTO(TranslationOfferEntity entity) {
         if (entity != null) {
-            TranslatorOfertDTO dto = new TranslatorOfertDTO();
+            TranslationOfferDTO dto = new TranslationOfferDTO();
             dto.setId(entity.getId());
             dto.setPrice(entity.getPrice());
             dto.setComment(entity.getComment());
@@ -91,9 +91,9 @@ public abstract class TranslatorOfertConverter {
      * @return Instancia de TranslatorOfertEntity creada a partir de los datos de dto
      * @generated
      */
-    private static TranslatorOfertEntity basicDTO2Entity(TranslatorOfertDTO dto) {
+    private static TranslationOfferEntity basicDTO2Entity(TranslationOfferDTO dto) {
         if (dto != null) {
-            TranslatorOfertEntity entity = new TranslatorOfertEntity();
+            TranslationOfferEntity entity = new TranslationOfferEntity();
             entity.setId(dto.getId());
             entity.setPrice(dto.getPrice());
             entity.setComment(dto.getComment());
@@ -115,9 +115,9 @@ public abstract class TranslatorOfertConverter {
      * @return Instancia de TranslatorOfertDTO con los datos recibidos por parámetro
      * @generated
      */
-    public static TranslatorOfertDTO fullEntity2DTO(TranslatorOfertEntity entity) {
+    public static TranslationOfferDTO fullEntity2DTO(TranslationOfferEntity entity) {
         if (entity != null) {
-            TranslatorOfertDTO dto = basicEntity2DTO(entity);
+            TranslationOfferDTO dto = basicEntity2DTO(entity);
             return dto;
         } else {
             return null;
@@ -132,9 +132,9 @@ public abstract class TranslatorOfertConverter {
      * @return Instancia de TranslatorOfertEntity con los datos recibidos por parámetro
      * @generated
      */
-    public static TranslatorOfertEntity fullDTO2Entity(TranslatorOfertDTO dto) {
+    public static TranslationOfferEntity fullDTO2Entity (TranslationOfferDTO dto) {
         if (dto != null) {
-            TranslatorOfertEntity entity = basicDTO2Entity(dto);
+            TranslationOfferEntity entity = basicDTO2Entity(dto);
             return entity;
         } else {
             return null;
@@ -150,10 +150,10 @@ public abstract class TranslatorOfertConverter {
      * @return Collección de instancias de TranslatorOfertDTO
      * @generated
      */
-    public static List<TranslatorOfertDTO> listEntity2DTO(List<TranslatorOfertEntity> entities) {
-        List<TranslatorOfertDTO> dtos = new ArrayList<TranslatorOfertDTO>();
+    public static List<TranslationOfferDTO> listEntity2DTO(List<TranslationOfferEntity> entities) {
+        List<TranslationOfferDTO> dtos = new ArrayList<TranslationOfferDTO>();
         if (entities != null) {
-            for (TranslatorOfertEntity entity : entities) {
+            for (TranslationOfferEntity entity : entities) {
                 dtos.add(basicEntity2DTO(entity));
             }
         }
@@ -168,10 +168,10 @@ public abstract class TranslatorOfertConverter {
      * @return Collección de instancias de TranslatorOfertEntity
      * @generated
      */
-    public static List<TranslatorOfertEntity> listDTO2Entity(List<TranslatorOfertDTO> dtos) {
-        List<TranslatorOfertEntity> entities = new ArrayList<TranslatorOfertEntity>();
+    public static List<TranslationOfferEntity> listDTO2Entity(List<TranslationOfferDTO> dtos) {
+        List<TranslationOfferEntity> entities = new ArrayList<TranslationOfferEntity>();
         if (dtos != null) {
-            for (TranslatorOfertDTO dto : dtos) {
+            for (TranslationOfferDTO dto : dtos) {
                 entities.add(basicDTO2Entity(dto));
             }
         }

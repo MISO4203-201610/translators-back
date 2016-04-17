@@ -22,14 +22,14 @@ public class TranslatorDTO {
     
     @PodamStrategyValue(DateStrategy.class)
     private Date birthDate;
-
+    
     private List<EducationDTO> education = new ArrayList<>();
     @PodamExclude
     private List<LanguageDTO> languages = new ArrayList<>();
     @PodamExclude
     private List<KnowledgeAreaDTO> knowledgeAreas = new ArrayList<>();
     @PodamExclude
-    private List<TranslatorOfertDTO> translatorOferts = new ArrayList<>();
+    private List<TranslationOfferDTO> translatorOferts = new ArrayList<>();
     @PodamExclude
     private List<ReviewDTO> reviews;
 
@@ -147,11 +147,11 @@ public class TranslatorDTO {
         this.knowledgeAreas = knowledgeAreas;
     }
     
-    public List<TranslatorOfertDTO> getTranslatorOferts() {
+    public List<TranslationOfferDTO> getTranslationOffers() {
         return translatorOferts;
     }
     
-    public void setTranslatorOferts(List<TranslatorOfertDTO> translatorOferts) {
+    public void setTranslationOffers(List<TranslationOfferDTO> translatorOferts) {
         this.translatorOferts = translatorOferts;
     }
 }

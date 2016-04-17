@@ -10,7 +10,6 @@ import uk.co.jemos.podam.common.PodamStrategyValue;
 import co.edu.uniandes.csw.crud.api.podam.strategy.DateStrategy;
 import java.util.ArrayList;
 import java.util.List;
-import javax.persistence.ManyToMany;
 import uk.co.jemos.podam.common.PodamExclude;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -47,7 +46,7 @@ public class TranslationRequestEntity extends BaseEntity implements Serializable
     
     @PodamExclude
     @OneToMany(mappedBy = "translationRequest")
-    private List<TranslatorOfertEntity> translatorOferts = new ArrayList<>();
+    private List<TranslationOfferEntity> translationOffers = new ArrayList<>();
     
     private String description;
     
@@ -192,4 +191,13 @@ public class TranslationRequestEntity extends BaseEntity implements Serializable
     public void setKnowledgeAreasRequested(List<KnowledgeAreaEntity> knowledgeAreasRequested) {
         this.knowledgeAreasRequested = knowledgeAreasRequested;
     }
+
+    public List<TranslationOfferEntity> getTranslationOffers() {
+        return translationOffers;
+    }
+
+    public void setTranslationOffers(List<TranslationOfferEntity> translationOffers) {
+        this.translationOffers = translationOffers;
+    }
+    
 }

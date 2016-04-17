@@ -96,12 +96,7 @@ public class CorrectionRequestLogic implements ICorrectionRequestLogic {
    
     @Override
     public KnowledgeAreaEntity addKnowledgeAreas(Long id, Long KnowledgeAreaId){
-        //TranslationRequestEntity entity = persistence.find(id);
         KnowledgeAreaEntity knowledgeAreasEntity = knowledgeAreaLogic.getKnowledgeArea(KnowledgeAreaId);
-        //knowledgeAreEntity.setTraslationRequest(entity);
-        //entity.get(knowledgeAreasRequested);
-        //return knowledgeAreEntity;
-        
         CorrectionRequestEntity entity = persistence.find(id);
         knowledgeAreasEntity.setId(KnowledgeAreaId);
         entity.getKnowledgeAreasRequested().add(knowledgeAreasEntity);
@@ -127,10 +122,10 @@ public class CorrectionRequestLogic implements ICorrectionRequestLogic {
 
     
     @Override
-    public void removeKnowledgeAreas(Long id, Long KnowledgeAreaId) {
+    public void removeKnowledgeAreas(Long id, Long knowledgeAreaId) {
         
         CorrectionRequestEntity entity = persistence.find(id);
-        KnowledgeAreaEntity knowledgeAreasEntity = knowledgeAreaLogic.getKnowledgeArea(KnowledgeAreaId);
+        KnowledgeAreaEntity knowledgeAreasEntity = knowledgeAreaLogic.getKnowledgeArea(knowledgeAreaId);
         entity.getKnowledgeAreasRequested().remove(knowledgeAreasEntity);
     }   
 }

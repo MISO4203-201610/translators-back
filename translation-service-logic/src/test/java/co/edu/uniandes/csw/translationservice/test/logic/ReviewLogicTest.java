@@ -39,7 +39,7 @@ public class ReviewLogicTest {
      * @generated
      */
     @Inject
-    private IReviewLogic correctionRequestLogic;
+    private IReviewLogic reviewLogic;
 
     /**
      * @generated
@@ -130,7 +130,7 @@ public class ReviewLogicTest {
         for (int i = 0; i < 3; i++) {
             ReviewEntity entity = factory.manufacturePojo(ReviewEntity.class);
 
-             entity.setTranslator(translatorData.get(0));
+            entity.setTranslator(translatorData.get(0));
 
             entity.setCustomer(customerData.get(0));
 
@@ -145,11 +145,12 @@ public class ReviewLogicTest {
     @Test
     public void createReviewTest() {
         ReviewEntity entity = factory.manufacturePojo(ReviewEntity.class);
-        ReviewEntity result = correctionRequestLogic.createReview(entity);
+        ReviewEntity result = reviewLogic.createReview(entity);
         Assert.assertNotNull(result);
         Assert.assertEquals(result.getId(), entity.getId());
         Assert.assertEquals(result.getName(), entity.getName());
-        Assert.assertEquals(result.getDescription(), entity.getDescription());
+        Assert.assertEquals(result.getSource(), entity.getSource());
+        Assert.assertEquals(result.getValue(), entity.getValue());
     }
 
     /**
@@ -157,7 +158,7 @@ public class ReviewLogicTest {
      */
     @Test
     public void getReviewsTest() {
-        List<ReviewEntity> list = correctionRequestLogic.getReviews();
+        List<ReviewEntity> list = reviewLogic.getReviews();
         Assert.assertEquals(data.size(), list.size());
         for (ReviewEntity entity : list) {
             boolean found = false;
@@ -176,11 +177,12 @@ public class ReviewLogicTest {
     @Test
     public void getReviewTest() {
         ReviewEntity entity = data.get(0);
-        ReviewEntity resultEntity = correctionRequestLogic.getReview(entity.getId());
+        ReviewEntity resultEntity = reviewLogic.getReview(entity.getId());
         Assert.assertNotNull(resultEntity);
         Assert.assertEquals(entity.getId(), resultEntity.getId());
         Assert.assertEquals(entity.getName(), resultEntity.getName());
-        Assert.assertEquals(entity.getDescription(), resultEntity.getDescription());
+        Assert.assertEquals(entity.getSource(), resultEntity.getSource());
+        Assert.assertEquals(entity.getValue(), resultEntity.getValue());
     }
 
     /**
@@ -189,7 +191,7 @@ public class ReviewLogicTest {
     @Test
     public void deleteReviewTest() {
         ReviewEntity entity = data.get(1);
-        correctionRequestLogic.deleteReview(entity.getId());
+        reviewLogic.deleteReview(entity.getId());
         ReviewEntity deleted = em.find(ReviewEntity.class, entity.getId());
         Assert.assertNull(deleted);
     }
@@ -204,12 +206,13 @@ public class ReviewLogicTest {
 
         pojoEntity.setId(entity.getId());
 
-        correctionRequestLogic.updateReview(pojoEntity);
+        reviewLogic.updateReview(pojoEntity);
 
         ReviewEntity resp = em.find(ReviewEntity.class, entity.getId());
 
         Assert.assertEquals(pojoEntity.getId(), resp.getId());
         Assert.assertEquals(pojoEntity.getName(), resp.getName());
-        Assert.assertEquals(pojoEntity.getDescription(), resp.getDescription());
+        Assert.assertEquals(pojoEntity.getSource(), resp.getSource());
+        Assert.assertEquals(pojoEntity.getValue(), resp.getValue());
     }
 }

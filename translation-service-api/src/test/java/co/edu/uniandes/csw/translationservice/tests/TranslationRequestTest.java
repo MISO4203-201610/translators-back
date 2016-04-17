@@ -139,8 +139,8 @@ public class TranslationRequestTest {
         Assert.assertEquals(translationRequest.getCreationDate(), translationrequestTest.getCreationDate());
         Assert.assertEquals(translationRequest.getDueDate(), translationrequestTest.getDueDate());
         Assert.assertEquals(translationRequest.getContexto(), translationrequestTest.getContexto());
-//        Assert.assertEquals(translationRequest.getDescription(), translationrequestTest.getDescription());
-//        Assert.assertEquals(translationRequest.getNumberOfWords(), translationrequestTest.getNumberOfWords());
+        Assert.assertEquals(translationRequest.getDescription(), translationrequestTest.getDescription());
+        Assert.assertEquals(translationRequest.getNumberOfWords(), translationrequestTest.getNumberOfWords());
         Assert.assertEquals(Created, response.getStatus());
     }
 
@@ -162,8 +162,8 @@ public class TranslationRequestTest {
         Assert.assertEquals(translationrequestTest.getCreationDate(), oraculo.get(0).getCreationDate());
         Assert.assertEquals(translationrequestTest.getDueDate(), oraculo.get(0).getDueDate());
         Assert.assertEquals(translationrequestTest.getContexto(), oraculo.get(0).getContexto());
-//        Assert.assertEquals(translationrequestTest.getDescription(), oraculo.get(0).getDescription());
-//        Assert.assertEquals(translationrequestTest.getNumberOfWords(), oraculo.get(0).getNumberOfWords());
+        Assert.assertEquals(translationrequestTest.getDescription(), oraculo.get(0).getDescription());
+        Assert.assertEquals(translationrequestTest.getNumberOfWords(), oraculo.get(0).getNumberOfWords());
     }
 
     @Test
@@ -189,8 +189,6 @@ public class TranslationRequestTest {
         translationRequest.setCreationDate(translationRequestChanged.getCreationDate());
         translationRequest.setDueDate(translationRequestChanged.getDueDate());
         translationRequest.setContexto(translationRequestChanged.getContexto());
-//        translationRequest.setDescription(translationRequestChanged.getDescription());
-//        translationRequest.setNumberOfWords(translationRequestChanged.getNumberOfWords());
         Response response = target.path(translationRequestPath).path(translationRequest.getId().toString())
                 .request().cookie(cookieSessionId).put(Entity.entity(translationRequest, MediaType.APPLICATION_JSON));
         TranslationRequestDTO translationrequestTest = (TranslationRequestDTO) response.readEntity(TranslationRequestDTO.class);
@@ -199,8 +197,6 @@ public class TranslationRequestTest {
         Assert.assertEquals(translationRequest.getCreationDate(), translationrequestTest.getCreationDate());
         Assert.assertEquals(translationRequest.getDueDate(), translationrequestTest.getDueDate());
         Assert.assertEquals(translationRequest.getContexto(), translationrequestTest.getContexto());
-//        Assert.assertEquals(translationRequest.getDescription(), translationrequestTest.getDescription());
-//        Assert.assertEquals(translationRequest.getNumberOfWords(), translationrequestTest.getNumberOfWords());
     }
 
     @Test

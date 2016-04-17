@@ -2,9 +2,9 @@ package co.edu.uniandes.csw.translationservice.tests;
 
 import co.edu.uniandes.csw.auth.model.UserDTO;
 import co.edu.uniandes.csw.auth.security.JWT;
-import co.edu.uniandes.csw.translationservice.dtos.ReviewDTO;
-import co.edu.uniandes.csw.translationservice.dtos.CustomerDTO;
-import co.edu.uniandes.csw.translationservice.services.ReviewService;
+import co.edu.uniandes.csw.translationservice.dtos.TranslatorDTO;
+import co.edu.uniandes.csw.translationservice.dtos.TranslationOfferDTO;
+import co.edu.uniandes.csw.translationservice.services.TranslationOfferService;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -36,15 +36,14 @@ import uk.co.jemos.podam.api.PodamFactory;
 import uk.co.jemos.podam.api.PodamFactoryImpl;
 
 @RunWith(Arquillian.class)
-public class ReviewTest {
+public class TranslationOfferTest {
 
     private final int Ok = Status.OK.getStatusCode();
     private final int Created = Status.CREATED.getStatusCode();
     private final int OkWithoutContent = Status.NO_CONTENT.getStatusCode();
-    private final String correctionRequestPath = "reviews";
+    private final String translatorOfertPath = "translatorOferts";
     private final String translatorPath = "translators";
-    private final String customerPath = "customers";
-    private final static List<ReviewDTO> oraculo = new ArrayList<>();
+    private final static List<TranslationOfferDTO> oraculo = new ArrayList<>();
     private WebTarget target;
     private final String apiPath = "api";
     private final String username = System.getenv("USERNAME_USER");
@@ -64,7 +63,7 @@ public class ReviewTest {
                         .resolve("co.edu.uniandes.csw:auth-utils:0.1.0")
                         .withTransitivity().asFile())
                 // Se agregan los compilados de los paquetes de servicios
-                .addPackage(ReviewService.class.getPackage())
+                .addPackage(TranslationOfferService.class.getPackage())
                 // El archivo que contiene la configuracion a la base de datos.
                 .addAsResource("META-INF/persistence.xml", "META-INF/persistence.xml")
                 // El archivo beans.xml es necesario para injeccion de dependencias.
@@ -89,10 +88,10 @@ public class ReviewTest {
     public static void insertData() {
         for (int i = 0; i < 5; i++) {
             PodamFactory factory = new PodamFactoryImpl();
-            ReviewDTO correctionRequest = factory.manufacturePojo(ReviewDTO.class);
-            correctionRequest.setId(i + 1L);
+            TranslationOfferDTO translatorOfert = factory.manufacturePojo(TranslationOfferDTO.class);
+            translatorOfert.setId(i + 1L);
 
-            oraculo.add(correctionRequest);
+            oraculo.add(translatorOfert);
 
         }
     }
@@ -118,73 +117,73 @@ public class ReviewTest {
 
     @Test
     @InSequence(1)
-    public void createReviewTest() throws IOException {
+    public void createTranslatorOfertTest() throws IOException {
         PodamFactory factory = new PodamFactoryImpl();
-        CustomerDTO customer = factory.manufacturePojo(CustomerDTO.class);;
+        TranslatorDTO translator = factory.manufacturePojo(TranslatorDTO.class);;
         Cookie cookieSessionId = login(username, password);
-        target.path(customerPath)
+        target.path(translatorPath)
                 .request().cookie(cookieSessionId)
-                .post(Entity.entity(customer, MediaType.APPLICATION_JSON));
+                .post(Entity.entity(translator, MediaType.APPLICATION_JSON));
 
-        ReviewDTO correctionRequest = oraculo.get(0);
-        Response response = target.path(correctionRequestPath)
+        TranslationOfferDTO translatorOfert = oraculo.get(0);
+        Response response = target.path(translatorOfertPath)
                 .request().cookie(cookieSessionId)
-                .post(Entity.entity(correctionRequest, MediaType.APPLICATION_JSON));
-        ReviewDTO correctionrequestTest = (ReviewDTO) response.readEntity(ReviewDTO.class);
-        Assert.assertEquals(correctionRequest.getId(), correctionrequestTest.getId());
-        Assert.assertEquals(correctionRequest.getName(), correctionrequestTest.getName());
-        Assert.assertEquals(correctionRequest.getDescription(), correctionrequestTest.getDescription());
+                .post(Entity.entity(translatorOfert, MediaType.APPLICATION_JSON));
+        TranslationOfferDTO translatorOfertTest = (TranslationOfferDTO) response.readEntity(TranslationOfferDTO.class);
+        Assert.assertEquals(translatorOfert.getId(), translatorOfertTest.getId());
+        Assert.assertEquals(translatorOfert.getPrice(), translatorOfertTest.getPrice());
+        Assert.assertEquals(translatorOfert.getComment(), translatorOfertTest.getComment());
         Assert.assertEquals(Created, response.getStatus());
     }
 
     @Test
     @InSequence(2)
-    public void getReviewById() {
+    public void getTranslatorOfertById() {
         Cookie cookieSessionId = login(username, password);
-        ReviewDTO correctionrequestTest = target.path(correctionRequestPath)
+        TranslationOfferDTO translatorOfertTest = target.path(translatorOfertPath)
                 .path(oraculo.get(0).getId().toString())
-                .request().cookie(cookieSessionId).get(ReviewDTO.class);
-        Assert.assertEquals(correctionrequestTest.getId(), oraculo.get(0).getId());
-        Assert.assertEquals(correctionrequestTest.getName(), oraculo.get(0).getName());
-        Assert.assertEquals(correctionrequestTest.getDescription(), oraculo.get(0).getDescription());
+                .request().cookie(cookieSessionId).get(TranslationOfferDTO.class);
+        Assert.assertEquals(translatorOfertTest.getId(), oraculo.get(0).getId());
+        Assert.assertEquals(translatorOfertTest.getPrice(), oraculo.get(0).getPrice());
+        Assert.assertEquals(translatorOfertTest.getComment(), oraculo.get(0).getComment());
     }
 
     @Test
     @InSequence(3)
-    public void listReviewTest() throws IOException {
+    public void listTranslatorOfertTest() throws IOException {
         Cookie cookieSessionId = login(username, password);
-        Response response = target.path(correctionRequestPath)
+        Response response = target.path(translatorOfertPath)
                 .request().cookie(cookieSessionId).get();
-        String listReview = response.readEntity(String.class);
-        List<ReviewDTO> listReviewTest = new ObjectMapper().readValue(listReview, List.class);
+        String listTranslatorOfert = response.readEntity(String.class);
+        List<TranslationOfferDTO> listTranslatorOfertTest = new ObjectMapper().readValue(listTranslatorOfert, List.class);
         Assert.assertEquals(Ok, response.getStatus());
-        Assert.assertEquals(1, listReviewTest.size());
+        Assert.assertEquals(1, listTranslatorOfertTest.size());
     }
 
     @Test
     @InSequence(4)
-    public void updateReviewTest() throws IOException {
+    public void updateTranslatorOfertTest() throws IOException {
         Cookie cookieSessionId = login(username, password);
-        ReviewDTO correctionRequest = oraculo.get(0);
+        TranslationOfferDTO translatorOfert = oraculo.get(0);
         PodamFactory factory = new PodamFactoryImpl();
-        ReviewDTO correctionRequestChanged = factory.manufacturePojo(ReviewDTO.class);
-        correctionRequest.setName(correctionRequestChanged.getName());
-        correctionRequest.setDescription(correctionRequestChanged.getDescription());
+        TranslationOfferDTO translatorOfertChanged = factory.manufacturePojo(TranslationOfferDTO.class);
+        translatorOfert.setPrice(translatorOfertChanged.getPrice());
+        translatorOfert.setComment(translatorOfertChanged.getComment());
         
-        Response response = target.path(correctionRequestPath).path(correctionRequest.getId().toString())
-                .request().cookie(cookieSessionId).put(Entity.entity(correctionRequest, MediaType.APPLICATION_JSON));
-        ReviewDTO correctionrequestTest = (ReviewDTO) response.readEntity(ReviewDTO.class);
+        Response response = target.path(translatorOfertPath).path(translatorOfert.getId().toString())
+                .request().cookie(cookieSessionId).put(Entity.entity(translatorOfert, MediaType.APPLICATION_JSON));
+        TranslationOfferDTO translatorOfertTest = (TranslationOfferDTO) response.readEntity(TranslationOfferDTO.class);
         Assert.assertEquals(Ok, response.getStatus());
-        Assert.assertEquals(correctionRequest.getName(), correctionrequestTest.getName());
-        Assert.assertEquals(correctionRequest.getDescription(), correctionrequestTest.getDescription());
+        Assert.assertEquals(translatorOfert.getPrice(), translatorOfertTest.getPrice());
+        Assert.assertEquals(translatorOfert.getComment(), translatorOfertTest.getComment());
     }
 
     @Test
     @InSequence(5)
-    public void deleteReviewTest() {
+    public void deleteTranslatorOfertTest() {
         Cookie cookieSessionId = login(username, password);
-        ReviewDTO correctionRequest = oraculo.get(0);
-        Response response = target.path(correctionRequestPath).path(correctionRequest.getId().toString())
+        TranslationOfferDTO translatorOfert = oraculo.get(0);
+        Response response = target.path(translatorOfertPath).path(translatorOfert.getId().toString())
                 .request().cookie(cookieSessionId).delete();
         Assert.assertEquals(OkWithoutContent, response.getStatus());
     }

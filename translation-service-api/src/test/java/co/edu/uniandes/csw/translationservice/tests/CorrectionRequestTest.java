@@ -136,6 +136,7 @@ public class CorrectionRequestTest {
         Assert.assertEquals(correctionRequest.getDueDate(), correctionrequestTest.getDueDate());
 //        Assert.assertEquals(correctionRequest.getDesctiption(), correctionrequestTest.getDesctiption());
 //        Assert.assertEquals(correctionRequest.getNumberOfWords(), correctionrequestTest.getNumberOfWords());
+//        Assert.assertEquals(correctionRequest.getKnowledgeAreas(), correctionrequestTest.getKnowledgeAreas());
         Assert.assertEquals(Created, response.getStatus());
     }
 
