@@ -26,7 +26,7 @@ public class TranslationRequestDTO extends RequestDTO {
     private List<KnowledgeAreaDTO> knowledgeAreas = new ArrayList<>();
 
     @PodamExclude
-    private List<TranslationOfferDTO> translationOffers = new ArrayList<>();
+    private List<TranslationOfferDTO> translationOffers = new ArrayList<TranslationOfferDTO>();
     
     /**
      * @generated

@@ -44,7 +44,7 @@ public class TranslatorEntity extends BaseEntity implements Serializable {
     
     @PodamExclude
     @OneToMany(mappedBy = "translationOfferTranslator")
-    private List<TranslationOfferEntity> translationOffers = new ArrayList<>();
+    private List<TranslationOfferEntity> translationOffers = new ArrayList<TranslationOfferEntity>();
     
     private String email;
 
