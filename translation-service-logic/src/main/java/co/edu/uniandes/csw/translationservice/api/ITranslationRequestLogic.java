@@ -22,8 +22,8 @@ public interface ITranslationRequestLogic {
     public void removeKnowledgeAreas(Long id, Long knowledgeAreaId);
     
     public List<TranslationOfferEntity> listTranslationOffers(Long id);
-    public TranslationOfferEntity getTranslationOffers(Long id, Long TranslationOfferId);
-    public TranslationOfferEntity addTranslationOffers(Long id, Long TranslationOfferId);
+    public TranslationOfferEntity getTranslationOffers(Long id, Long translationOfferId);
+    public TranslationOfferEntity addTranslationOffers(Long id, Long translationOfferId);
     public List<TranslationOfferEntity> replaceTranslationOffers(Long id, List<TranslationOfferEntity> list);
-    public void removeTranslationOffers(Long id, Long TranslationOfferId);
+    public void removeTranslationOffers(Long id, Long translationOfferId);
 }

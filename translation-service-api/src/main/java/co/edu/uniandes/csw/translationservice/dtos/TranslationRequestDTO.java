@@ -15,11 +15,9 @@ public class TranslationRequestDTO extends RequestDTO {
     private LanguageDTO originalLanguage;
     @PodamExclude
     private LanguageDTO targetLanguage;
-    @PodamExclude
+    
     private String description;
-    @PodamExclude
     private String contexto;
-    @PodamExclude
     private int numberOfWords;
     
     @PodamExclude
@@ -59,6 +57,7 @@ public class TranslationRequestDTO extends RequestDTO {
     /**
      * @return the description
      */
+    @Override
     public String getDescription() {
         return description;
     }
@@ -66,6 +65,7 @@ public class TranslationRequestDTO extends RequestDTO {
     /**
      * @param description the description to set
      */
+    @Override
     public void setDescription(String description) {
         this.description = description;
     }
@@ -84,10 +84,12 @@ public class TranslationRequestDTO extends RequestDTO {
         this.contexto = contexto;
     }
 
+    @Override
     public int getNumberOfWords() {
         return numberOfWords;
     }
 
+    @Override
     public void setNumberOfWords(int numberOfWords) {
         this.numberOfWords = numberOfWords;
     }

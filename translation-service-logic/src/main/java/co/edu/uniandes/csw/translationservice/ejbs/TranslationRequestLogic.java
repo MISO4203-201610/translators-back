@@ -98,14 +98,14 @@ public class TranslationRequestLogic implements ITranslationRequestLogic {
     }
    
     @Override
-    public KnowledgeAreaEntity addKnowledgeAreas(Long id, Long KnowledgeAreaId){
+    public KnowledgeAreaEntity addKnowledgeAreas(Long id, Long knowledgeAreaId){
 
-        KnowledgeAreaEntity knowledgeAreasEntity = knowledgeAreaLogic.getKnowledgeArea(KnowledgeAreaId);
+        KnowledgeAreaEntity knowledgeAreasEntity = knowledgeAreaLogic.getKnowledgeArea(knowledgeAreaId);
 
         TranslationRequestEntity entity = persistence.find(id);
-        knowledgeAreasEntity.setId(KnowledgeAreaId);
+        knowledgeAreasEntity.setId(knowledgeAreaId);
         entity.getKnowledgeAreasRequested().add(knowledgeAreasEntity);
-        return getKnowledgeAreas(id, KnowledgeAreaId);
+        return getKnowledgeAreas(id, knowledgeAreaId);
     }
 
     @Override
@@ -140,10 +140,10 @@ public class TranslationRequestLogic implements ITranslationRequestLogic {
     }
 
     @Override
-    public TranslationOfferEntity getTranslationOffers(Long id, Long TranslationOfferId) {
+    public TranslationOfferEntity getTranslationOffers(Long id, Long translationOfferId) {
         List<TranslationOfferEntity> list = persistence.find(id).getTranslationOffers();
         TranslationOfferEntity awardEntity = new TranslationOfferEntity();
-        awardEntity.setId(TranslationOfferId);
+        awardEntity.setId(translationOfferId);
         int index = list.indexOf(awardEntity);
         if (index >= 0) {
             return list.get(index);
@@ -152,13 +152,13 @@ public class TranslationRequestLogic implements ITranslationRequestLogic {
     }
 
     @Override
-    public TranslationOfferEntity addTranslationOffers(Long id, Long TranslationOfferId) {
-        TranslationOfferEntity translationOfferEntity = translationOfferLogic.getTranslationOffer(TranslationOfferId);
+    public TranslationOfferEntity addTranslationOffers(Long id, Long translationOfferId) {
+        TranslationOfferEntity translationOfferEntity = translationOfferLogic.getTranslationOffer(translationOfferId);
 
         TranslationRequestEntity entity = persistence.find(id);
-        translationOfferEntity.setId(TranslationOfferId);
+        translationOfferEntity.setId(translationOfferId);
         entity.getTranslationOffers().add(translationOfferEntity);
-        return getTranslationOffers(id, TranslationOfferId);
+        return getTranslationOffers(id, translationOfferId);
     }
 
     @Override
@@ -179,9 +179,9 @@ public class TranslationRequestLogic implements ITranslationRequestLogic {
     }
 
     @Override
-    public void removeTranslationOffers(Long id, Long TranslationOfferId) {
+    public void removeTranslationOffers(Long id, Long translationOfferId) {
         TranslationRequestEntity entity = persistence.find(id);
-        TranslationOfferEntity translationOfferEntity = translationOfferLogic.getTranslationOffer(TranslationOfferId);
+        TranslationOfferEntity translationOfferEntity = translationOfferLogic.getTranslationOffer(translationOfferId);
         entity.getKnowledgeAreasRequested().remove(translationOfferEntity);
     }
 }
