@@ -166,6 +166,10 @@ public class CorrectionRequestLogicTest {
         Assert.assertEquals(result.getName(), entity.getName());
         Assert.assertEquals(result.getCreationDate(), entity.getCreationDate());
         Assert.assertEquals(result.getDueDate(), entity.getDueDate());
+        Assert.assertEquals(result.getDescription(), entity.getDescription());
+        Assert.assertEquals(result.getStatus(), entity.getStatus());
+        Assert.assertEquals(result.getLanguage(), entity.getLanguage());
+        Assert.assertEquals(result.getNumberOfWords(), entity.getNumberOfWords());
     }
 
     /**
@@ -198,6 +202,10 @@ public class CorrectionRequestLogicTest {
         Assert.assertEquals(entity.getName(), resultEntity.getName());
         Assert.assertEquals(entity.getCreationDate(), resultEntity.getCreationDate());
         Assert.assertEquals(entity.getDueDate(), resultEntity.getDueDate());
+        Assert.assertEquals(entity.getDescription(), resultEntity.getDescription());
+        Assert.assertEquals(entity.getStatus(), resultEntity.getStatus());
+        Assert.assertEquals(entity.getLanguage(), resultEntity.getLanguage());
+        Assert.assertEquals(entity.getNumberOfWords(), resultEntity.getNumberOfWords());
     }
 
     /**
@@ -229,5 +237,9 @@ public class CorrectionRequestLogicTest {
         Assert.assertEquals(pojoEntity.getName(), resp.getName());
         Assert.assertEquals(pojoEntity.getCreationDate(), resp.getCreationDate());
         Assert.assertEquals(pojoEntity.getDueDate(), resp.getDueDate());
+        Assert.assertEquals(pojoEntity.getDescription(), resp.getDescription());
+        Assert.assertEquals(pojoEntity.getStatus(), resp.getStatus());
+        Assert.assertEquals(pojoEntity.getLanguage(), resp.getLanguage());
+        Assert.assertEquals(pojoEntity.getNumberOfWords(), resp.getNumberOfWords());
     }
 }

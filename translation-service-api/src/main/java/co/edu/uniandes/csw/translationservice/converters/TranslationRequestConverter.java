@@ -215,29 +215,29 @@ public abstract class TranslationRequestConverter {
         
         List<TranslatorDTO> dtos = new ArrayList<TranslatorDTO>();
         
-        if (list != null)
-        {
-            for (TranslatorEntity translatorEntity : list) {
-                
-                // Does it speaks the language?
-                if (!translatorEntity.getLanguages().contains(entity.getTargetLanguage()) || !translatorEntity.getLanguages().contains(entity.getOriginalLanguage()))
-                    continue;
-                
-                // Verify knowledge areas
-                boolean todas = true;
-                for (KnowledgeAreaEntity knowledgeAreaEntity : entity.getKnowledgeAreasRequested()) {
-                    
-                    if (!translatorEntity.getKnowledgeAreas().contains(knowledgeAreaEntity))
-                    {
-                        todas = false;
-                        break;
-                    }
+        if (list == null)
+            return dtos;
+        
+        for (TranslatorEntity translatorEntity : list) {
+
+            // Does it speaks the language?
+            if (!translatorEntity.getLanguages().contains(entity.getTargetLanguage()) || !translatorEntity.getLanguages().contains(entity.getOriginalLanguage()))
+                continue;
+
+            // Verify knowledge areas
+            boolean todas = true;
+            for (KnowledgeAreaEntity knowledgeAreaEntity : entity.getKnowledgeAreasRequested()) {
+
+                if (!translatorEntity.getKnowledgeAreas().contains(knowledgeAreaEntity))
+                {
+                    todas = false;
+                    break;
                 }
-                
-                // We need to add him
-                if (todas)
-                    dtos.add(TranslatorConverter.fullEntity2DTO(translatorEntity));
             }
+
+            // We need to add him
+            if (todas)
+                dtos.add(TranslatorConverter.fullEntity2DTO(translatorEntity));
         }
         
         return dtos;

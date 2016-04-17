@@ -127,10 +127,10 @@ public class CorrectionRequestLogic implements ICorrectionRequestLogic {
 
     
     @Override
-    public void removeKnowledgeAreas(Long id, Long KnowledgeAreaId) {
+    public void removeKnowledgeAreas(Long id, Long knowledgeAreaId) {
         
         CorrectionRequestEntity entity = persistence.find(id);
-        KnowledgeAreaEntity knowledgeAreasEntity = knowledgeAreaLogic.getKnowledgeArea(KnowledgeAreaId);
+        KnowledgeAreaEntity knowledgeAreasEntity = knowledgeAreaLogic.getKnowledgeArea(knowledgeAreaId);
         entity.getKnowledgeAreasRequested().remove(knowledgeAreasEntity);
     }   
 }

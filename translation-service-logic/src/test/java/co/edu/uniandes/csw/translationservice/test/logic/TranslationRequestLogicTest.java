@@ -182,6 +182,11 @@ public class TranslationRequestLogicTest {
         Assert.assertEquals(result.getCreationDate(), entity.getCreationDate());
         Assert.assertEquals(result.getDueDate(), entity.getDueDate());
         Assert.assertEquals(result.getContexto(), entity.getContexto());
+        Assert.assertEquals(result.getOriginalLanguage(), entity.getOriginalLanguage());
+        Assert.assertEquals(result.getTargetLanguage(), entity.getTargetLanguage());
+        Assert.assertEquals(result.getStatus(), entity.getStatus());
+        Assert.assertEquals(result.getDescription(), entity.getDescription());
+        Assert.assertEquals(result.getNumberOfWords(), entity.getNumberOfWords());
     }
 
     /**
@@ -215,6 +220,11 @@ public class TranslationRequestLogicTest {
         Assert.assertEquals(entity.getCreationDate(), resultEntity.getCreationDate());
         Assert.assertEquals(entity.getDueDate(), resultEntity.getDueDate());
         Assert.assertEquals(entity.getContexto(), resultEntity.getContexto());
+        Assert.assertEquals(entity.getOriginalLanguage(), resultEntity.getOriginalLanguage());
+        Assert.assertEquals(entity.getTargetLanguage(), resultEntity.getTargetLanguage());
+        Assert.assertEquals(entity.getStatus(), resultEntity.getStatus());
+        Assert.assertEquals(entity.getDescription(), resultEntity.getDescription());
+        Assert.assertEquals(entity.getNumberOfWords(), resultEntity.getNumberOfWords());
     }
 
     /**
@@ -247,5 +257,10 @@ public class TranslationRequestLogicTest {
         Assert.assertEquals(pojoEntity.getCreationDate(), resp.getCreationDate());
         Assert.assertEquals(pojoEntity.getDueDate(), resp.getDueDate());
         Assert.assertEquals(pojoEntity.getContexto(), resp.getContexto());
+        Assert.assertEquals(pojoEntity.getOriginalLanguage(), resp.getOriginalLanguage());
+        Assert.assertEquals(pojoEntity.getTargetLanguage(), entity.getTargetLanguage());
+        Assert.assertEquals(pojoEntity.getStatus(), resp.getStatus());
+        Assert.assertEquals(pojoEntity.getDescription(), resp.getDescription());
+        Assert.assertEquals(pojoEntity.getNumberOfWords(), resp.getNumberOfWords());
     }
 }
