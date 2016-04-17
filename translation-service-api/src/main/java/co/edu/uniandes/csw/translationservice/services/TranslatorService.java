@@ -24,8 +24,8 @@ import co.edu.uniandes.csw.translationservice.dtos.LanguageDTO;
 import co.edu.uniandes.csw.translationservice.converters.LanguageConverter;
 import co.edu.uniandes.csw.translationservice.dtos.KnowledgeAreaDTO;
 import co.edu.uniandes.csw.translationservice.converters.KnowledgeAreaConverter;
-import co.edu.uniandes.csw.translationservice.converters.TranslatorOfertConverter;
-import co.edu.uniandes.csw.translationservice.dtos.TranslatorOfertDTO;
+import co.edu.uniandes.csw.translationservice.converters.TranslationOfferConverter;
+import co.edu.uniandes.csw.translationservice.dtos.TranslationOfferDTO;
 import com.stormpath.sdk.account.Account;
 import com.stormpath.sdk.group.Group;
 import java.util.ArrayList;
@@ -283,62 +283,62 @@ public class TranslatorService {
      * @generated
      */
     @GET
-    @Path("{translatorId: \\d+}/translatorOferts")
-    public List<TranslatorOfertDTO> listTranslatorOferts(@PathParam("translatorId") Long translatorId) {
-        return TranslatorOfertConverter.listEntity2DTO(translatorLogic.listTranslatorOferts(translatorId));
+    @Path("{translatorId: \\d+}/translationOffers")
+    public List<TranslationOfferDTO> listTranslationOffers(@PathParam("translatorId") Long translatorId) {
+        return TranslationOfferConverter.listEntity2DTO(translatorLogic.listTranslationOffers(translatorId));
     }
 
     /**
      * Obtiene una instancia de translatorOfert asociada a una instancia de Translator
      *
      * @param translatorId Identificador de la instancia de Translator
-     * @param translatorOfertId Identificador de la instancia de translatorOfert
+     * @param translationOfferId Identificador de la instancia de translatorOfert
      * @generated
      */
     @GET
-    @Path("{translatorId: \\d+}/translatorOferts/{translatorOfertId: \\d+}")
-    public TranslatorOfertDTO getTranslatorOferts(@PathParam("translatorId") Long translatorId, @PathParam("translatorOfertId") Long translatorOfertId) {
-        return TranslatorOfertConverter.fullEntity2DTO(translatorLogic.getTranslatorOferts(translatorId, translatorOfertId));
+    @Path("{translatorId: \\d+}/translationOffers/{translationOfferId: \\d+}")
+    public TranslationOfferDTO getTranslationOffers(@PathParam("translatorId") Long translatorId, @PathParam("translationOfferId") Long translationOfferId) {
+        return TranslationOfferConverter.fullEntity2DTO(translatorLogic.getTranslationOffers(translatorId, translationOfferId));
     }
 
     /**
      * Asocia un translatorOfert existente a un Translator
      *
      * @param translatorId Identificador de la instancia de Translator
-     * @param translatorOfertId Identificador de la instancia de translatorOfert
+     * @param translationOfferId Identificador de la instancia de translatorOfert
      * @return Instancia de translatorOfertDTO que fue asociada a Translator
      * @generated
      */
     @POST
-    @Path("{translatorId: \\d+}/translatorOferts/{translatorOfertId: \\d+}")
-    public TranslatorOfertDTO addTranslatorOferts(@PathParam("translatorId") Long translatorId, @PathParam("translatorOfertId") Long translatorOfertId) {
-        return TranslatorOfertConverter.fullEntity2DTO(translatorLogic.addTranslatorOferts(translatorId, translatorOfertId));
+    @Path("{translatorId: \\d+}/translationOffers/{translationOfferId: \\d+}")
+    public TranslationOfferDTO addTranslationOffers(@PathParam("translatorId") Long translatorId, @PathParam("translationOfferId") Long translationOfferId) {
+        return TranslationOfferConverter.fullEntity2DTO(translatorLogic.addTranslationOffers(translatorId, translationOfferId));
     }
 
     /**
      * Remplaza las instancias de translatorOfert asociadas a una instancia de Translator
      *
      * @param translatorId Identificador de la instancia de Translator
-     * @param translatorOferts Colección de instancias de translatorOfertDTO a asociar a instancia de Translator
+     * @param translationOffers Colección de instancias de translatorOfertDTO a asociar a instancia de Translator
      * @return Nueva colección de translatorOfertDTO asociada a la instancia de Translator
      * @generated
      */
     @PUT
-    @Path("{translatorId: \\d+}/translatorOferts")
-    public List<TranslatorOfertDTO> replaceTranslatorOferts(@PathParam("translatorId") Long translatorId, List<TranslatorOfertDTO> translatorOferts) {
-        return TranslatorOfertConverter.listEntity2DTO(translatorLogic.replaceTranslatorOferts(translatorId, TranslatorOfertConverter.listDTO2Entity(translatorOferts)));
+    @Path("{translatorId: \\d+}/translationOffers")
+    public List<TranslationOfferDTO> replaceTranslationOffers(@PathParam("translatorId") Long translatorId, List<TranslationOfferDTO> translationOffers) {
+        return TranslationOfferConverter.listEntity2DTO(translatorLogic.replaceTranslationOffers(translatorId, TranslationOfferConverter.listDTO2Entity(translationOffers)));
     }
 
     /**
      * Desasocia un translatorOfert existente de un Translator existente
      *
      * @param translatorId Identificador de la instancia de Translator
-     * @param translatorOfertId Identificador de la instancia de translatorOfert
+     * @param translationOfferId Identificador de la instancia de translatorOfert
      * @generated
      */
     @DELETE
-    @Path("{translatorId: \\d+}/translatorOferts/{translatorOfertId: \\d+}")
-    public void removeTranslatorOferts(@PathParam("translatorId") Long translatorId, @PathParam("translatorOfertId") Long translatorOfertId) {
-        translatorLogic.removeTranslatorOferts(translatorId, translatorOfertId);
+    @Path("{translatorId: \\d+}/translationOffers/{translationOfferId: \\d+}")
+    public void removeTranslationOffers(@PathParam("translatorId") Long translatorId, @PathParam("translationOfferId") Long translationOfferId) {
+        translatorLogic.removeTranslationOffers(translatorId, translationOfferId);
     }
 }

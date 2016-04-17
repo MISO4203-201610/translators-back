@@ -1,9 +1,9 @@
 package co.edu.uniandes.csw.translationservice.test.logic;
 
-import co.edu.uniandes.csw.translationservice.ejbs.TranslatorOfertLogic;
-import co.edu.uniandes.csw.translationservice.api.ITranslatorOfertLogic;
-import co.edu.uniandes.csw.translationservice.entities.TranslatorOfertEntity;
-import co.edu.uniandes.csw.translationservice.persistence.TranslatorOfertPersistence;
+import co.edu.uniandes.csw.translationservice.ejbs.TranslationOfferLogic;
+import co.edu.uniandes.csw.translationservice.api.ITranslationOfferLogic;
+import co.edu.uniandes.csw.translationservice.entities.TranslationOfferEntity;
+import co.edu.uniandes.csw.translationservice.persistence.TranslationOfferPersistence;
 import co.edu.uniandes.csw.translationservice.entities.TranslatorEntity;
 import co.edu.uniandes.csw.translationservice.entities.TranslationRequestEntity;
 import java.util.ArrayList;
@@ -27,7 +27,7 @@ import uk.co.jemos.podam.api.PodamFactoryImpl;
  * @generated
  */
 @RunWith(Arquillian.class)
-public class TranslatorOfertLogicTest {
+public class TranslationOfferLogicTest {
 
     /**
      * @generated
@@ -38,7 +38,7 @@ public class TranslatorOfertLogicTest {
      * @generated
      */
     @Inject
-    private ITranslatorOfertLogic translatorOfertLogic;
+    private ITranslationOfferLogic translationOfferLogic;
 
     /**
      * @generated
@@ -55,7 +55,7 @@ public class TranslatorOfertLogicTest {
     /**
      * @generated
      */
-    private List<TranslatorOfertEntity> data = new ArrayList<TranslatorOfertEntity>();
+    private List<TranslationOfferEntity> data = new ArrayList<TranslationOfferEntity>();
 
 
     /**
@@ -74,10 +74,10 @@ public class TranslatorOfertLogicTest {
     @Deployment
     public static JavaArchive createDeployment() {
         return ShrinkWrap.create(JavaArchive.class)
-                .addPackage(TranslatorOfertEntity.class.getPackage())
-                .addPackage(TranslatorOfertLogic.class.getPackage())
-                .addPackage(ITranslatorOfertLogic.class.getPackage())
-                .addPackage(TranslatorOfertPersistence.class.getPackage())
+                .addPackage(TranslationOfferEntity.class.getPackage())
+                .addPackage(TranslationOfferLogic.class.getPackage())
+                .addPackage(TranslationOfferLogic.class.getPackage())
+                .addPackage(TranslationOfferPersistence.class.getPackage())
                 .addAsManifestResource("META-INF/persistence.xml", "persistence.xml")
                 .addAsManifestResource("META-INF/beans.xml", "beans.xml");
     }
@@ -106,7 +106,7 @@ public class TranslatorOfertLogicTest {
      * @generated
      */
     private void clearData() {
-        em.createQuery("delete from TranslatorOfertEntity").executeUpdate();
+        em.createQuery("delete from TranslationOfferEntity").executeUpdate();
         em.createQuery("delete from TranslatorEntity").executeUpdate();
         em.createQuery("delete from TranslationRequestEntity").executeUpdate();
     }
@@ -130,7 +130,7 @@ public class TranslatorOfertLogicTest {
         }
 
         for (int i = 0; i < 3; i++) {
-            TranslatorOfertEntity entity = factory.manufacturePojo(TranslatorOfertEntity.class);
+            TranslationOfferEntity entity = factory.manufacturePojo(TranslationOfferEntity.class);
 
             entity.setTranslator(translatorData.get(0));
 
@@ -145,9 +145,9 @@ public class TranslatorOfertLogicTest {
      * @generated
      */
     @Test
-    public void createTranslatorOfertTest() {
-        TranslatorOfertEntity entity = factory.manufacturePojo(TranslatorOfertEntity.class);
-        TranslatorOfertEntity result = translatorOfertLogic.createTranslatorOfert(entity);
+    public void createTranslationOfferTest() {
+        TranslationOfferEntity entity = factory.manufacturePojo(TranslationOfferEntity.class);
+        TranslationOfferEntity result = translationOfferLogic.createTranslationOffer(entity);
         Assert.assertNotNull(result);
         Assert.assertEquals(result.getId(), entity.getId());
         Assert.assertEquals(result.getPrice(), entity.getPrice());
@@ -158,12 +158,12 @@ public class TranslatorOfertLogicTest {
      * @generated
      */
     @Test
-    public void getTranslatorOfertsTest() {
-        List<TranslatorOfertEntity> list = translatorOfertLogic.getTranslatorOferts();
+    public void getTranslationOffersTest() {
+        List<TranslationOfferEntity> list = translationOfferLogic.getTranslationOffers();
         Assert.assertEquals(data.size(), list.size());
-        for (TranslatorOfertEntity entity : list) {
+        for (TranslationOfferEntity entity : list) {
             boolean found = false;
-            for (TranslatorOfertEntity storedEntity : data) {
+            for (TranslationOfferEntity storedEntity : data) {
                 if (entity.getId().equals(storedEntity.getId())) {
                     found = true;
                 }
@@ -176,9 +176,9 @@ public class TranslatorOfertLogicTest {
      * @generated
      */
     @Test
-    public void getTranslatorOfertTest() {
-        TranslatorOfertEntity entity = data.get(0);
-        TranslatorOfertEntity resultEntity = translatorOfertLogic.getTranslatorOfert(entity.getId());
+    public void getTranslationOfferTest() {
+        TranslationOfferEntity entity = data.get(0);
+        TranslationOfferEntity resultEntity = translationOfferLogic.getTranslationOffer(entity.getId());
         Assert.assertNotNull(resultEntity);
         Assert.assertEquals(entity.getId(), resultEntity.getId());
         Assert.assertEquals(entity.getPrice(), resultEntity.getPrice());
@@ -189,10 +189,10 @@ public class TranslatorOfertLogicTest {
      * @generated
      */
     @Test
-    public void deleteTranslatorOfertTest() {
-        TranslatorOfertEntity entity = data.get(1);
-        translatorOfertLogic.deleteTranslatorOfert(entity.getId());
-        TranslatorOfertEntity deleted = em.find(TranslatorOfertEntity.class, entity.getId());
+    public void deleteTranslationOfferTest() {
+        TranslationOfferEntity entity = data.get(1);
+        translationOfferLogic.deleteTranslationOffer(entity.getId());
+        TranslationOfferEntity deleted = em.find(TranslationOfferEntity.class, entity.getId());
         Assert.assertNull(deleted);
     }
 
@@ -200,15 +200,15 @@ public class TranslatorOfertLogicTest {
      * @generated
      */
     @Test
-    public void updateTranslatorOfertTest() {
-        TranslatorOfertEntity entity = data.get(0);
-        TranslatorOfertEntity pojoEntity = factory.manufacturePojo(TranslatorOfertEntity.class);
+    public void updateTranslationOfferTest() {
+        TranslationOfferEntity entity = data.get(0);
+        TranslationOfferEntity pojoEntity = factory.manufacturePojo(TranslationOfferEntity.class);
 
         pojoEntity.setId(entity.getId());
 
-        translatorOfertLogic.updateTranslatorOfert(pojoEntity);
+        translationOfferLogic.updateTranslationOffer(pojoEntity);
 
-        TranslatorOfertEntity resp = em.find(TranslatorOfertEntity.class, entity.getId());
+        TranslationOfferEntity resp = em.find(TranslationOfferEntity.class, entity.getId());
 
         Assert.assertEquals(pojoEntity.getId(), resp.getId());
         Assert.assertEquals(pojoEntity.getPrice(), resp.getPrice());

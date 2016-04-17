@@ -3,14 +3,14 @@ package co.edu.uniandes.csw.translationservice.persistence;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import co.edu.uniandes.csw.translationservice.entities.TranslatorOfertEntity;
+import co.edu.uniandes.csw.translationservice.entities.TranslationOfferEntity;
 import co.edu.uniandes.csw.crud.spi.persistence.CrudPersistence;
 
 /**
  *  @author Germán
  */
 @Stateless
-public class TranslatorOfertPersistence extends CrudPersistence<TranslatorOfertEntity> {
+public class TranslationOfferPersistence extends CrudPersistence<TranslationOfferEntity> {
 
     @PersistenceContext(unitName="TranslationServicePU")
     protected EntityManager em;
@@ -27,7 +27,7 @@ public class TranslatorOfertPersistence extends CrudPersistence<TranslatorOfertE
      * @generated
      */
     @Override
-    protected Class<TranslatorOfertEntity> getEntityClass() {
-        return TranslatorOfertEntity.class;
+    protected Class<TranslationOfferEntity> getEntityClass() {
+        return TranslationOfferEntity.class;
     }
 }

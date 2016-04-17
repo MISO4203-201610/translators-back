@@ -10,7 +10,7 @@ import javax.persistence.ManyToOne;
  *  @author Germán
  */
 @Entity
-public class TranslatorOfertEntity extends BaseEntity implements Serializable {
+public class TranslationOfferEntity extends BaseEntity implements Serializable {
     
     @PodamExclude
     @ManyToOne

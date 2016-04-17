@@ -47,7 +47,7 @@ public class TranslationRequestEntity extends BaseEntity implements Serializable
     
     @PodamExclude
     @OneToMany(mappedBy = "translationRequest")
-    private List<TranslatorOfertEntity> translatorOferts = new ArrayList<>();
+    private List<TranslationOfferEntity> translationOffers = new ArrayList<>();
     
     private String description;
     
@@ -192,4 +192,13 @@ public class TranslationRequestEntity extends BaseEntity implements Serializable
     public void setKnowledgeAreasRequested(List<KnowledgeAreaEntity> knowledgeAreasRequested) {
         this.knowledgeAreasRequested = knowledgeAreasRequested;
     }
+
+    public List<TranslationOfferEntity> getTranslationOffers() {
+        return translationOffers;
+    }
+
+    public void setTranslationOffers(List<TranslationOfferEntity> translationOffers) {
+        this.translationOffers = translationOffers;
+    }
+    
 }
