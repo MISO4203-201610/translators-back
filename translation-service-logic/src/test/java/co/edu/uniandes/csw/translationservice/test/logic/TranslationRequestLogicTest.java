@@ -123,6 +123,7 @@ public class TranslationRequestLogicTest {
         em.createQuery("delete from StatusEntity").executeUpdate();
         em.createQuery("delete from CustomerEntity").executeUpdate();
         em.createQuery("delete from LanguageEntity").executeUpdate();
+        em.createQuery("delete from TranslationOfferEntity").executeUpdate();
     }
 
     /**

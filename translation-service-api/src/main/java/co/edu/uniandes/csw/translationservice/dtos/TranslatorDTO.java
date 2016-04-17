@@ -29,7 +29,7 @@ public class TranslatorDTO {
     @PodamExclude
     private List<KnowledgeAreaDTO> knowledgeAreas = new ArrayList<>();
     @PodamExclude
-    private List<TranslatorOfertDTO> translatorOferts = new ArrayList<>();
+    private List<TranslationOfferDTO> translationOffers = new ArrayList<TranslationOfferDTO>();
     @PodamExclude
     private List<ReviewDTO> reviews;
 
@@ -147,11 +147,11 @@ public class TranslatorDTO {
         this.knowledgeAreas = knowledgeAreas;
     }
     
-    public List<TranslatorOfertDTO> getTranslatorOferts() {
-        return translatorOferts;
+    public List<TranslationOfferDTO> getTranslationOffers() {
+        return translationOffers;
     }
     
-    public void setTranslatorOferts(List<TranslatorOfertDTO> translatorOferts) {
-        this.translatorOferts = translatorOferts;
+    public void setTranslationOffers(List<TranslationOfferDTO> translationOffers) {
+        this.translationOffers = translationOffers;
     }
 }

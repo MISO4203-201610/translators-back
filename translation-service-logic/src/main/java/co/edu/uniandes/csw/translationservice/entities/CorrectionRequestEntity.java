@@ -10,7 +10,6 @@ import uk.co.jemos.podam.common.PodamStrategyValue;
 import co.edu.uniandes.csw.crud.api.podam.strategy.DateStrategy;
 import java.util.ArrayList;
 import java.util.List;
-import javax.persistence.ManyToMany;
 import uk.co.jemos.podam.common.PodamExclude;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;

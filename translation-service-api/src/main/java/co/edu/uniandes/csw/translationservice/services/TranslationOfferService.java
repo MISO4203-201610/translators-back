@@ -15,13 +15,13 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
-import co.edu.uniandes.csw.translationservice.api.ITranslatorOfertLogic;
+import co.edu.uniandes.csw.translationservice.api.ITranslationOfferLogic;
 import co.edu.uniandes.csw.translationservice.api.ITranslatorLogic;
 import co.edu.uniandes.csw.translationservice.converters.TranslationRequestConverter;
 import co.edu.uniandes.csw.translationservice.converters.TranslatorConverter;
-import co.edu.uniandes.csw.translationservice.dtos.TranslatorOfertDTO;
-import co.edu.uniandes.csw.translationservice.entities.TranslatorOfertEntity;
-import co.edu.uniandes.csw.translationservice.converters.TranslatorOfertConverter;
+import co.edu.uniandes.csw.translationservice.dtos.TranslationOfferDTO;
+import co.edu.uniandes.csw.translationservice.entities.TranslationOfferEntity;
+import co.edu.uniandes.csw.translationservice.converters.TranslationOfferConverter;
 import co.edu.uniandes.csw.translationservice.dtos.TranslatorDTO;
 import static co.edu.uniandes.csw.translationservice.services.AccountService.getCurrentTranslator;
 import javax.servlet.http.HttpServletRequest;
@@ -30,13 +30,13 @@ import javax.servlet.http.HttpServletRequest;
 /**
  * @generated
  */
-@Path("/translatorOferts")
+@Path("/translationOffers")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
-public class TranslatorOfertService {
+public class TranslationOfferService {
 
     @Inject
-    private ITranslatorOfertLogic translatorOfertLogic;
+    private ITranslationOfferLogic translationOfferLogic;
     @Inject
     private ITranslatorLogic translatorLogic;
     @Context
@@ -59,9 +59,9 @@ public class TranslatorOfertService {
      * @generated
      */
     @GET
-    public List<TranslatorOfertDTO> getTranslatorOferts() {
+    public List<TranslationOfferDTO> getTranslationOffers() {
         Long id = getCurrentTranslator(req.getRemoteUser()).getId();
-        return TranslatorOfertConverter.listEntity2DTO(translatorLogic.getTranslator(id).getTranslatorOferts());
+        return TranslationOfferConverter.listEntity2DTO(translatorLogic.getTranslator(id).getTranslationOffers());
     }
 
     /**
@@ -74,8 +74,8 @@ public class TranslatorOfertService {
      */
     @GET
     @Path("{id: \\d+}")
-    public TranslatorOfertDTO getTranslatorOfert(@PathParam("id") Long id) {
-        return TranslatorOfertConverter.fullEntity2DTO(translatorOfertLogic.getTranslatorOfert(id));
+    public TranslationOfferDTO getTranslationOffer(@PathParam("id") Long id) {
+        return TranslationOfferConverter.fullEntity2DTO(translationOfferLogic.getTranslationOffer(id));
     }
 
     /**
@@ -87,17 +87,17 @@ public class TranslatorOfertService {
      */
     @POST
     @StatusCreated
-    public TranslatorOfertDTO createTranslatorOfert(TranslatorOfertDTO dto) {
-        TranslatorOfertEntity entity = TranslatorOfertConverter.fullDTO2Entity(dto);
+    public TranslationOfferDTO createTranslationOffer(TranslationOfferDTO dto) {
+        TranslationOfferEntity entity = TranslationOfferConverter.fullDTO2Entity(dto);
         entity.setTranslator(getCurrentTranslator(req.getRemoteUser()));
         entity.setTranslationRequest(TranslationRequestConverter.fullDTO2Entity(dto.getTranslationRequest()));
         
         String[] to = new String[MAX_EMAIL];
-        to[0]= "ing.rojas.m@gmail.com";
+        to[0]= "sotomelendez@gmail.com";
         
-        String subject = "New Translator Ofert was created ";
+        String subject = "New Translator Offer was created ";
        
-        String body = "Hi Customer, a new TranslatorOfert has been created";
+        String body = "Hi Customer, a new TranslatorOffer has been created";
         
         //System.out.println("body: "+body);
         
@@ -110,7 +110,7 @@ public class TranslatorOfertService {
         List<TranslatorDTO> list = TranslatorConverter.listEntity2DTO(translatorLogic.getTranslators());
         MailService.sendMailAdmin(list, subject, body);
 
-        return TranslatorOfertConverter.fullEntity2DTO(translatorOfertLogic.createTranslatorOfert(entity));
+        return TranslationOfferConverter.fullEntity2DTO(translationOfferLogic.createTranslationOffer(entity));
     }
 
     /**
@@ -123,11 +123,11 @@ public class TranslatorOfertService {
      */
     @PUT
     @Path("{id: \\d+}")
-    public TranslatorOfertDTO updateTranslatorOfert(@PathParam("id") Long id, TranslatorOfertDTO dto) {
-        TranslatorOfertEntity entity = TranslatorOfertConverter.fullDTO2Entity(dto);
+    public TranslationOfferDTO updateTranslationOffer(@PathParam("id") Long id, TranslationOfferDTO dto) {
+        TranslationOfferEntity entity = TranslationOfferConverter.fullDTO2Entity(dto);
         entity.setTranslationRequest(TranslationRequestConverter.fullDTO2Entity(dto.getTranslationRequest()));
         entity.setId(id);
-        return TranslatorOfertConverter.fullEntity2DTO(translatorOfertLogic.updateTranslatorOfert(entity));
+        return TranslationOfferConverter.fullEntity2DTO(translationOfferLogic.updateTranslationOffer(entity));
     }
 
     /**
@@ -138,7 +138,7 @@ public class TranslatorOfertService {
      */
     @DELETE
     @Path("{id: \\d+}")
-    public void deleteTranslatorOfert(@PathParam("id") Long id) {
-        translatorOfertLogic.deleteTranslatorOfert(id);
+    public void deleteTranslationOffer(@PathParam("id") Long id) {
+        translationOfferLogic.deleteTranslationOffer(id);
     }
 }

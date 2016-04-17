@@ -1,11 +1,9 @@
 package co.edu.uniandes.csw.translationservice.converters;
 
-import co.edu.uniandes.csw.translationservice.converters.TranslatorConverter;
 import co.edu.uniandes.csw.translationservice.dtos.TranslatorDTO;
 import co.edu.uniandes.csw.translationservice.dtos.CorrectionRequestDTO;
 import co.edu.uniandes.csw.translationservice.entities.TranslatorEntity;
 import co.edu.uniandes.csw.translationservice.entities.CorrectionRequestEntity;
-import co.edu.uniandes.csw.translationservice.entities.ReviewEntity;
 import co.edu.uniandes.csw.translationservice.entities.KnowledgeAreaEntity;
 import java.util.ArrayList;
 import java.util.List;

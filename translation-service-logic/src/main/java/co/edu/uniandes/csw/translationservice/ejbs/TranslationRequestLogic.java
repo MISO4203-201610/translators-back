@@ -1,8 +1,10 @@
 package co.edu.uniandes.csw.translationservice.ejbs;
 
 import co.edu.uniandes.csw.translationservice.api.IKnowledgeAreaLogic;
+import co.edu.uniandes.csw.translationservice.api.ITranslationOfferLogic;
 import co.edu.uniandes.csw.translationservice.api.ITranslationRequestLogic;
 import co.edu.uniandes.csw.translationservice.entities.KnowledgeAreaEntity;
+import co.edu.uniandes.csw.translationservice.entities.TranslationOfferEntity;
 import co.edu.uniandes.csw.translationservice.entities.TranslationRequestEntity;
 import co.edu.uniandes.csw.translationservice.persistence.TranslationRequestPersistence;
 import java.util.List;
@@ -18,6 +20,8 @@ public class TranslationRequestLogic implements ITranslationRequestLogic {
     @Inject private TranslationRequestPersistence persistence;
     
     @Inject private IKnowledgeAreaLogic knowledgeAreaLogic;
+    
+    @Inject private ITranslationOfferLogic translationOfferLogic;
 
     /**
      * @generated
@@ -123,10 +127,61 @@ public class TranslationRequestLogic implements ITranslationRequestLogic {
 
     
     @Override
-    public void removeKnowledgeAreas(Long id, Long KnowledgeAreaId) {
+    public void removeKnowledgeAreas(Long id, Long knowledgeAreaId) {
         
         TranslationRequestEntity entity = persistence.find(id);
-        KnowledgeAreaEntity knowledgeAreasEntity = knowledgeAreaLogic.getKnowledgeArea(KnowledgeAreaId);
+        KnowledgeAreaEntity knowledgeAreasEntity = knowledgeAreaLogic.getKnowledgeArea(knowledgeAreaId);
         entity.getKnowledgeAreasRequested().remove(knowledgeAreasEntity);
     }   
+
+    @Override
+    public List<TranslationOfferEntity> listTranslationOffers(Long id) {
+        return persistence.find(id).getTranslationOffers();
+    }
+
+    @Override
+    public TranslationOfferEntity getTranslationOffers(Long id, Long TranslationOfferId) {
+        List<TranslationOfferEntity> list = persistence.find(id).getTranslationOffers();
+        TranslationOfferEntity awardEntity = new TranslationOfferEntity();
+        awardEntity.setId(TranslationOfferId);
+        int index = list.indexOf(awardEntity);
+        if (index >= 0) {
+            return list.get(index);
+        }
+        return null;
+    }
+
+    @Override
+    public TranslationOfferEntity addTranslationOffers(Long id, Long TranslationOfferId) {
+        TranslationOfferEntity translationOfferEntity = translationOfferLogic.getTranslationOffer(TranslationOfferId);
+
+        TranslationRequestEntity entity = persistence.find(id);
+        translationOfferEntity.setId(TranslationOfferId);
+        entity.getTranslationOffers().add(translationOfferEntity);
+        return getTranslationOffers(id, TranslationOfferId);
+    }
+
+    @Override
+    public List<TranslationOfferEntity> replaceTranslationOffers(Long id, List<TranslationOfferEntity> list) {
+        TranslationRequestEntity entity = persistence.find(id);
+        List<TranslationOfferEntity> offerList = translationOfferLogic.getTranslationOffers();
+        for (TranslationOfferEntity offer : offerList) {
+            if (list.contains(offer)) {
+                offer.setTranslationRequest(entity);
+            } else {
+                if (offer.getTranslationRequest()!= null && offer.getTranslationRequest().equals(entity)) {
+                    offer.setTranslationRequest(null);
+                }
+            }
+        }
+        entity.setTranslationOffers(list);
+        return entity.getTranslationOffers();
+    }
+
+    @Override
+    public void removeTranslationOffers(Long id, Long TranslationOfferId) {
+        TranslationRequestEntity entity = persistence.find(id);
+        TranslationOfferEntity translationOfferEntity = translationOfferLogic.getTranslationOffer(TranslationOfferId);
+        entity.getKnowledgeAreasRequested().remove(translationOfferEntity);
+    }
 }

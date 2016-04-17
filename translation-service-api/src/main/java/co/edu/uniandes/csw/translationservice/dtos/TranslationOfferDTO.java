@@ -7,7 +7,7 @@ import uk.co.jemos.podam.common.PodamExclude;
  * @Germán
  */
 @XmlRootElement
-public class TranslatorOfertDTO {
+public class TranslationOfferDTO {
     
     private Long id;
     private String price;
