@@ -58,19 +58,19 @@ public class TranslatorService {
         String accountHref = req.getRemoteUser();
         
         if (accountHref == null)
-            return null;
+            return new ArrayList<TranslatorDTO>();
         
         Account account = getClient().getResource(accountHref, Account.class);
         for (Group gr : account.getGroups()) {
             
-            if (gr.getHref().equals(ADMIN_HREF) && page != null && maxRecords != null){
+            if (gr.getHref() == ADMIN_HREF && page != null && maxRecords != null){
                 this.response.setIntHeader("X-Total-Count", translatorLogic.countTranslators());
                 return TranslatorConverter.listEntity2DTO(translatorLogic.getTranslators(page, maxRecords));
             }
-            else if (gr.getHref().equals(ADMIN_HREF)){
+            else if (gr.getHref() == ADMIN_HREF){
                 return TranslatorConverter.listEntity2DTO(translatorLogic.getTranslators());
             }
-            else if (gr.getHref().equals(TRANSLATOR_GROUP_HREF)){
+            else if (gr.getHref() == TRANSLATOR_GROUP_HREF){
                 Integer id = (int) account.getCustomData().get("translatorId");
                 List<TranslatorDTO> list = new ArrayList();
                 list.add(TranslatorConverter.fullEntity2DTO(translatorLogic.getTranslator(id.longValue())));
@@ -79,7 +79,7 @@ public class TranslatorService {
         }
         
         // Nothing?
-        return null;
+        return new ArrayList<TranslatorDTO>();
     }
 
     /**
