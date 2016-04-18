@@ -144,6 +144,7 @@ public class TranslatorLogicTest {
             for (EducationEntity item : entity.getEducation()) {
                 item.setTranslator(entity);
             }
+            
             if (i == 0) {
                 translationOffersData.get(i).setTranslator(entity);
             }
@@ -168,6 +169,18 @@ public class TranslatorLogicTest {
         Assert.assertEquals(result.getName(), entity.getName());
         Assert.assertEquals(result.getPicture(), entity.getPicture());
         Assert.assertEquals(result.getBirthDate(), entity.getBirthDate());
+        
+        for (EducationEntity entityEducation : entity.getEducation()) {
+            for (EducationEntity resultEducation : result.getEducation()) {
+                Assert.assertEquals(entityEducation.getDescription(), resultEducation.getDescription());
+                Assert.assertEquals(entityEducation.getInstitution(), resultEducation.getInstitution());
+                Assert.assertEquals(entityEducation.getName(), resultEducation.getName());
+                Assert.assertEquals(entityEducation.getTranslator(), resultEducation.getTranslator());
+                Assert.assertEquals(entityEducation.getTitle(), resultEducation.getTitle());
+                Assert.assertEquals(entityEducation.getStartDate(), resultEducation.getStartDate());
+                Assert.assertEquals(entityEducation.getEndDate(), resultEducation.getEndDate());
+            }
+        }
     }
 
     /**

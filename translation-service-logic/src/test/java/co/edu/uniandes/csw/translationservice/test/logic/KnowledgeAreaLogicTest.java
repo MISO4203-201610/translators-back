@@ -103,9 +103,10 @@ public class KnowledgeAreaLogicTest {
     private void insertData() {
         for (int i = 0; i < 3; i++) {
             KnowledgeAreaEntity entity = factory.manufacturePojo(KnowledgeAreaEntity.class);
-
             em.persist(entity);
             data.add(entity);
+            
+            
         }
     }
 
