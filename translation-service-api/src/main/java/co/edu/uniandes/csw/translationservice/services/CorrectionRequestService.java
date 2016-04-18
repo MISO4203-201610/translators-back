@@ -74,12 +74,14 @@ public class CorrectionRequestService {
      * Obtiene los traductores a recomendar para determinado correction request
      *
      * @param id Identificador de la instancia a recomendar
-     * @return Colección de TranslatorDTO con los datos de los Translator
-     * a recomendar
+     * @param translatorId
      */
     @GET
     @Path("recommendations/{id: \\d+}/invite/{translatorId: \\d+}")
     public void sendInvitationCorrectionRequest(@PathParam("id") Long id, @PathParam("translatorId") Long translatorId) {
+        
+        // Get the actual request!
+        CorrectionRequestDTO correctionRequest = CorrectionRequestConverter.fullEntity2DTO(correctionRequestLogic.getCorrectionRequest(id));
         
         // Email them
         List<TranslatorDTO> translator = new ArrayList<TranslatorDTO>();
@@ -87,7 +89,7 @@ public class CorrectionRequestService {
         
         // Invite them
         String subject = "You've got an invitation";
-        String body = "You've being invited to quote a correction request. To give a quote go to: http://localhost:9000/#/confirmCorrection";
+        String body = "You've being invited to quote a correction request called " + correctionRequest.getName() + ". To give a quote go to: http://localhost:9000/#/confirmCorrection";
         MailService.sendMailAdmin(translator, subject, body);
     }
     

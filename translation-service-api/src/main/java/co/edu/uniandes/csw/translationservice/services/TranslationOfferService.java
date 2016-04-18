@@ -94,19 +94,9 @@ public class TranslationOfferService {
         
         String[] to = new String[MAX_EMAIL];
         to[0]= "sotomelendez@gmail.com";
-        
         String subject = "New Translator Offer was created ";
-       
         String body = "Hi Customer, a new TranslatorOffer has been created";
         
-        //System.out.println("body: "+body);
-        
-        
-        //System.out.println("to: "+to);
-        for(String it:to){
-            //System.out.println("tounit: "+it);
-            
-        }
         List<TranslatorDTO> list = TranslatorConverter.listEntity2DTO(translatorLogic.getTranslators());
         MailService.sendMailAdmin(list, subject, body);
 

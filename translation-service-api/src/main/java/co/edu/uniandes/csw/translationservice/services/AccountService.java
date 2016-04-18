@@ -48,6 +48,11 @@ public class AccountService extends AuthService {
                     acc.getCustomData().put(TRANSLATOR_CUSTOM_DATA_KEY, translator.getId());
                     break;
                 }
+                
+                // End it right here!
+                if (group.getHref() == TRANSLATOR_GROUP_HREF || group.getHref() == CUSTOMER_GROUP_HREF)
+                    break;
+                
             }
             acc.getCustomData().save();
         } catch (ResourceException e) {
