@@ -182,6 +182,6 @@ public class TranslationRequestLogic implements ITranslationRequestLogic {
     public void removeTranslationOffers(Long id, Long translationOfferId) {
         TranslationRequestEntity entity = persistence.find(id);
         TranslationOfferEntity translationOfferEntity = translationOfferLogic.getTranslationOffer(translationOfferId);
-        entity.getKnowledgeAreasRequested().remove(translationOfferEntity);
+        entity.getTranslationOffers().remove(translationOfferEntity);
     }
 }
