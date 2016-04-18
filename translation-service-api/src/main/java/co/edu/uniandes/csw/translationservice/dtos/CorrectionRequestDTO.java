@@ -45,10 +45,12 @@ public class CorrectionRequestDTO extends RequestDTO {
         this.desctiption = desctiption;
     }
 
+    @Override
     public int getNumberOfWords() {
         return numberOfWords;
     }
 
+    @Override
     public void setNumberOfWords(int numberOfWords) {
         this.numberOfWords = numberOfWords;
     }

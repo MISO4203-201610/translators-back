@@ -9,9 +9,9 @@ public class ProfileDTO extends UserDTO {
     private Date birthDate;
 
     private String picture;
-
-    // This method does not requires initialization
+    
     public ProfileDTO() {
+        // This method does not requires initialization
     }
 
     public ProfileDTO(Account account) {
