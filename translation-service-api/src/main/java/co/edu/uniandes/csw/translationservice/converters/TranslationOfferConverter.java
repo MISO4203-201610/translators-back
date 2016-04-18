@@ -117,8 +117,7 @@ public abstract class TranslationOfferConverter {
      */
     public static TranslationOfferDTO fullEntity2DTO(TranslationOfferEntity entity) {
         if (entity != null) {
-            TranslationOfferDTO dto = basicEntity2DTO(entity);
-            return dto;
+            return basicEntity2DTO(entity);
         } else {
             return null;
         }
@@ -134,8 +133,7 @@ public abstract class TranslationOfferConverter {
      */
     public static TranslationOfferEntity fullDTO2Entity (TranslationOfferDTO dto) {
         if (dto != null) {
-            TranslationOfferEntity entity = basicDTO2Entity(dto);
-            return entity;
+            return basicDTO2Entity(dto);
         } else {
             return null;
         }
