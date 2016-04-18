@@ -4,6 +4,7 @@ import co.edu.uniandes.csw.auth.model.UserDTO;
 import co.edu.uniandes.csw.auth.security.JWT;
 import co.edu.uniandes.csw.translationservice.dtos.CorrectionRequestDTO;
 import co.edu.uniandes.csw.translationservice.dtos.CustomerDTO;
+import co.edu.uniandes.csw.translationservice.dtos.TranslatorDTO;
 import co.edu.uniandes.csw.translationservice.services.CorrectionRequestService;
 import java.io.File;
 import java.io.IOException;
@@ -43,7 +44,9 @@ public class CorrectionRequestTest {
     private final int OkWithoutContent = Status.NO_CONTENT.getStatusCode();
     private final String correctionRequestPath = "correctionRequests";
     private final String customerPath = "customers";
+    private final String translatorPath = "translators";
     private final static List<CorrectionRequestDTO> oraculo = new ArrayList<>();
+    private final static List<TranslatorDTO> oraculoTranslator = new ArrayList<>();
     private WebTarget target;
     private final String apiPath = "api";
     private final String username = System.getenv("USERNAME_USER");
@@ -88,10 +91,14 @@ public class CorrectionRequestTest {
     public static void insertData() {
         for (int i = 0; i < 5; i++) {
             PodamFactory factory = new PodamFactoryImpl();
+            
             CorrectionRequestDTO correctionRequest = factory.manufacturePojo(CorrectionRequestDTO.class);
             correctionRequest.setId(i + 1L);
-
             oraculo.add(correctionRequest);
+            
+            TranslatorDTO translator = factory.manufacturePojo(TranslatorDTO.class);
+            translator.setId(i + 1L);
+            oraculoTranslator.add(translator);
 
         }
     }
@@ -187,14 +194,41 @@ public class CorrectionRequestTest {
 //        Assert.assertEquals(correctionRequest.getDesctiption(), correctionrequestTest.getDesctiption());
 //        Assert.assertEquals(correctionRequest.getNumberOfWords(), correctionrequestTest.getNumberOfWords());
     }
-
+    
     @Test
     @InSequence(5)
+    public void getRecommendationsCorrectionRequestTest() {
+        Cookie cookieSessionId = login(username, password);
+        CorrectionRequestDTO correctionRequest = oraculo.get(0);
+        Response response = target.path(correctionRequestPath).path("recommendations").path(correctionRequest.getId().toString())
+                .request().cookie(cookieSessionId).get();
+        Assert.assertEquals(OkWithoutContent, response.getStatus());
+    }
+    
+    @Test
+    @InSequence(6)
+    public void sendInvitationRecommendationsCorrectionRequestTest() {
+        Cookie cookieSessionId = login(username, password);
+        CorrectionRequestDTO correctionRequest = oraculo.get(0);
+        TranslatorDTO translator = oraculoTranslator.get(0);
+        
+        Response responseTranslator = target.path(translatorPath)
+                .request().cookie(cookieSessionId)
+                .post(Entity.entity(translator, MediaType.APPLICATION_JSON));
+        
+        Response response = target.path(correctionRequestPath).path("recommendations").path(correctionRequest.getId().toString())
+                .path("invite").path(translator.getId().toString())
+                .request().cookie(cookieSessionId).get();
+        Assert.assertEquals(OkWithoutContent, response.getStatus());
+    }
+
+    @Test
+    @InSequence(7)
     public void deleteCorrectionRequestTest() {
         Cookie cookieSessionId = login(username, password);
         CorrectionRequestDTO correctionRequest = oraculo.get(0);
         Response response = target.path(correctionRequestPath).path(correctionRequest.getId().toString())
                 .request().cookie(cookieSessionId).delete();
-        Assert.assertEquals(OkWithoutContent, response.getStatus());
+        Assert.assertEquals(Ok, response.getStatus());
     }
 }

@@ -21,33 +21,6 @@ public abstract class CorrectionRequestConverter {
     }
 
     /**
-     * Realiza la conversión de CorrectionRequestEntity a CorrectionRequestDTO.
-     * Se invoca cuando otra entidad tiene una referencia a CorrectionRequestEntity.
-     * Entrega únicamente los atributos proprios de la entidad.
-     *
-     * @param entity instancia de CorrectionRequestEntity a convertir
-     * @return instancia de CorrectionRequestDTO con los datos recibidos por parámetro
-     * @generated
-     */
-    public static CorrectionRequestDTO refEntity2DTO(CorrectionRequestEntity entity) {
-        if (entity != null) {
-            CorrectionRequestDTO dto = new CorrectionRequestDTO();
-            dto.setId(entity.getId());
-            dto.setName(entity.getName());
-            dto.setCreationDate(entity.getCreationDate());
-            dto.setDueDate(entity.getDueDate());
-            dto.setDesctiption(entity.getDescription());
-            dto.setNumberOfWords(entity.getNumberOfWords());
-            
-            dto.setKnowledgeAreas(KnowledgeAreaConverter.listEntity2DTO(entity.getKnowledgeAreasRequested()));
-
-            return dto;
-        } else {
-            return null;
-        }
-    }
-
-    /**
      * Realiza la conversión de CorrectionRequestDTO a CorrectionRequestEntity Se invoca cuando otro DTO
      * tiene una referencia a CorrectionRequestDTO Convierte únicamente el ID ya que es el
      * único atributo necesario para guardar la relación en la base de datos

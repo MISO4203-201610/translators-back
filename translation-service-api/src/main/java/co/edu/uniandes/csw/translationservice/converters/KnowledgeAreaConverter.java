@@ -18,27 +18,6 @@ public abstract class KnowledgeAreaConverter {
     }
 
     /**
-     * Realiza la conversión de KnowledgeAreaEntity a KnowledgeAreaDTO.
-     * Se invoca cuando otra entidad tiene una referencia a KnowledgeAreaEntity.
-     * Entrega únicamente los atributos proprios de la entidad.
-     *
-     * @param entity instancia de KnowledgeAreaEntity a convertir
-     * @return instancia de KnowledgeAreaDTO con los datos recibidos por parámetro
-     * @generated
-     */
-    public static KnowledgeAreaDTO refEntity2DTO(KnowledgeAreaEntity entity) {
-        if (entity != null) {
-            KnowledgeAreaDTO dto = new KnowledgeAreaDTO();
-            dto.setId(entity.getId());
-            dto.setName(entity.getName());
-
-            return dto;
-        } else {
-            return null;
-        }
-    }
-
-    /**
      * Realiza la conversión de KnowledgeAreaDTO a KnowledgeAreaEntity Se invoca cuando otro DTO
      * tiene una referencia a KnowledgeAreaDTO Convierte únicamente el ID ya que es el
      * único atributo necesario para guardar la relación en la base de datos
