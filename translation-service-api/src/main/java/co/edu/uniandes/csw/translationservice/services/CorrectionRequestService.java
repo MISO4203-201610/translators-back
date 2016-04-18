@@ -103,13 +103,10 @@ public class CorrectionRequestService {
     public List<TranslatorDTO> getRecommendationsCorrectionRequest(@PathParam("id") Long id) {
         
         // Filtrar las recomendaciones
-        List<TranslatorDTO> recommendations = CorrectionRequestConverter.fullEntity2RecommendationDTO(
+        return CorrectionRequestConverter.fullEntity2RecommendationDTO(
             correctionRequestLogic.getCorrectionRequest(id),
             translatorLogic.getTranslators()
         );
-        
-        // Retornar las recomendaciones
-        return recommendations;
     }
 
     /**
