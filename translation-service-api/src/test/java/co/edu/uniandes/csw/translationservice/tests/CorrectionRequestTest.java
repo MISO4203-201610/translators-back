@@ -202,7 +202,7 @@ public class CorrectionRequestTest {
         CorrectionRequestDTO correctionRequest = oraculo.get(0);
         Response response = target.path(correctionRequestPath).path("recommendations").path(correctionRequest.getId().toString())
                 .request().cookie(cookieSessionId).get();
-        Assert.assertEquals(OkWithoutContent, response.getStatus());
+        Assert.assertEquals(Ok, response.getStatus());
     }
     
     @Test
@@ -229,6 +229,6 @@ public class CorrectionRequestTest {
         CorrectionRequestDTO correctionRequest = oraculo.get(0);
         Response response = target.path(correctionRequestPath).path(correctionRequest.getId().toString())
                 .request().cookie(cookieSessionId).delete();
-        Assert.assertEquals(Ok, response.getStatus());
+        Assert.assertEquals(OkWithoutContent, response.getStatus());
     }
 }
