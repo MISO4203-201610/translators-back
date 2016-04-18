@@ -96,6 +96,7 @@ public class CorrectionRequestLogic implements ICorrectionRequestLogic {
    
     @Override
     public KnowledgeAreaEntity addKnowledgeAreas(Long id, Long KnowledgeAreaId){
+
         KnowledgeAreaEntity knowledgeAreasEntity = knowledgeAreaLogic.getKnowledgeArea(KnowledgeAreaId);
         CorrectionRequestEntity entity = persistence.find(id);
         knowledgeAreasEntity.setId(KnowledgeAreaId);
