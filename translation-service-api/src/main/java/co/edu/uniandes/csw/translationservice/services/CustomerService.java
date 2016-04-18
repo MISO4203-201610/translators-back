@@ -56,7 +56,7 @@ public class CustomerService {
         String accountHref = req.getRemoteUser();
         
         if (accountHref == null)
-            return null;
+            return new ArrayList<CustomerDTO>();
         
         Account account = getClient().getResource(accountHref, Account.class);
         for (Group gr : account.getGroups())
@@ -79,7 +79,7 @@ public class CustomerService {
             }
         }
     
-        return null;
+        return new ArrayList<CustomerDTO>();
     }
 
     /**
