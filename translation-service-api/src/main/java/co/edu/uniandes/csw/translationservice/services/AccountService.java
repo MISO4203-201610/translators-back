@@ -38,7 +38,6 @@ public class AccountService extends AuthService {
                     customer.setName(acc.getFullName());
                     customer = customerLogic.createCustomer(customer);
                     acc.getCustomData().put(CUSTOMER_CUSTOM_DATA_KEY, customer.getId());
-                    break;
                 }
                 else if (group.getHref() == TRANSLATOR_GROUP_HREF){
                     TranslatorEntity translator = new TranslatorEntity();
@@ -46,7 +45,6 @@ public class AccountService extends AuthService {
                     translator.setEmail(acc.getEmail());
                     translator = translatorLogic.createTranslator(translator);
                     acc.getCustomData().put(TRANSLATOR_CUSTOM_DATA_KEY, translator.getId());
-                    break;
                 }
                 
                 // End it right here!
