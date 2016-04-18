@@ -90,9 +90,7 @@ public class TranslationRequestTest {
             PodamFactory factory = new PodamFactoryImpl();
             TranslationRequestDTO translationRequest = factory.manufacturePojo(TranslationRequestDTO.class);
             translationRequest.setId(i + 1L);
-
             oraculo.add(translationRequest);
-
         }
     }
 
@@ -141,6 +139,7 @@ public class TranslationRequestTest {
         Assert.assertEquals(translationRequest.getContexto(), translationrequestTest.getContexto());
         Assert.assertEquals(translationRequest.getDescription(), translationrequestTest.getDescription());
         Assert.assertEquals(translationRequest.getNumberOfWords(), translationrequestTest.getNumberOfWords());
+        Assert.assertEquals(translationRequest.getTranslationOffers(), translationrequestTest.getTranslationOffers());
         Assert.assertEquals(Created, response.getStatus());
     }
 
@@ -164,6 +163,7 @@ public class TranslationRequestTest {
         Assert.assertEquals(translationrequestTest.getContexto(), oraculo.get(0).getContexto());
         Assert.assertEquals(translationrequestTest.getDescription(), oraculo.get(0).getDescription());
         Assert.assertEquals(translationrequestTest.getNumberOfWords(), oraculo.get(0).getNumberOfWords());
+        Assert.assertEquals(translationrequestTest.getTranslationOffers(), oraculo.get(0).getTranslationOffers());
     }
 
     @Test
@@ -197,6 +197,7 @@ public class TranslationRequestTest {
         Assert.assertEquals(translationRequest.getCreationDate(), translationrequestTest.getCreationDate());
         Assert.assertEquals(translationRequest.getDueDate(), translationrequestTest.getDueDate());
         Assert.assertEquals(translationRequest.getContexto(), translationrequestTest.getContexto());
+        Assert.assertEquals(translationRequest.getTranslationOffers(), translationrequestTest.getTranslationOffers());
     }
 
     @Test

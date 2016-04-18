@@ -27,6 +27,10 @@
         <sonar.jacoco.outReportPath>target/jacoco</sonar.jacoco.outReportPath>
         <sonar.jacoco.outItReportPath>target/jacoco-it</sonar.jacoco.outItReportPath>
         <sonar.host.url>http://157.253.238.75:9000</sonar.host.url>
+        <sonar.exclusions>
+            translation-service-logic/src/main/java/co/edu/uniandes/csw/translationservice/exceptions/*,
+            translation-service-logic/src/main/java/co/edu/uniandes/csw/translationservice/ejbs/*
+        </sonar.exclusions>
     </properties>
     <dependencyManagement>
         <dependencies>
