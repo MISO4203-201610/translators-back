@@ -32,7 +32,6 @@ public class AccountService extends AuthService {
         try {
             Account acc = createUser(udto);
             for (Group group : acc.getGroups()) {
-                
                 if (group.getHref() == CUSTOMER_GROUP_HREF){
                     CustomerEntity customer = new CustomerEntity();
                     customer.setName(acc.getFullName());
