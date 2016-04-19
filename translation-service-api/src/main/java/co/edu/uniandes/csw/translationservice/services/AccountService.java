@@ -33,21 +33,23 @@ public class AccountService extends AuthService {
             Account acc = createUser(udto);
             for (Group group : acc.getGroups()) {
                 
-                switch (group.getHref()) {
-                    case CUSTOMER_GROUP_HREF:
-                        CustomerEntity customer = new CustomerEntity();
-                        customer.setName(acc.getFullName());
-                        customer = customerLogic.createCustomer(customer);
-                        acc.getCustomData().put(CUSTOMER_CUSTOM_DATA_KEY, customer.getId());
-                        break;
-                    case TRANSLATOR_GROUP_HREF:
-                        TranslatorEntity translator = new TranslatorEntity();
-                        translator.setName(acc.getFullName());
-                        translator.setEmail(acc.getEmail());
-                        translator = translatorLogic.createTranslator(translator);
-                        acc.getCustomData().put(TRANSLATOR_CUSTOM_DATA_KEY, translator.getId());
-                        break;
+                if (group.getHref() == CUSTOMER_GROUP_HREF){
+                    CustomerEntity customer = new CustomerEntity();
+                    customer.setName(acc.getFullName());
+                    customer = customerLogic.createCustomer(customer);
+                    acc.getCustomData().put(CUSTOMER_CUSTOM_DATA_KEY, customer.getId());
                 }
+                else if (group.getHref() == TRANSLATOR_GROUP_HREF){
+                    TranslatorEntity translator = new TranslatorEntity();
+                    translator.setName(acc.getFullName());
+                    translator.setEmail(acc.getEmail());
+                    translator = translatorLogic.createTranslator(translator);
+                    acc.getCustomData().put(TRANSLATOR_CUSTOM_DATA_KEY, translator.getId());
+                }
+                
+                // End it right here!
+                if (group.getHref() == TRANSLATOR_GROUP_HREF || group.getHref() == CUSTOMER_GROUP_HREF)
+                    break;
                 
             }
             acc.getCustomData().save();

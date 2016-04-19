@@ -18,7 +18,6 @@ import co.edu.uniandes.csw.translationservice.api.ICustomerLogic;
 import co.edu.uniandes.csw.translationservice.api.ITranslatorLogic;
 import co.edu.uniandes.csw.translationservice.dtos.CorrectionRequestDTO;
 import co.edu.uniandes.csw.translationservice.entities.CorrectionRequestEntity;
-import co.edu.uniandes.csw.translationservice.entities.CustomerEntity;
 import co.edu.uniandes.csw.translationservice.converters.CorrectionRequestConverter;
 import co.edu.uniandes.csw.translationservice.converters.KnowledgeAreaConverter;
 import co.edu.uniandes.csw.translationservice.converters.TranslatorConverter;
@@ -55,10 +54,7 @@ public class CorrectionRequestService {
     @GET
     public List<CorrectionRequestDTO> getCorrectionRequests() {
         Long id = getCurrentCustomer(req.getRemoteUser()).getId();
-        CustomerEntity customer = customerLogic.getCustomer(id);
-        id = customer.getId();
-        List<CorrectionRequestEntity> corrections = customer.getCorrectionRequests();
-        return CorrectionRequestConverter.listEntity2DTO(corrections);
+        return CorrectionRequestConverter.listEntity2DTO(customerLogic.getCustomer(id).getCorrectionRequests());
     }
 
     /**
