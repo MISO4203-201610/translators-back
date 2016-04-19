@@ -55,31 +55,26 @@ public class CustomerService {
     public List<CustomerDTO> getCustomers() {
         String accountHref = req.getRemoteUser();
         
-        if (accountHref == null)
-            return new ArrayList<CustomerDTO>();
-        
-        Account account = getClient().getResource(accountHref, Account.class);
-        for (Group gr : account.getGroups())
-        {    
-            if (gr.getHref() == ADMIN_HREF && page != null && maxRecords != null)
-            {
-                this.response.setIntHeader("X-Total-Count", customerLogic.countCustomers());
-                return CustomerConverter.listEntity2DTO(customerLogic.getCustomers(page, maxRecords));
-            }
-            else if (gr.getHref() == ADMIN_HREF)
-            {
-                return CustomerConverter.listEntity2DTO(customerLogic.getCustomers());
-            }
-            else if (gr.getHref() == CUSTOMER_GROUP_HREF)
-            {
-                Integer id = (int) account.getCustomData().get("customerId");
-                List<CustomerDTO> list = new ArrayList();
-                list.add(CustomerConverter.fullEntity2DTO(customerLogic.getCustomer(id.longValue())));
-                return list;
+        if (accountHref != null) {
+             Account account = getClient().getResource(accountHref, Account.class);
+             for (Group gr : account.getGroups()) {
+                 switch (gr.getHref()) {                    
+                     case ADMIN_HREF:
+                         if (page != null && maxRecords != null) {
+                         this.response.setIntHeader("X-Total-Count", customerLogic.countCustomers());
+                         return CustomerConverter.listEntity2DTO(customerLogic.getCustomers(page, maxRecords));
+                         }
+                         return CustomerConverter.listEntity2DTO(customerLogic.getCustomers());
+                     case CUSTOMER_GROUP_HREF:
+                         Integer id = (int) account.getCustomData().get("customerId");
+                         List<CustomerDTO> list = new ArrayList();
+                         list.add(CustomerConverter.fullEntity2DTO(customerLogic.getCustomer(id.longValue())));
+                         return list;    
+                 }
             }
         }
     
-        return new ArrayList<CustomerDTO>();
+        return null;
     }
 
     /**
