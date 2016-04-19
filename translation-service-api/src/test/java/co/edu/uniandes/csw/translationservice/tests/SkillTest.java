@@ -2,9 +2,9 @@ package co.edu.uniandes.csw.translationservice.tests;
 
 import co.edu.uniandes.csw.auth.model.UserDTO;
 import co.edu.uniandes.csw.auth.security.JWT;
-import co.edu.uniandes.csw.translationservice.dtos.CustomerDTO;
-import co.edu.uniandes.csw.translationservice.dtos.ReviewDTO;
-import co.edu.uniandes.csw.translationservice.services.ReviewService;
+import co.edu.uniandes.csw.translationservice.dtos.TranslatorDTO;
+import co.edu.uniandes.csw.translationservice.dtos.LanguageDTO;
+import co.edu.uniandes.csw.translationservice.services.SkillService;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -36,14 +36,14 @@ import uk.co.jemos.podam.api.PodamFactory;
 import uk.co.jemos.podam.api.PodamFactoryImpl;
 
 @RunWith(Arquillian.class)
-public class ReviewTest {
+public class SkillTest {
 
     private final int Ok = Status.OK.getStatusCode();
     private final int Created = Status.CREATED.getStatusCode();
     private final int OkWithoutContent = Status.NO_CONTENT.getStatusCode();
-    private final String reviewsPath = "reviews";
-    private final static List<ReviewDTO> oraculo = new ArrayList<>();
-    private final String customerPath = "customers";
+    private final String skillsPath = "skills";
+    private final String translatorPath = "translators";
+    private final static List<LanguageDTO> oraculo = new ArrayList<>();
     private WebTarget target;
     private final String apiPath = "api";
     private final String username = System.getenv("USERNAME_USER");
@@ -63,7 +63,7 @@ public class ReviewTest {
                         .resolve("co.edu.uniandes.csw:auth-utils:0.1.0")
                         .withTransitivity().asFile())
                 // Se agregan los compilados de los paquetes de servicios
-                .addPackage(ReviewService.class.getPackage())
+                .addPackage(SkillService.class.getPackage())
                 // El archivo que contiene la configuracion a la base de datos.
                 .addAsResource("META-INF/persistence.xml", "META-INF/persistence.xml")
                 // El archivo beans.xml es necesario para injeccion de dependencias.
@@ -88,7 +88,7 @@ public class ReviewTest {
     public static void insertData() {
         for (int i = 0; i < 5; i++) {
             PodamFactory factory = new PodamFactoryImpl();
-            ReviewDTO review = factory.manufacturePojo(ReviewDTO.class);
+            LanguageDTO review = factory.manufacturePojo(LanguageDTO.class);
             review.setId(i + 1L);
 
             oraculo.add(review);
@@ -117,82 +117,37 @@ public class ReviewTest {
 
     @Test
     @InSequence(1)
-    public void createReviewsTest() throws IOException {
-                PodamFactory factory = new PodamFactoryImpl();
-        CustomerDTO customer = factory.manufacturePojo(CustomerDTO.class);;
-        Cookie cookieSessionId = login(username, password);
-        target.path(customerPath)
-                .request().cookie(cookieSessionId)
-                .post(Entity.entity(customer, MediaType.APPLICATION_JSON));
+    public void addSkillTest() throws IOException {
         
-        ReviewDTO review = oraculo.get(0);
-        
-        Response response = target.path(reviewsPath)
-                .request().cookie(cookieSessionId)
-                .post(Entity.entity(review, MediaType.APPLICATION_JSON));
-        
-        ReviewDTO reviewTest = (ReviewDTO) response.readEntity(ReviewDTO.class);
-        Assert.assertEquals(review.getId(), reviewTest.getId());
-        Assert.assertEquals(review.getName(), reviewTest.getName());
-        Assert.assertEquals(review.getDescription(), reviewTest.getDescription());
-        Assert.assertEquals(review.getSource(), reviewTest.getSource());
-        Assert.assertEquals(review.getValue(), reviewTest.getValue());
-        Assert.assertEquals(Created, response.getStatus());
-    }
-
-    @Test
-    @InSequence(2)
-    public void getReviewsById() {
-        Cookie cookieSessionId = login(username, password);
-        ReviewDTO reviewTest = target.path(reviewsPath)
-                .path(oraculo.get(0).getId().toString())
-                .request().cookie(cookieSessionId).get(ReviewDTO.class);
-        Assert.assertEquals(reviewTest.getId(), oraculo.get(0).getId());
-        Assert.assertEquals(reviewTest.getName(), oraculo.get(0).getName());
-        Assert.assertEquals(reviewTest.getDescription(), oraculo.get(0).getDescription());
-        Assert.assertEquals(reviewTest.getSource(), oraculo.get(0).getSource());
-        Assert.assertEquals(reviewTest.getValue(), oraculo.get(0).getValue());
-    }
-
-    @Test
-    @InSequence(3)
-    public void listReviewsTest() throws IOException {
-        Cookie cookieSessionId = login(username, password);
-        Response response = target.path(reviewsPath)
-                .request().cookie(cookieSessionId).get();
-        String listReviews = response.readEntity(String.class);
-        List<ReviewDTO> listReviewsTest = new ObjectMapper().readValue(listReviews, List.class);
-        Assert.assertEquals(Ok, response.getStatus());
-        Assert.assertEquals(1, listReviewsTest.size());
-    }
-
-    @Test
-    @InSequence(4)
-    public void updateTest() throws IOException {
-        Cookie cookieSessionId = login(username, password);
-        ReviewDTO review = oraculo.get(0);
         PodamFactory factory = new PodamFactoryImpl();
-        ReviewDTO reviewChanged = factory.manufacturePojo(ReviewDTO.class);
-        review.setName(reviewChanged.getName());
-        review.setDescription(reviewChanged.getDescription());
-        review.setValue(reviewChanged.getValue());
-        review.setSource(reviewChanged.getSource());
-        Response response = target.path(reviewsPath).path(review.getId().toString())
-                .request().cookie(cookieSessionId).put(Entity.entity(review, MediaType.APPLICATION_JSON));
-        ReviewDTO statusTest = (ReviewDTO) response.readEntity(ReviewDTO.class);
-        Assert.assertEquals(Ok, response.getStatus());
-        Assert.assertEquals(review.getName(), reviewChanged.getName());
-        Assert.assertEquals(review.getDescription(), reviewChanged.getDescription());
-        Assert.assertEquals(review.getSource(), reviewChanged.getSource());
-        Assert.assertEquals(review.getValue(), reviewChanged.getValue());
-    }
-
-    @Test
-    @InSequence(5)
-    public void deleteTest() {
+        TranslatorDTO translator = factory.manufacturePojo(TranslatorDTO.class);;
         Cookie cookieSessionId = login(username, password);
-        ReviewDTO status = oraculo.get(0);
-        Response response = target.path(reviewsPath).path(status.getId().toString())
+        target.path(translatorPath)
+                .request().cookie(cookieSessionId)
+                .post(Entity.entity(translator, MediaType.APPLICATION_JSON));
+        
+        LanguageDTO language = oraculo.get(0);
+        
+        Response response = target.path(skillsPath).path(language.getId().toString())
+                .request().cookie(cookieSessionId)
+                .post(Entity.entity(language, MediaType.APPLICATION_JSON));
+        LanguageDTO languageTest = (LanguageDTO) response.readEntity(LanguageDTO.class);
+        Assert.assertEquals(language.getId(), languageTest.getId());
+        Assert.assertEquals(language.getName(), languageTest.getName());
+        Assert.assertEquals(Created, response.getStatus());
+        
+        
+        
+        response = target.path(skillsPath)
+                .request().cookie(cookieSessionId).get();
+        String listSkills = response.readEntity(String.class);
+        List<LanguageDTO> listSkillsTest = new ObjectMapper().readValue(listSkills, List.class);
+        Assert.assertEquals(Ok, response.getStatus());
+        Assert.assertEquals(1, listSkillsTest.size());
+        
+        
+        LanguageDTO status = oraculo.get(0);
+        response = target.path(skillsPath).path(status.getId().toString())
                 .request().cookie(cookieSessionId).delete();
         Assert.assertEquals(OkWithoutContent, response.getStatus());
     }
