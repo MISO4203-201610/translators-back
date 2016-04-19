@@ -153,7 +153,6 @@ public class TranslatorPersistenceTest {
         Assert.assertEquals(entity.getPicture(), newEntity.getPicture());
         Assert.assertEquals(entity.getBirthDate(), newEntity.getBirthDate());
     }
-
     /**
      * @generated
      */
