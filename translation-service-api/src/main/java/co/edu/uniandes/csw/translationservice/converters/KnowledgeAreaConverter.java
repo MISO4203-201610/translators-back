@@ -109,8 +109,7 @@ public abstract class KnowledgeAreaConverter {
      */
     public static KnowledgeAreaDTO fullEntity2DTO(KnowledgeAreaEntity entity) {
         if (entity != null) {
-            KnowledgeAreaDTO dto = basicEntity2DTO(entity);
-            return dto;
+            return basicEntity2DTO(entity);
         } else {
             return null;
         }
@@ -126,8 +125,7 @@ public abstract class KnowledgeAreaConverter {
      */
     public static KnowledgeAreaEntity fullDTO2Entity(KnowledgeAreaDTO dto) {
         if (dto != null) {
-            KnowledgeAreaEntity entity = basicDTO2Entity(dto);
-            return entity;
+            return basicDTO2Entity(dto);
         } else {
             return null;
         }

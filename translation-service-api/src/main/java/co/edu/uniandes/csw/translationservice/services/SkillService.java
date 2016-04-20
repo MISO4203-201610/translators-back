@@ -4,7 +4,6 @@ import co.edu.uniandes.csw.auth.provider.StatusCreated;
 import co.edu.uniandes.csw.translationservice.api.ITranslatorLogic;
 import co.edu.uniandes.csw.translationservice.converters.LanguageConverter;
 import co.edu.uniandes.csw.translationservice.dtos.LanguageDTO;
-import co.edu.uniandes.csw.translationservice.entities.LanguageEntity;
 import static co.edu.uniandes.csw.translationservice.services.AccountService.getCurrentTranslator;
 import java.util.List;
 import javax.inject.Inject;

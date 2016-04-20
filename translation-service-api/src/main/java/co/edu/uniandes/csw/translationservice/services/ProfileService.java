@@ -20,7 +20,7 @@ public class ProfileService {
     private HttpServletRequest req;
     
     // Our logger
-    private static final Logger log = Logger.getLogger( ProfileService.class.getName() );
+    private static final Logger LOGGER = Logger.getLogger( ProfileService.class.getName() );
 
     @GET
     public ProfileDTO getProfile() {
@@ -31,7 +31,7 @@ public class ProfileService {
             profile.setPicture(customer.getPicture());
         }
         catch (WebApplicationException e) {
-            log.info(e.getMessage());
+            LOGGER.info(e.getMessage());
         }
         
         try {
@@ -40,7 +40,7 @@ public class ProfileService {
             profile.setPicture(translator.getPicture());
         }
         catch (WebApplicationException e) {
-            log.info(e.getMessage());
+            LOGGER.info(e.getMessage());
         }
         
         return profile;

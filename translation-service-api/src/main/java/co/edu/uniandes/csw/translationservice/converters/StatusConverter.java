@@ -109,8 +109,7 @@ public abstract class StatusConverter {
      */
     public static StatusDTO fullEntity2DTO(StatusEntity entity) {
         if (entity != null) {
-            StatusDTO dto = basicEntity2DTO(entity);
-            return dto;
+            return basicEntity2DTO(entity);
         } else {
             return null;
         }
@@ -126,8 +125,7 @@ public abstract class StatusConverter {
      */
     public static StatusEntity fullDTO2Entity(StatusDTO dto) {
         if (dto != null) {
-            StatusEntity entity = basicDTO2Entity(dto);
-            return entity;
+            return basicDTO2Entity(dto);
         } else {
             return null;
         }

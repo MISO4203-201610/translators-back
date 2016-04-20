@@ -117,8 +117,7 @@ public abstract class TranslatorOfertConverter {
      */
     public static TranslatorOfertDTO fullEntity2DTO(TranslatorOfertEntity entity) {
         if (entity != null) {
-            TranslatorOfertDTO dto = basicEntity2DTO(entity);
-            return dto;
+            return basicEntity2DTO(entity);
         } else {
             return null;
         }
@@ -134,8 +133,7 @@ public abstract class TranslatorOfertConverter {
      */
     public static TranslatorOfertEntity fullDTO2Entity(TranslatorOfertDTO dto) {
         if (dto != null) {
-            TranslatorOfertEntity entity = basicDTO2Entity(dto);
-            return entity;
+            return basicDTO2Entity(dto);
         } else {
             return null;
         }

@@ -94,14 +94,14 @@ public class TranslationRequestLogic implements ITranslationRequestLogic {
     }
    
     @Override
-    public KnowledgeAreaEntity addKnowledgeAreas(Long id, Long KnowledgeAreaId){
+    public KnowledgeAreaEntity addKnowledgeAreas(Long id, Long knowledgeAreaId){
 
-        KnowledgeAreaEntity knowledgeAreasEntity = knowledgeAreaLogic.getKnowledgeArea(KnowledgeAreaId);
+        KnowledgeAreaEntity knowledgeAreasEntity = knowledgeAreaLogic.getKnowledgeArea(knowledgeAreaId);
 
         TranslationRequestEntity entity = persistence.find(id);
-        knowledgeAreasEntity.setId(KnowledgeAreaId);
+        knowledgeAreasEntity.setId(knowledgeAreaId);
         entity.getKnowledgeAreasRequested().add(knowledgeAreasEntity);
-        return getKnowledgeAreas(id, KnowledgeAreaId);
+        return getKnowledgeAreas(id, knowledgeAreaId);
     }
 
     @Override
@@ -123,10 +123,10 @@ public class TranslationRequestLogic implements ITranslationRequestLogic {
 
     
     @Override
-    public void removeKnowledgeAreas(Long id, Long KnowledgeAreaId) {
+    public void removeKnowledgeAreas(Long id, Long knowledgeAreaId) {
         
         TranslationRequestEntity entity = persistence.find(id);
-        KnowledgeAreaEntity knowledgeAreasEntity = knowledgeAreaLogic.getKnowledgeArea(KnowledgeAreaId);
+        KnowledgeAreaEntity knowledgeAreasEntity = knowledgeAreaLogic.getKnowledgeArea(knowledgeAreaId);
         entity.getKnowledgeAreasRequested().remove(knowledgeAreasEntity);
     }   
 }

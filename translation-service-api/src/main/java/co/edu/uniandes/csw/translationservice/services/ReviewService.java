@@ -19,8 +19,6 @@ import co.edu.uniandes.csw.translationservice.api.ITranslatorLogic;
 import co.edu.uniandes.csw.translationservice.dtos.ReviewDTO;
 import co.edu.uniandes.csw.translationservice.entities.ReviewEntity;
 import co.edu.uniandes.csw.translationservice.converters.ReviewConverter;
-import co.edu.uniandes.csw.translationservice.converters.TranslatorConverter;
-import co.edu.uniandes.csw.translationservice.dtos.TranslatorDTO;
 import static co.edu.uniandes.csw.translationservice.services.AccountService.getCurrentCustomer;
 import javax.servlet.http.HttpServletRequest;
 

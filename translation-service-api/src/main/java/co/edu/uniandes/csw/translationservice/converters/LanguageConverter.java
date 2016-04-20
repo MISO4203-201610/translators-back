@@ -109,8 +109,7 @@ public abstract class LanguageConverter {
      */
     public static LanguageDTO fullEntity2DTO(LanguageEntity entity) {
         if (entity != null) {
-            LanguageDTO dto = basicEntity2DTO(entity);
-            return dto;
+            return basicEntity2DTO(entity);
         } else {
             return null;
         }
@@ -126,8 +125,7 @@ public abstract class LanguageConverter {
      */
     public static LanguageEntity fullDTO2Entity(LanguageDTO dto) {
         if (dto != null) {
-            LanguageEntity entity = basicDTO2Entity(dto);
-            return entity;
+            return basicDTO2Entity(dto);
         } else {
             return null;
         }

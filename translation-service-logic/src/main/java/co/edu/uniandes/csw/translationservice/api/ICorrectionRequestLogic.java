@@ -14,8 +14,8 @@ public interface ICorrectionRequestLogic {
     public void deleteCorrectionRequest(Long id);
     
     public List<KnowledgeAreaEntity> listKnowledgeAreas(Long id);
-    public KnowledgeAreaEntity getKnowledgeAreas(Long id, Long KnowledgeAreaId);
-    public KnowledgeAreaEntity addKnowledgeAreas(Long id, Long KnowledgeAreaId);
+    public KnowledgeAreaEntity getKnowledgeAreas(Long id, Long knowledgeAreaId);
+    public KnowledgeAreaEntity addKnowledgeAreas(Long id, Long knowledgeAreaId);
     public List<KnowledgeAreaEntity> replaceKnowledgeAreas(Long id, List<KnowledgeAreaEntity> list);
-    public void removeKnowledgeAreas(Long id, Long KnowledgeAreaId);
+    public void removeKnowledgeAreas(Long id, Long knowledgeAreaId);
 }
