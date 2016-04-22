@@ -214,31 +214,31 @@ public class TranslationRequestService {
     }
     
     @GET
-    @Path("{id: \\d+}/translatorOferts")
+    @Path("{id: \\d+}/translatorOfert")
     public List<TranslatorOfertDTO> listTranslatorOferts(@PathParam("id") Long id) {
         return TranslatorOfertConverter.listEntity2DTO(translationRequestLogic.listTranslatorOferts(id));
     }
 
     @GET
-    @Path("{id: \\d+}/translatorOferts/{translatorOfertId: \\d+}")
+    @Path("{id: \\d+}/translatorOfert/{translatorOfertId: \\d+}")
     public TranslatorOfertDTO getTranslatorOferts(@PathParam("id") Long id, @PathParam("translatorOfertId") Long translatorOfertId) {
         return TranslatorOfertConverter.fullEntity2DTO(translationRequestLogic.getTranslatorOferts(id, translatorOfertId));
     }
 
     @POST
-    @Path("{id: \\d+}/translatorOferts/{translatorOfertId: \\d+}")
+    @Path("{id: \\d+}/translatorOfert/{translatorOfertId: \\d+}")
     public TranslatorOfertDTO addTranslatorOferts(@PathParam("id") Long id, @PathParam("translatorOfertId") Long translatorOfertId) {
         return TranslatorOfertConverter.fullEntity2DTO(translationRequestLogic.addTranslatorOferts(id, translatorOfertId));
     }
 
     @PUT
-    @Path("{id: \\d+}/translatorOferts")
+    @Path("{id: \\d+}/translatorOfert")
     public List<TranslatorOfertDTO> replaceTranslatorOferts(@PathParam("id") Long id, List<TranslatorOfertDTO> translatorOferts) {
         return TranslatorOfertConverter.listEntity2DTO(translationRequestLogic.replaceTranslatorOferts(id, TranslatorOfertConverter.listDTO2Entity(translatorOferts)));
     }
 
     @DELETE
-    @Path("{id: \\d+}/translatorOferts/{translatorOfertId: \\d+}")
+    @Path("{id: \\d+}/translatorOfert/{translatorOfertId: \\d+}")
     public void removeTranslatorOferts(@PathParam("id") Long id, @PathParam("translatorOfertId") Long translatorOfertId) {
         translationRequestLogic.removeTranslatorOferts(id, translatorOfertId);
     }
