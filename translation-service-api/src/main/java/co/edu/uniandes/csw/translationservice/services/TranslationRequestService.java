@@ -27,6 +27,8 @@ import co.edu.uniandes.csw.translationservice.dtos.TranslatorOfertDTO;
 import co.edu.uniandes.csw.translationservice.dtos.TranslatorDTO;
 import static co.edu.uniandes.csw.translationservice.services.AccountService.getCurrentCustomer;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.http.HttpServletRequest;
 
 
@@ -85,13 +87,16 @@ public class TranslationRequestService {
     @Path("recommendations/{id: \\d+}/invite/{translatorId: \\d+}")
     public void sendInvitationTranslationRequest(@PathParam("id") Long id, @PathParam("translatorId") Long translatorId) {
         
+        // Get the actual request!
+        TranslationRequestDTO translationRequest = TranslationRequestConverter.fullEntity2DTO(translationRequestLogic.getTranslationRequest(id));
+        
         // Email them
         List<TranslatorDTO> translator = new ArrayList<TranslatorDTO>();
         translator.add(TranslatorConverter.refEntity2DTO(translatorLogic.getTranslator(translatorId)));
         
         // Invite them
         String subject = "You've got an invitation";
-        String body = "You've being invited to quote a translation request. To give a quote go to: http://localhost:9000/#/confirmTranslation";
+        String body = "You've being invited to quote a translation request called " + translationRequest.getName() + ". To give a quote go to: http://localhost:9000/#/confirmTranslation";
         MailService.sendMailAdmin(translator, subject, body);
     }
     
@@ -107,13 +112,10 @@ public class TranslationRequestService {
     public List<TranslatorDTO> getRecommendationsTranslationRequest(@PathParam("id") Long id) {
         
         // Filtrar las recomendaciones
-        List<TranslatorDTO> recommendations = TranslationRequestConverter.fullEntity2RecommendationDTO(
+       return TranslationRequestConverter.fullEntity2RecommendationDTO(
             translationRequestLogic.getTranslationRequest(id),
             translatorLogic.getTranslators()
         );
-        
-        // Retornar las recomendaciones
-        return recommendations;
     }
 
     /**
@@ -241,5 +243,43 @@ public class TranslationRequestService {
     @Path("{id: \\d+}/translatorOfert/{translatorOfertId: \\d+}")
     public void removeTranslatorOferts(@PathParam("id") Long id, @PathParam("translatorOfertId") Long translatorOfertId) {
         translationRequestLogic.removeTranslatorOferts(id, translatorOfertId);
+    }
+    
+    @GET
+    @Path("{id: \\d+}/translatorOfert/{translatorOfertId: \\d+}/selected")
+    public void selectTranslationOfert(@PathParam("id") Long id, @PathParam("translatorOfertId") Long translatorOfertId) {
+        
+        // Get the current request information
+        TranslationRequestDTO translationRequest = TranslationRequestConverter.fullEntity2DTO(translationRequestLogic.getTranslationRequest(id));
+        
+        //Get the other translatorOferts
+        List<TranslatorOfertDTO> translatorOferts = TranslatorOfertConverter.listEntity2DTO(translationRequestLogic.listTranslatorOferts(id));
+        
+        List<TranslatorDTO> translatorsAccepted = new ArrayList<>();
+        List<TranslatorDTO> translatorsRejected = new ArrayList<>();
+        
+        if (!translatorOferts.isEmpty()) {
+            for (TranslatorOfertDTO translatorOfert : translatorOferts) {
+                TranslatorDTO translator = translatorOfert.getTranslator();
+                
+                if (translatorOfert.getId() == translatorOfertId) {
+                    translatorsAccepted.add(TranslatorConverter.refEntity2DTO(translatorLogic.getTranslator(translator.getId())));
+                }else{
+                    translatorsRejected.add(TranslatorConverter.refEntity2DTO(translatorLogic.getTranslator(translator.getId())));
+                }
+            }
+        }
+        
+        // Sent the accepted email
+        String subject = "Your Offer translation was selected";
+        String body = "Congratulations! your offer was selected for the TranslationRequest: " + translationRequest.getName() + ". To give a quote go to: http://localhost:9000/#/translatorOfert";
+        MailService.sendMailAdmin(translatorsAccepted, subject, body);
+        
+        
+        // Sent the rejected emails
+        subject = "Your Offer translation was rejected";
+        body = "Sorry =( your offer wasn't selected for the TranslationRequest: " + translationRequest.getName() + ". You can see your active Oferts: http://localhost:9000/#/translatorOfert";
+        MailService.sendMailAdmin(translatorsRejected, subject, body); 
+        
     }
 }

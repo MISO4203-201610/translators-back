@@ -11,6 +11,7 @@ public class ProfileDTO extends UserDTO {
     private String picture;
 
     public ProfileDTO() {
+        // This method does not requires initialization
     }
 
     public ProfileDTO(Account account) {

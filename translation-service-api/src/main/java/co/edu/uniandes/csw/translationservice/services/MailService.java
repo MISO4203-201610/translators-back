@@ -83,8 +83,6 @@ public class MailService {
     
     
     public static void sendMailCustomer(CustomerDTO customer, String subject, String body) {
-
-    
         try {
             String to = customer.getEmail();
             PropertyReader.initializePropertyReader();
