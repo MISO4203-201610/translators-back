@@ -192,4 +192,20 @@ public class TranslationRequestEntity extends BaseEntity implements Serializable
     public void setKnowledgeAreasRequested(List<KnowledgeAreaEntity> knowledgeAreasRequested) {
         this.knowledgeAreasRequested = knowledgeAreasRequested;
     }
+    
+    /**
+     * @return the translatorOferts
+     */
+    public List<TranslatorOfertEntity> getTranslatorOferts() {
+        return translatorOferts;
+    }
+
+    /**
+     * @param translatorOferts the knowledgeAreasRequested to set
+     */
+    public void setTranslatorOferts(List<TranslatorOfertEntity> translatorOferts) {
+        this.translatorOferts = translatorOferts;
+    }
+    
+    
 }

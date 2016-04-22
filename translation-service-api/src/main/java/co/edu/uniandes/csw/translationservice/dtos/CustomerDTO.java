@@ -16,6 +16,7 @@ public class CustomerDTO {
 
     private Long id;
     private String name;
+    private String email;
     private String picture;
     @PodamStrategyValue(DateStrategy.class)
     private Date birthDate;
@@ -106,6 +107,10 @@ public class CustomerDTO {
      */
     public void setCorrectionRequests(List<CorrectionRequestDTO> correctionrequests) {
         this.correctionRequests = correctionrequests;
+    }
+
+    public String getEmail() {
+        return email;
     }
 
 }

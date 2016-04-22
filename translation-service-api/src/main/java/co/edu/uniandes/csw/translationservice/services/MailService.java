@@ -5,6 +5,7 @@
  */
 package co.edu.uniandes.csw.translationservice.services;
 
+import co.edu.uniandes.csw.translationservice.dtos.CustomerDTO;
 import co.edu.uniandes.csw.translationservice.dtos.TranslatorDTO;
 import javax.mail.*;
 
@@ -60,6 +61,44 @@ public class MailService {
                 if(to[i]!=null)
                     message.addRecipient(Message.RecipientType.TO, new InternetAddress(to[i]));
             }
+
+            message.setSubject(subject);
+            message.setText(body);
+            Transport transport = session.getTransport("smtps");
+            transport.connect(host, from, pass);
+
+            List<String> toAddresses = new ArrayList<String>();
+            Address[] recipients = message.getRecipients(Message.RecipientType.TO);
+            for (Address address : recipients) {
+                toAddresses.add(address.toString());
+            }
+
+            transport.sendMessage(message, message.getAllRecipients());
+            transport.close();
+        } catch (MessagingException ex) {
+            Logger.getLogger(MailService.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
+    
+    
+    public static void sendMailCustomer(CustomerDTO customer, String subject, String body) {
+
+    
+        try {
+            String to = customer.getEmail();
+            PropertyReader.initializePropertyReader();
+            String from = PropertyReader.getPropertyValue("userAdmin");
+            String pass = PropertyReader.getPropertyValue("pass");
+            String host = PropertyReader.getPropertyValue("mail.smtp.host");
+            
+            Session session = Session.getDefaultInstance(PropertyReader.getProperties());
+            
+            MimeMessage message = new MimeMessage(session);
+            
+            message.setFrom(new InternetAddress(from));
+
+            message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
 
             message.setSubject(subject);
             message.setText(body);

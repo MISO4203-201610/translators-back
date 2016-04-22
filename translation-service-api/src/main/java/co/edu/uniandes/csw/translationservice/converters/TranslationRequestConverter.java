@@ -5,6 +5,7 @@ import co.edu.uniandes.csw.translationservice.dtos.TranslatorDTO;
 import co.edu.uniandes.csw.translationservice.entities.TranslationRequestEntity;
 import co.edu.uniandes.csw.translationservice.entities.TranslatorEntity;
 import co.edu.uniandes.csw.translationservice.entities.KnowledgeAreaEntity;
+import co.edu.uniandes.csw.translationservice.entities.TranslatorOfertEntity;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -91,7 +92,9 @@ public abstract class TranslationRequestConverter {
             dto.setNumberOfWords(entity.getNumberOfWords());
             
             dto.setKnowledgeAreas(KnowledgeAreaConverter.listEntity2DTO(entity.getKnowledgeAreasRequested()));
-
+            
+            dto.setTranslatorOferts(TranslatorOfertConverter.listEntity2DTO(entity.getTranslatorOferts()));
+            
             return dto;
         } else {
             return null;
@@ -142,6 +145,8 @@ public abstract class TranslationRequestConverter {
         if (entity != null) {
             TranslationRequestDTO dto = basicEntity2DTO(entity);        
             dto.setKnowledgeAreas(KnowledgeAreaConverter.listEntity2DTO(entity.getKnowledgeAreasRequested()));
+            dto.setTranslatorOferts(TranslatorOfertConverter.listEntity2DTO(entity.getTranslatorOferts()));
+            
             return dto;
         } else {
             return null;
@@ -160,6 +165,8 @@ public abstract class TranslationRequestConverter {
         if (dto != null) {
             TranslationRequestEntity entity = basicDTO2Entity(dto);
             entity.setKnowledgeAreasRequested(KnowledgeAreaConverter.listDTO2Entity(dto.getKnowledgeAreas()));
+            entity.setTranslatorOferts(TranslatorOfertConverter.listDTO2Entity(dto.getTranslatorOferts()));
+            
             return entity;
         } else {
             return null;

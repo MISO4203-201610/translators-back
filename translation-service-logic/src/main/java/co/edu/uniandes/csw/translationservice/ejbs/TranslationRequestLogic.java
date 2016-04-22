@@ -1,8 +1,11 @@
 package co.edu.uniandes.csw.translationservice.ejbs;
 
 import co.edu.uniandes.csw.translationservice.api.IKnowledgeAreaLogic;
+import co.edu.uniandes.csw.translationservice.api.ITranslatorOfertLogic;
 import co.edu.uniandes.csw.translationservice.api.ITranslationRequestLogic;
+import co.edu.uniandes.csw.translationservice.entities.CustomerEntity;
 import co.edu.uniandes.csw.translationservice.entities.KnowledgeAreaEntity;
+import co.edu.uniandes.csw.translationservice.entities.TranslatorOfertEntity;
 import co.edu.uniandes.csw.translationservice.entities.TranslationRequestEntity;
 import co.edu.uniandes.csw.translationservice.persistence.TranslationRequestPersistence;
 import java.util.List;
@@ -18,6 +21,8 @@ public class TranslationRequestLogic implements ITranslationRequestLogic {
     @Inject private TranslationRequestPersistence persistence;
     
     @Inject private IKnowledgeAreaLogic knowledgeAreaLogic;
+    
+    @Inject private ITranslatorOfertLogic translatorOfertLogic;
 
     /**
      * @generated
@@ -76,7 +81,7 @@ public class TranslationRequestLogic implements ITranslationRequestLogic {
         persistence.delete(id);
     }
     
-     @Override
+    @Override
     public List<KnowledgeAreaEntity> listKnowledgeAreas(Long id) {
         return persistence.find(id).getKnowledgeAreasRequested();
     }
@@ -91,6 +96,13 @@ public class TranslationRequestLogic implements ITranslationRequestLogic {
             return list.get(index);
         }
         return null;
+    }
+    
+    
+    @Override
+    public CustomerEntity getCustomer(Long id) {
+        CustomerEntity customer = persistence.find(id).getCustomer();
+        return customer;
     }
    
     @Override
@@ -128,5 +140,59 @@ public class TranslationRequestLogic implements ITranslationRequestLogic {
         TranslationRequestEntity entity = persistence.find(id);
         KnowledgeAreaEntity knowledgeAreasEntity = knowledgeAreaLogic.getKnowledgeArea(KnowledgeAreaId);
         entity.getKnowledgeAreasRequested().remove(knowledgeAreasEntity);
+    }   
+    
+    @Override
+    public List<TranslatorOfertEntity> listTranslatorOferts(Long id) {
+        return persistence.find(id).getTranslatorOferts();
+    }
+
+    @Override
+    public TranslatorOfertEntity getTranslatorOferts(Long id, Long translatorOfertId) {
+        List<TranslatorOfertEntity> list = persistence.find(id).getTranslatorOferts();
+        TranslatorOfertEntity awardEntity = new TranslatorOfertEntity();
+        awardEntity.setId(translatorOfertId);
+        int index = list.indexOf(awardEntity);
+        if (index >= 0) {
+            return list.get(index);
+        }
+        return null;
+    }
+    
+    @Override
+    public TranslatorOfertEntity addTranslatorOferts(Long id, Long translatorOfertId){
+
+        TranslatorOfertEntity translatorOfertsEntity = translatorOfertLogic.getTranslatorOfert(translatorOfertId);
+
+        TranslationRequestEntity entity = persistence.find(id);
+        translatorOfertsEntity.setId(translatorOfertId);
+        entity.getTranslatorOferts().add(translatorOfertsEntity);
+        return getTranslatorOferts(id, translatorOfertId);
+    }
+
+    @Override
+    public List<TranslatorOfertEntity> replaceTranslatorOferts(Long id, List<TranslatorOfertEntity> list) {
+        TranslationRequestEntity entity = persistence.find(id);
+        List<TranslatorOfertEntity> translatorOfertList = translatorOfertLogic.getTranslatorOferts();
+        for (TranslatorOfertEntity translatorOfert : translatorOfertList) {
+            if (list.contains(translatorOfert)) {
+                translatorOfert.setTranslationRequest(entity);
+            } else {
+                if (translatorOfert.getTranslationRequest()!= null && translatorOfert.getTranslationRequest().equals(entity)) {
+                    translatorOfert.setTranslationRequest(null);
+                }
+            }
+        }
+        entity.setTranslatorOferts(list);
+        return entity.getTranslatorOferts();
+    }
+
+    
+    @Override
+    public void removeTranslatorOferts(Long id, Long translatorOfertId) {
+        
+        TranslationRequestEntity entity = persistence.find(id);
+        TranslatorOfertEntity translatorOfertsEntity = translatorOfertLogic.getTranslatorOfert(translatorOfertId);
+        entity.getTranslatorOferts().remove(translatorOfertsEntity);
     }   
 }

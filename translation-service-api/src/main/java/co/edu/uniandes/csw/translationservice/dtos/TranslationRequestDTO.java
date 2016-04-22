@@ -24,6 +24,9 @@ public class TranslationRequestDTO extends RequestDTO {
     
     @PodamExclude
     private List<KnowledgeAreaDTO> knowledgeAreas = new ArrayList<>();
+    
+    @PodamExclude
+    private List<TranslatorOfertDTO> translatorOferts = new ArrayList<>();
 
     /**
      * @generated
@@ -103,4 +106,18 @@ public class TranslationRequestDTO extends RequestDTO {
         this.knowledgeAreas = knowledgeAreas;
     }
     
+            
+    /**
+     * @return the translatorOferts
+     */
+    public List<TranslatorOfertDTO> getTranslatorOferts() {
+        return translatorOferts;
+    }
+
+    /**
+     * @param translatorOferts the translatorOferts to set
+     */
+    public void setTranslatorOferts(List<TranslatorOfertDTO> translatorOferts) {
+        this.translatorOferts = translatorOferts;
+    }
 }

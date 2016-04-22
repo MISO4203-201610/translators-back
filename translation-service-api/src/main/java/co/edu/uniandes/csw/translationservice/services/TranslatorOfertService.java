@@ -1,6 +1,7 @@
 package co.edu.uniandes.csw.translationservice.services;
 
 import co.edu.uniandes.csw.auth.provider.StatusCreated;
+import co.edu.uniandes.csw.translationservice.api.ITranslationRequestLogic;
 import java.util.List;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletResponse;
@@ -17,13 +18,17 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import co.edu.uniandes.csw.translationservice.api.ITranslatorOfertLogic;
 import co.edu.uniandes.csw.translationservice.api.ITranslatorLogic;
+import co.edu.uniandes.csw.translationservice.converters.CustomerConverter;
 import co.edu.uniandes.csw.translationservice.converters.TranslationRequestConverter;
 import co.edu.uniandes.csw.translationservice.converters.TranslatorConverter;
 import co.edu.uniandes.csw.translationservice.dtos.TranslatorOfertDTO;
 import co.edu.uniandes.csw.translationservice.entities.TranslatorOfertEntity;
 import co.edu.uniandes.csw.translationservice.converters.TranslatorOfertConverter;
+import co.edu.uniandes.csw.translationservice.dtos.CustomerDTO;
+import co.edu.uniandes.csw.translationservice.dtos.TranslationRequestDTO;
 import co.edu.uniandes.csw.translationservice.dtos.TranslatorDTO;
 import static co.edu.uniandes.csw.translationservice.services.AccountService.getCurrentTranslator;
+import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 
 
@@ -78,6 +83,27 @@ public class TranslatorOfertService {
         return TranslatorOfertConverter.fullEntity2DTO(translatorOfertLogic.getTranslatorOfert(id));
     }
 
+    
+    /**
+     * Envia correo a Cliente para confirmación
+     *
+     * @param id Identificador de la instancia a recomendar
+     * @return Colección de TranslatorDTO con los datos de los Translator
+     * a recomendar
+     */
+    @GET
+    @Path("confirmation/{translationRequestId: \\d+}")
+    public void sendInvitationTranslationRequest(@PathParam("translationRequestId") Long translationRequestId) {
+        ITranslationRequestLogic translationRequestLogic = null;
+        
+        CustomerDTO customer = CustomerConverter.refEntity2DTO(translationRequestLogic.getCustomer(translationRequestId));
+        
+       
+        // Invite them
+        String subject = "You've got a confirmation from a Translator";
+        String body = "You've recieve confirmation from your TranslationRequest";
+        MailService.sendMailCustomer(customer, subject, body);
+    }
     /**
      * Se encarga de crear un TranslatorOfert en la base de datos.
      *
@@ -90,6 +116,7 @@ public class TranslatorOfertService {
     public TranslatorOfertDTO createTranslatorOfert(TranslatorOfertDTO dto) {
         TranslatorOfertEntity entity = TranslatorOfertConverter.fullDTO2Entity(dto);
         entity.setTranslator(getCurrentTranslator(req.getRemoteUser()));
+        TranslationRequestDTO translationRequestDTO = dto.getTranslationRequest();
         entity.setTranslationRequest(TranslationRequestConverter.fullDTO2Entity(dto.getTranslationRequest()));
         
         String[] to = new String[MAX_EMAIL];
@@ -99,14 +126,13 @@ public class TranslatorOfertService {
        
         String body = "Hi Customer, a new TranslatorOfert has been created";
         
+        
+        System.out.println("gergergerger");
+        //System.out.println(translationRequestDTO.getOriginalLanguage());
+        
+        
         //System.out.println("body: "+body);
         
-        
-        //System.out.println("to: "+to);
-        for(String it:to){
-            //System.out.println("tounit: "+it);
-            
-        }
         List<TranslatorDTO> list = TranslatorConverter.listEntity2DTO(translatorLogic.getTranslators());
         MailService.sendMailAdmin(list, subject, body);
 

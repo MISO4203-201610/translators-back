@@ -15,6 +15,7 @@ public class TranslatorOfertDTO {
     
     @PodamExclude
     private TranslatorDTO translator;
+    
     @PodamExclude
     private TranslationRequestDTO translationRequest;
     

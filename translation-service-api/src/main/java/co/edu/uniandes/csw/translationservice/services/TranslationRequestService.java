@@ -17,11 +17,13 @@ import javax.ws.rs.core.MediaType;
 import co.edu.uniandes.csw.translationservice.api.ITranslationRequestLogic;
 import co.edu.uniandes.csw.translationservice.api.ITranslatorLogic;
 import co.edu.uniandes.csw.translationservice.converters.KnowledgeAreaConverter;
+import co.edu.uniandes.csw.translationservice.converters.TranslatorOfertConverter;
 import co.edu.uniandes.csw.translationservice.dtos.TranslationRequestDTO;
 import co.edu.uniandes.csw.translationservice.entities.TranslationRequestEntity;
 import co.edu.uniandes.csw.translationservice.converters.TranslationRequestConverter;
 import co.edu.uniandes.csw.translationservice.converters.TranslatorConverter;
 import co.edu.uniandes.csw.translationservice.dtos.KnowledgeAreaDTO;
+import co.edu.uniandes.csw.translationservice.dtos.TranslatorOfertDTO;
 import co.edu.uniandes.csw.translationservice.dtos.TranslatorDTO;
 import static co.edu.uniandes.csw.translationservice.services.AccountService.getCurrentCustomer;
 import java.util.ArrayList;
@@ -209,5 +211,35 @@ public class TranslationRequestService {
     @Path("{id: \\d+}/knowledges/{knowledgeId: \\d+}")
     public void removeKnowledgeAreas(@PathParam("id") Long id, @PathParam("knowledgeId") Long knowledgeId) {
         translationRequestLogic.removeKnowledgeAreas(id, knowledgeId);
+    }
+    
+    @GET
+    @Path("{id: \\d+}/translatorOferts")
+    public List<TranslatorOfertDTO> listTranslatorOferts(@PathParam("id") Long id) {
+        return TranslatorOfertConverter.listEntity2DTO(translationRequestLogic.listTranslatorOferts(id));
+    }
+
+    @GET
+    @Path("{id: \\d+}/translatorOferts/{translatorOfertId: \\d+}")
+    public TranslatorOfertDTO getTranslatorOferts(@PathParam("id") Long id, @PathParam("translatorOfertId") Long translatorOfertId) {
+        return TranslatorOfertConverter.fullEntity2DTO(translationRequestLogic.getTranslatorOferts(id, translatorOfertId));
+    }
+
+    @POST
+    @Path("{id: \\d+}/translatorOferts/{translatorOfertId: \\d+}")
+    public TranslatorOfertDTO addTranslatorOferts(@PathParam("id") Long id, @PathParam("translatorOfertId") Long translatorOfertId) {
+        return TranslatorOfertConverter.fullEntity2DTO(translationRequestLogic.addTranslatorOferts(id, translatorOfertId));
+    }
+
+    @PUT
+    @Path("{id: \\d+}/translatorOferts")
+    public List<TranslatorOfertDTO> replaceTranslatorOferts(@PathParam("id") Long id, List<TranslatorOfertDTO> translatorOferts) {
+        return TranslatorOfertConverter.listEntity2DTO(translationRequestLogic.replaceTranslatorOferts(id, TranslatorOfertConverter.listDTO2Entity(translatorOferts)));
+    }
+
+    @DELETE
+    @Path("{id: \\d+}/translatorOferts/{translatorOfertId: \\d+}")
+    public void removeTranslatorOferts(@PathParam("id") Long id, @PathParam("translatorOfertId") Long translatorOfertId) {
+        translationRequestLogic.removeTranslatorOferts(id, translatorOfertId);
     }
 }
