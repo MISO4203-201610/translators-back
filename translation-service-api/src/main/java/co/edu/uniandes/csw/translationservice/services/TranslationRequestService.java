@@ -261,7 +261,6 @@ public class TranslationRequestService {
         if (!translatorOferts.isEmpty()) {
             for (TranslatorOfertDTO translatorOfert : translatorOferts) {
                 TranslatorDTO translator = translatorOfert.getTranslator();
-                
                 if (translatorOfert.getId() == translatorOfertId) {
                     translatorsAccepted.add(TranslatorConverter.refEntity2DTO(translatorLogic.getTranslator(translator.getId())));
                 }else{
