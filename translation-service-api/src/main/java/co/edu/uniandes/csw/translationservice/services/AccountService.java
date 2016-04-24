@@ -65,7 +65,7 @@ public class AccountService extends AuthService {
         return customer;
     }
 
-    public static TranslatorEntity getCurrentTranslator(String href) {
+        public static TranslatorEntity getCurrentTranslator(String href) {
         Account account = getCurrentAccount(href);
         Integer translatorId = (Integer) account.getCustomData().get(TRANSLATOR_CUSTOM_DATA_KEY);
         if (translatorId == null) {
