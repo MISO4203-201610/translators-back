@@ -34,6 +34,8 @@ public class TranslatorDTO {
     private List<ReviewDTO> reviews;
     @PodamExclude
     private List<ResumeDTO> resumes;
+    @PodamExclude
+    private List<TrajectoryDTO> trajectories;
 
     /**
      * @generated
@@ -163,5 +165,13 @@ public class TranslatorDTO {
 
     public void setResumes(List<ResumeDTO> resumes) {
         this.resumes = resumes;
+    }
+    
+    public List<TrajectoryDTO> getTrajectories() {
+        return trajectories;
+    }
+
+    public void setTrajectories(List<TrajectoryDTO> trajectories) {
+        this.trajectories = trajectories;
     }
 }

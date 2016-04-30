@@ -9,15 +9,16 @@ import javax.xml.bind.annotation.XmlRootElement;
 import uk.co.jemos.podam.common.PodamExclude;
 
 @XmlRootElement
-public class ResumeDTO {
-    
+public class TrajectoryDTO {
     private Long id;
     
-    private String professionalProfile;
+    private String projectName;
     
-    private String achievements;
+    private String description;
     
-    private String personalInformation;
+    private String duration;
+    
+    private String company;
     
     @PodamExclude
     private TranslatorDTO translator;
@@ -30,28 +31,36 @@ public class ResumeDTO {
         this.id = id;
     }
 
-    public String getProfessionalProfile() {
-        return professionalProfile;
+    public String getProjectName() {
+        return projectName;
     }
 
-    public void setProfessionalProfile(String professionalProfile) {
-        this.professionalProfile = professionalProfile;
+    public void setProjectName(String projectName) {
+        this.projectName = projectName;
     }
 
-    public String getAchievements() {
-        return achievements;
+    public String getDescription() {
+        return description;
     }
 
-    public void setAchievements(String achievements) {
-        this.achievements = achievements;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public String getPersonalInformation() {
-        return personalInformation;
+    public String getDuration() {
+        return duration;
     }
 
-    public void setPersonalInformation(String personalInformation) {
-        this.personalInformation = personalInformation;
+    public void setDuration(String duration) {
+        this.duration = duration;
+    }
+
+    public String getCompany() {
+        return company;
+    }
+
+    public void setCompany(String company) {
+        this.company = company;
     }
 
     public TranslatorDTO getTranslator() {
@@ -61,5 +70,5 @@ public class ResumeDTO {
     public void setTranslator(TranslatorDTO translator) {
         this.translator = translator;
     }
-
+   
 }
