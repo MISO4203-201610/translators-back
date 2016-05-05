@@ -59,6 +59,8 @@ public class TranslationRequestEntity extends BaseEntity implements Serializable
     @OneToMany
     private List<KnowledgeAreaEntity> knowledgeAreasRequested = new ArrayList<>();
 
+    private String enlaceArchivoResultado;
+    
     /**
      * @generated
      */
@@ -206,6 +208,12 @@ public class TranslationRequestEntity extends BaseEntity implements Serializable
     public void setTranslatorOferts(List<TranslatorOfertEntity> translatorOferts) {
         this.translatorOferts = translatorOferts;
     }
-    
-    
+
+    public String getEnlaceArchivoResultado() {
+        return enlaceArchivoResultado;
+    }
+
+    public void setEnlaceArchivoResultado(String enlaceArchivoResultado) {
+        this.enlaceArchivoResultado = enlaceArchivoResultado;
+    }   
 }

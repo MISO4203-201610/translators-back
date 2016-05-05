@@ -27,6 +27,9 @@ public class TranslationRequestDTO extends RequestDTO {
     
     @PodamExclude
     private List<TranslatorOfertDTO> translatorOferts = new ArrayList<>();
+    
+    @PodamExclude
+    private String enlaceArchivoResultado;
 
     /**
      * @generated
@@ -120,4 +123,13 @@ public class TranslationRequestDTO extends RequestDTO {
     public void setTranslatorOferts(List<TranslatorOfertDTO> translatorOferts) {
         this.translatorOferts = translatorOferts;
     }
+
+    public String getEnlaceArchivoResultado() {
+        return enlaceArchivoResultado;
+    }
+
+    public void setEnlaceArchivoResultado(String enlaceArchivoResultado) {
+        this.enlaceArchivoResultado = enlaceArchivoResultado;
+    }
+    
 }

@@ -24,6 +24,8 @@ public class TranslatorOfertEntity extends BaseEntity implements Serializable {
     
     private String comment;
     
+    private boolean acceptedByCustomer;
+    
     /**
      * @generated
      */
@@ -79,4 +81,13 @@ public class TranslatorOfertEntity extends BaseEntity implements Serializable {
     public void setTranslationRequest(TranslationRequestEntity translationRequest) {
         this.translationRequest = translationRequest;
     }    
+
+    public boolean isAcceptedByCustomer() {
+        return acceptedByCustomer;
+    }
+
+    public void setAcceptedByCustomer(boolean acceptedByCustomer) {
+        this.acceptedByCustomer = acceptedByCustomer;
+    }
+       
 }

@@ -147,6 +147,7 @@ public class TranslationRequestPersistenceTest {
         Assert.assertEquals(entity.getCreationDate(), newEntity.getCreationDate());
         Assert.assertEquals(entity.getDueDate(), newEntity.getDueDate());
         Assert.assertEquals(entity.getContexto(), newEntity.getContexto());
+        Assert.assertEquals(entity.getEnlaceArchivoResultado(), newEntity.getEnlaceArchivoResultado());
     }
 
     /**

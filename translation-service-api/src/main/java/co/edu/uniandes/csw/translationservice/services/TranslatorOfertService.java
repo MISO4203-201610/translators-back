@@ -18,7 +18,6 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import co.edu.uniandes.csw.translationservice.api.ITranslatorOfertLogic;
 import co.edu.uniandes.csw.translationservice.api.ITranslatorLogic;
-import co.edu.uniandes.csw.translationservice.api.ITranslationRequestLogic;
 import co.edu.uniandes.csw.translationservice.converters.CustomerConverter;
 import co.edu.uniandes.csw.translationservice.converters.TranslationRequestConverter;
 import co.edu.uniandes.csw.translationservice.converters.TranslatorConverter;
@@ -45,8 +44,6 @@ public class TranslatorOfertService {
     private ITranslatorOfertLogic translatorOfertLogic;
     @Inject
     private ITranslatorLogic translatorLogic;
-    @Inject
-    private ITranslationRequestLogic translationRequestLogic;
     @Context
     private HttpServletRequest req;
     @Context
@@ -57,7 +54,9 @@ public class TranslatorOfertService {
     private Integer maxRecords;
     
     private static final int MAX_EMAIL =40;
+    private ITranslationRequestLogic translationRequestLogic;
     
+
     /**
      * Obtiene la lista de los registros de TranslatorOfert.
      *
@@ -83,12 +82,6 @@ public class TranslatorOfertService {
     @Path("{id: \\d+}")
     public TranslatorOfertDTO getTranslatorOfert(@PathParam("id") Long id) {
         return TranslatorOfertConverter.fullEntity2DTO(translatorOfertLogic.getTranslatorOfert(id));
-    }
-    
-    @GET
-    @Path("/translationRequests")
-    public List<TranslationRequestDTO> getTranslationRequests() {
-        return TranslationRequestConverter.listEntity2DTO(translationRequestLogic.getTranslationRequests());
     }
 
     
@@ -174,5 +167,22 @@ public class TranslatorOfertService {
     @Path("{id: \\d+}")
     public void deleteTranslatorOfert(@PathParam("id") Long id) {
         translatorOfertLogic.deleteTranslatorOfert(id);
+    }
+    
+    @PUT
+    @Path("(translatorOfertId: \\d+)/requestResult/")
+    public TranslatorOfertDTO setEnlaceArchivoResultado(@PathParam("ofertId") Long ofertId, String resultFileURL )
+    {
+        TranslatorOfertEntity entidad = translatorOfertLogic.setEnlaceArchivoResultado(ofertId, resultFileURL);
+        TranslatorOfertDTO ofertaDTO = TranslatorOfertConverter.fullEntity2DTO(entidad);
+        
+        Long translationReqId = ofertaDTO.getTranslationRequest().getId();
+        CustomerDTO customer = CustomerConverter.fullEntity2DTO(translationRequestLogic.getCustomer(translationReqId));
+        String subject = "Translation Completed!";
+        String body = "The result file has been added to your translation request " + ofertaDTO.getTranslationRequest().getName()
+                + ". The link to the file is: " + resultFileURL;
+        MailService.sendMailCustomer(customer, subject, body);
+        
+        return ofertaDTO;
     }
 }

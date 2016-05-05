@@ -29,4 +29,5 @@ public interface ITranslatorLogic {
     public KnowledgeAreaEntity addKnowledgeAreas(Long translatorId, Long knowledgeAreasId);
     public List<KnowledgeAreaEntity> replaceKnowledgeAreas(Long translatorId, List<KnowledgeAreaEntity> list);
     public void removeKnowledgeAreas(Long translatorId, Long knowledgeAreasId);
+    public List<TranslatorOfertEntity> getAcceptedOferts(Long translatorId);
 }

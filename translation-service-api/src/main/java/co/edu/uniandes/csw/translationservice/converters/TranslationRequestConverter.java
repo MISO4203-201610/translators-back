@@ -90,6 +90,7 @@ public abstract class TranslationRequestConverter {
             dto.setDescription(entity.getDescription());
             dto.setContexto(entity.getContexto());
             dto.setNumberOfWords(entity.getNumberOfWords());
+            dto.setEnlaceArchivoResultado(entity.getEnlaceArchivoResultado());
             
             dto.setKnowledgeAreas(KnowledgeAreaConverter.listEntity2DTO(entity.getKnowledgeAreasRequested()));
             
@@ -127,6 +128,8 @@ public abstract class TranslationRequestConverter {
             
             entity.setNumberOfWords(dto.getNumberOfWords());
 
+            entity.setEnlaceArchivoResultado(dto.getEnlaceArchivoResultado());
+            
             return entity;
         } else {
             return null;

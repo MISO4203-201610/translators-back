@@ -152,6 +152,7 @@ public class TranslatorOfertLogicTest {
         Assert.assertEquals(result.getId(), entity.getId());
         Assert.assertEquals(result.getPrice(), entity.getPrice());
         Assert.assertEquals(result.getComment(), entity.getComment());
+        Assert.assertEquals(result.isAcceptedByCustomer(), entity.isAcceptedByCustomer());
     }
 
     /**
@@ -183,6 +184,7 @@ public class TranslatorOfertLogicTest {
         Assert.assertEquals(entity.getId(), resultEntity.getId());
         Assert.assertEquals(entity.getPrice(), resultEntity.getPrice());
         Assert.assertEquals(entity.getComment(), resultEntity.getComment());
+        Assert.assertEquals(entity.isAcceptedByCustomer(), resultEntity.isAcceptedByCustomer());
     }
 
     /**
@@ -213,5 +215,6 @@ public class TranslatorOfertLogicTest {
         Assert.assertEquals(pojoEntity.getId(), resp.getId());
         Assert.assertEquals(pojoEntity.getPrice(), resp.getPrice());
         Assert.assertEquals(pojoEntity.getComment(), resp.getComment());
+        Assert.assertEquals(pojoEntity.isAcceptedByCustomer(), resp.isAcceptedByCustomer());
     }
 }

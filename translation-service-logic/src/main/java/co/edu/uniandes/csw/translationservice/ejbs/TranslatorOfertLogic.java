@@ -3,7 +3,9 @@ package co.edu.uniandes.csw.translationservice.ejbs;
 import co.edu.uniandes.csw.translationservice.api.ITranslatorOfertLogic;
 import co.edu.uniandes.csw.translationservice.entities.TranslatorOfertEntity;
 import co.edu.uniandes.csw.translationservice.persistence.TranslatorOfertPersistence;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Objects;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 
@@ -71,4 +73,25 @@ public class TranslatorOfertLogic implements ITranslatorOfertLogic {
     public void deleteTranslatorOfert(Long id) {
         persistence.delete(id);
     }
+    
+    @Override
+    public TranslatorOfertEntity setEnlaceArchivoResultado(Long id, String enlace)
+    {
+        TranslatorOfertEntity oferta = this.getTranslatorOfert(id);
+        oferta.getTranslationRequest().setEnlaceArchivoResultado(enlace);
+        return persistence.update(oferta);
+    }
+    
+    @Override
+    public List<TranslatorOfertEntity> getAcceptedOferts(Long translatorId)
+    {
+        List<TranslatorOfertEntity> lista = persistence.findAll();
+        List<TranslatorOfertEntity> respuesta = new LinkedList<TranslatorOfertEntity>();
+        for (int i = 0; i < lista.size(); i++) {
+            if(Objects.equals(lista.get(i).getTranslator().getId(), translatorId) && lista.get(i).isAcceptedByCustomer())
+                respuesta.add(lista.get(i));
+        }
+        return respuesta;
+    }
+
 }

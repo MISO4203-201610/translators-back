@@ -27,7 +27,7 @@ import co.edu.uniandes.csw.translationservice.converters.InvitationConverter;
 @Produces(MediaType.APPLICATION_JSON)
 public class InvitationService {
 
-    @Inject private IInvitationLogic statusLogic;
+    @Inject private IInvitationLogic invitationLogic;
     @Context private HttpServletResponse response;
     @QueryParam("page") private Integer page;
     @QueryParam("maxRecords") private Integer maxRecords;
@@ -40,8 +40,8 @@ public class InvitationService {
      */
     @GET
     public List<InvitationDTO> getInvitations() {
-        this.response.setIntHeader("X-Total-Count", statusLogic.countInvitations());
-        return InvitationConverter.listEntity2DTO(statusLogic.getInvitations());
+        this.response.setIntHeader("X-Total-Count", invitationLogic.countInvitations());
+        return InvitationConverter.listEntity2DTO(invitationLogic.getInvitations());
     }
 
     /**
@@ -54,7 +54,7 @@ public class InvitationService {
     @GET
     @Path("{id: \\d+}")
     public InvitationDTO getInvitation(@PathParam("id") Long id) {
-        return InvitationConverter.fullEntity2DTO(statusLogic.getInvitation(id));
+        return InvitationConverter.fullEntity2DTO(invitationLogic.getInvitation(id));
     }
 
     /**
@@ -67,7 +67,7 @@ public class InvitationService {
     @POST
     public InvitationDTO createInvitation(InvitationDTO dto) {
         InvitationEntity entity = InvitationConverter.fullDTO2Entity(dto);
-        return InvitationConverter.fullEntity2DTO(statusLogic.createInvitation(entity));
+        return InvitationConverter.fullEntity2DTO(invitationLogic.createInvitation(entity));
     }
 
     /**
@@ -83,7 +83,7 @@ public class InvitationService {
     public InvitationDTO updateInvitation(@PathParam("id") Long id, InvitationDTO dto) {
         InvitationEntity entity = InvitationConverter.fullDTO2Entity(dto);
         entity.setId(id);
-        return InvitationConverter.fullEntity2DTO(statusLogic.updateInvitation(entity));
+        return InvitationConverter.fullEntity2DTO(invitationLogic.updateInvitation(entity));
     }
 
     /**
@@ -95,6 +95,6 @@ public class InvitationService {
     @DELETE
     @Path("{id: \\d+}")
     public void deleteInvitation(@PathParam("id") Long id) {
-        statusLogic.deleteInvitation(id);
+        invitationLogic.deleteInvitation(id);
     }
 }

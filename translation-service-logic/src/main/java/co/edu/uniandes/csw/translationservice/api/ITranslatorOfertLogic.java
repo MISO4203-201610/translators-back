@@ -20,4 +20,6 @@ public interface ITranslatorOfertLogic {
     public TranslatorOfertEntity createTranslatorOfert(TranslatorOfertEntity entity);
     public TranslatorOfertEntity updateTranslatorOfert(TranslatorOfertEntity entity);
     public void deleteTranslatorOfert(Long id);
+    public TranslatorOfertEntity setEnlaceArchivoResultado(Long id, String enlace);
+    public List<TranslatorOfertEntity> getAcceptedOferts(Long translatorId);
 }
