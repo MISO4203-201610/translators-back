@@ -26,6 +26,7 @@ import co.edu.uniandes.csw.translationservice.dtos.KnowledgeAreaDTO;
 import co.edu.uniandes.csw.translationservice.converters.KnowledgeAreaConverter;
 import co.edu.uniandes.csw.translationservice.converters.TranslatorOfertConverter;
 import co.edu.uniandes.csw.translationservice.dtos.TranslatorOfertDTO;
+import co.edu.uniandes.csw.translationservice.entities.TranslatorOfertEntity;
 import com.stormpath.sdk.account.Account;
 import com.stormpath.sdk.group.Group;
 import java.util.ArrayList;
@@ -340,5 +341,12 @@ public class TranslatorService {
     @Path("{translatorId: \\d+}/translatorOferts/{translatorOfertId: \\d+}")
     public void removeTranslatorOferts(@PathParam("translatorId") Long translatorId, @PathParam("translatorOfertId") Long translatorOfertId) {
         translatorLogic.removeTranslatorOferts(translatorId, translatorOfertId);
+    }
+    
+    @GET
+    @Path("{translatorId: \\d+}/acceptedOferts")
+    public List<TranslatorOfertDTO> getAcceptedOferts(@PathParam("translatorId") Long translatorId) {
+        List<TranslatorOfertEntity> lista = translatorLogic.getAcceptedOferts(translatorId);
+        return TranslatorOfertConverter.listEntity2DTO(lista);
     }
 }

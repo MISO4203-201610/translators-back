@@ -254,4 +254,11 @@ public class TranslatorLogic implements ITranslatorLogic {
         knowledgeAreasEntity.setId(knowledgeAreasId);
         entity.getKnowledgeAreas().remove(knowledgeAreasEntity);
     }
+    
+    @Override
+    public List<TranslatorOfertEntity> getAcceptedOferts(Long translatorId)
+    {
+        return translatorOfertLogic.getAcceptedOferts(translatorId);
+    }
+
 }
