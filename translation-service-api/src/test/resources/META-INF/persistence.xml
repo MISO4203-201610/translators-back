@@ -12,6 +12,8 @@
     <class>co.edu.uniandes.csw.translationservice.entities.ReviewEntity</class>
     <class>co.edu.uniandes.csw.translationservice.entities.KnowledgeAreaEntity</class>
     <class>co.edu.uniandes.csw.translationservice.entities.TranslatorOfertEntity</class>
+    <class>co.edu.uniandes.csw.translationservice.entities.ResumeEntity</class>
+    <class>co.edu.uniandes.csw.translationservice.entities.TrajectoryEntity</class>
     <exclude-unlisted-classes>true</exclude-unlisted-classes>
     <shared-cache-mode>NONE</shared-cache-mode>
     <properties>

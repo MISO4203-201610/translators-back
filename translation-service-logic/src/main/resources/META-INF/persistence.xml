@@ -11,6 +11,8 @@
     <class>co.edu.uniandes.csw.translationservice.entities.TranslationRequestEntity</class>
     <class>co.edu.uniandes.csw.translationservice.entities.TranslatorEntity</class>
     <class>co.edu.uniandes.csw.translationservice.entities.KnowledgeAreaEntity</class>
+    <class>co.edu.uniandes.csw.translationservice.entities.ResumeEntity</class>
+    <class>co.edu.uniandes.csw.translationservice.entities.TrajectoryEntity</class>
     <properties>
       <property name="eclipselink.logging.level" value="FINE"/>
       <property name="eclipselink.ddl-generation" value="create-or-extend-tables"/>
