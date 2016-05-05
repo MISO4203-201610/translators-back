@@ -46,6 +46,12 @@ public class TranslatorEntity extends BaseEntity implements Serializable {
     @OneToMany(mappedBy = "translator")
     private List<TranslatorOfertEntity> translatorOferts = new ArrayList<>();
     
+    @OneToMany(mappedBy = "translator", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ResumeEntity> resumes;
+    
+    @OneToMany(mappedBy = "translator", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<TrajectoryEntity> trajectories;
+
     private String email;
 
     /**
@@ -140,5 +146,21 @@ public class TranslatorEntity extends BaseEntity implements Serializable {
     
     public void setTranslatorOferts(List<TranslatorOfertEntity> translatorOferts) {
         this.translatorOferts = translatorOferts;
+    }
+    
+    public List<ResumeEntity> getResumes() {
+        return resumes;
+    }
+
+    public void setResumes(List<ResumeEntity> resumes) {
+        this.resumes = resumes;
+    }
+    
+    public List<TrajectoryEntity> getTrajectories() {
+        return trajectories;
+    }
+
+    public void setTrajectories(List<TrajectoryEntity> trajectories) {
+        this.trajectories = trajectories;
     }
 }

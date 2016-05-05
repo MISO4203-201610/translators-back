@@ -32,6 +32,10 @@ public class TranslatorDTO {
     private List<TranslatorOfertDTO> translatorOferts = new ArrayList<>();
     @PodamExclude
     private List<ReviewDTO> reviews;
+    @PodamExclude
+    private List<ResumeDTO> resumes;
+    @PodamExclude
+    private List<TrajectoryDTO> trajectories;
 
     /**
      * @generated
@@ -153,5 +157,21 @@ public class TranslatorDTO {
     
     public void setTranslatorOferts(List<TranslatorOfertDTO> translatorOferts) {
         this.translatorOferts = translatorOferts;
+    }
+    
+    public List<ResumeDTO> getResumes() {
+        return resumes;
+    }
+
+    public void setResumes(List<ResumeDTO> resumes) {
+        this.resumes = resumes;
+    }
+    
+    public List<TrajectoryDTO> getTrajectories() {
+        return trajectories;
+    }
+
+    public void setTrajectories(List<TrajectoryDTO> trajectories) {
+        this.trajectories = trajectories;
     }
 }

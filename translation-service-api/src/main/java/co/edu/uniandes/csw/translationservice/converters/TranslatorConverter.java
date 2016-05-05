@@ -124,6 +124,8 @@ public abstract class TranslatorConverter {
             dto.setKnowledgeAreas(KnowledgeAreaConverter.listEntity2DTO(entity.getKnowledgeAreas()));
             dto.setReviews(ReviewConverter.listEntity2DTO(entity.getReviews()));
             dto.setTranslatorOferts(TranslatorOfertConverter.listEntity2DTO(entity.getTranslatorOferts()));
+            dto.setResumes(ResumeConverter.listEntity2DTO(entity.getResumes()));
+            dto.setTrajectories(TrajectoryConverter.listEntity2DTO(entity.getTrajectories()));
             return dto;
         } else {
             return null;
@@ -146,6 +148,8 @@ public abstract class TranslatorConverter {
             entity.setKnowledgeAreas(KnowledgeAreaConverter.listDTO2Entity(dto.getKnowledgeAreas()));
             entity.setReviews(ReviewConverter.childListDTO2Entity(dto.getReviews(), entity));
             entity.setTranslatorOferts(TranslatorOfertConverter.listDTO2Entity(dto.getTranslatorOferts()));
+            entity.setResumes(ResumeConverter.childListDTO2Entity(dto.getResumes(), entity));
+            entity.setTrajectories(TrajectoryConverter.childListDTO2Entity(dto.getTrajectories(), entity));
             return entity;
         } else {
             return null;
