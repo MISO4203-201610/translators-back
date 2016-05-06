@@ -55,6 +55,8 @@ public class TranslationRequestEntity extends BaseEntity implements Serializable
     
     private int numberOfWords;
     
+    private String urlFile;
+    
     @PodamExclude
     @OneToMany
     private List<KnowledgeAreaEntity> knowledgeAreasRequested = new ArrayList<>();
@@ -216,4 +218,12 @@ public class TranslationRequestEntity extends BaseEntity implements Serializable
     public void setEnlaceArchivoResultado(String enlaceArchivoResultado) {
         this.enlaceArchivoResultado = enlaceArchivoResultado;
     }   
+
+    public String getUrlFile() {
+        return urlFile;
+    }
+
+    public void setUrlFile(String urlFile) {
+        this.urlFile = urlFile;
+    }
 }

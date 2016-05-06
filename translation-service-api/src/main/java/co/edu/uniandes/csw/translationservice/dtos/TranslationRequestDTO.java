@@ -30,6 +30,9 @@ public class TranslationRequestDTO extends RequestDTO {
     
     @PodamExclude
     private String enlaceArchivoResultado;
+    
+    @PodamExclude
+    private String urlFile;
 
     /**
      * @generated
@@ -130,6 +133,14 @@ public class TranslationRequestDTO extends RequestDTO {
 
     public void setEnlaceArchivoResultado(String enlaceArchivoResultado) {
         this.enlaceArchivoResultado = enlaceArchivoResultado;
+    }
+
+    public String getUrlFile() {
+        return urlFile;
+    }
+
+    public void setUrlFile(String urlFile) {
+        this.urlFile = urlFile;
     }
     
 }

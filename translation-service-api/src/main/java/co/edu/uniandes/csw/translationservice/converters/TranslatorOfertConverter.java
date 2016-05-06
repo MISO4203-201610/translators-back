@@ -32,7 +32,7 @@ public abstract class TranslatorOfertConverter {
             dto.setId(entity.getId());
             dto.setPrice(entity.getPrice());
             dto.setComment(entity.getComment());
-
+            dto.setStatus(entity.getStatus());
             return dto;
         } else {
             return null;
@@ -75,7 +75,7 @@ public abstract class TranslatorOfertConverter {
             dto.setComment(entity.getComment());
             dto.setTranslationRequest(TranslationRequestConverter.refEntity2DTO(entity.getTranslationRequest()));
             dto.setTranslator(TranslatorConverter.refEntity2DTO(entity.getTranslator()));
-
+            dto.setStatus(entity.getStatus());
             return dto;
         } else {
             return null;
@@ -100,7 +100,7 @@ public abstract class TranslatorOfertConverter {
             
             entity.setTranslationRequest(TranslationRequestConverter.refDTO2Entity(dto.getTranslationRequest()));
             entity.setTranslator(TranslatorConverter.refDTO2Entity(dto.getTranslator()));
-
+            entity.setStatus(dto.getStatus());
             return entity;
         } else {
             return null;

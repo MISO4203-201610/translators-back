@@ -5,7 +5,6 @@ import co.edu.uniandes.csw.translationservice.dtos.TranslatorDTO;
 import co.edu.uniandes.csw.translationservice.entities.TranslationRequestEntity;
 import co.edu.uniandes.csw.translationservice.entities.TranslatorEntity;
 import co.edu.uniandes.csw.translationservice.entities.KnowledgeAreaEntity;
-import co.edu.uniandes.csw.translationservice.entities.TranslatorOfertEntity;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,7 +39,7 @@ public abstract class TranslationRequestConverter {
             dto.setDescription(entity.getDescription());
             dto.setContexto(entity.getContexto());
             dto.setNumberOfWords(entity.getNumberOfWords());
-
+            dto.setUrlFile(entity.getUrlFile());
             return dto;
         } else {
             return null;
@@ -91,6 +90,7 @@ public abstract class TranslationRequestConverter {
             dto.setContexto(entity.getContexto());
             dto.setNumberOfWords(entity.getNumberOfWords());
             dto.setEnlaceArchivoResultado(entity.getEnlaceArchivoResultado());
+            dto.setUrlFile(entity.getUrlFile());
             
             dto.setKnowledgeAreas(KnowledgeAreaConverter.listEntity2DTO(entity.getKnowledgeAreasRequested()));
             
@@ -129,6 +129,7 @@ public abstract class TranslationRequestConverter {
             entity.setNumberOfWords(dto.getNumberOfWords());
 
             entity.setEnlaceArchivoResultado(dto.getEnlaceArchivoResultado());
+            entity.setUrlFile(dto.getUrlFile());
             
             return entity;
         } else {

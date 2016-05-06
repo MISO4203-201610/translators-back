@@ -26,6 +26,9 @@ public class TranslatorOfertEntity extends BaseEntity implements Serializable {
     
     private boolean acceptedByCustomer;
     
+    // Estado de la oferta (PENDING, SELECTED O REJECTED)
+    private String status;
+    
     /**
      * @generated
      */
@@ -89,5 +92,12 @@ public class TranslatorOfertEntity extends BaseEntity implements Serializable {
     public void setAcceptedByCustomer(boolean acceptedByCustomer) {
         this.acceptedByCustomer = acceptedByCustomer;
     }
-       
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
 }

@@ -12,12 +12,14 @@ public class TranslatorOfertDTO {
     private Long id;
     private String price;
     private String comment;
+    private String status;
     
     @PodamExclude
     private TranslatorDTO translator;
     
     @PodamExclude
     private TranslationRequestDTO translationRequest;
+    
     
 
     /**
@@ -88,6 +90,14 @@ public class TranslatorOfertDTO {
      */
     public void setTranslationRequest(TranslationRequestDTO translationRequest) {
         this.translationRequest = translationRequest;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
 }
