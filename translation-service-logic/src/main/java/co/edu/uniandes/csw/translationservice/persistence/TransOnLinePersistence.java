@@ -1,0 +1,39 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package co.edu.uniandes.csw.translationservice.persistence;
+
+import co.edu.uniandes.csw.crud.spi.persistence.CrudPersistence;
+import co.edu.uniandes.csw.translationservice.entities.TransOnLineEntity;
+import javax.ejb.Stateless;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
+/**
+ *
+ * @author juan camilo cerquera <jc.cerquera10@uniandes.edu.co>
+ */
+@Stateless
+public class TransOnLinePersistence extends CrudPersistence<TransOnLineEntity> {
+    @PersistenceContext(unitName="TranslationServicePU")
+    protected EntityManager em;
+
+    /**
+     * @generated
+     */
+    @Override
+    protected EntityManager getEntityManager() {
+        return em;
+    }
+
+    /**
+     * @generated
+     */
+    @Override
+    protected Class<TransOnLineEntity> getEntityClass() {
+        return TransOnLineEntity.class;
+    }
+    
+}

@@ -11,12 +11,13 @@
     <class>co.edu.uniandes.csw.translationservice.entities.TranslationRequestEntity</class>
     <class>co.edu.uniandes.csw.translationservice.entities.TranslatorEntity</class>
     <class>co.edu.uniandes.csw.translationservice.entities.KnowledgeAreaEntity</class>
-    <class>co.edu.uniandes.csw.translationservice.entities.ResumeEntity</class>
-    <class>co.edu.uniandes.csw.translationservice.entities.TrajectoryEntity</class>
+    <class>co.edu.uniandes.csw.translationservice.entities.TransOnLineEntity</class>
+    <class>co.edu.uniandes.csw.translationservice.entities.TransOnLineMsgEntity</class>
     <properties>
       <property name="eclipselink.logging.level" value="FINE"/>
       <property name="eclipselink.ddl-generation" value="create-or-extend-tables"/>
-      <property name="eclipselink.cache.type.default" value="NONE" />
+      <property name="eclipselink.cache.type.default" value="NONE"/>
+      <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>
     </properties>
   </persistence-unit>
 </persistence>
