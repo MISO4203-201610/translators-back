@@ -54,6 +54,8 @@ public class TranslatorOfertService {
     private Integer maxRecords;
     
     private static final int MAX_EMAIL =40;
+    
+    @Inject
     private ITranslationRequestLogic translationRequestLogic;
     
 
@@ -105,6 +107,23 @@ public class TranslatorOfertService {
         String body = "You've recieve confirmation from your TranslationRequest";
         MailService.sendMailCustomer(customer, subject, body);
     }
+    
+    /**
+     * Envia los translationRequests para seleccionarlos en una oferta
+     *
+     * @param null
+     * @return Colección de TranslationRequests
+     * 
+     */
+    
+    
+    @GET
+    @Path("/translationRequests")
+    public List<TranslationRequestDTO> getTranslationRequests() {
+        return TranslationRequestConverter.listEntity2DTO(translationRequestLogic.getTranslationRequests());
+    }
+
+
     /**
      * Se encarga de crear un TranslatorOfert en la base de datos.
      *
