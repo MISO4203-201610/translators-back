@@ -39,14 +39,6 @@ public class TranslationRequestLogic implements ITranslationRequestLogic {
     public List<TranslationRequestEntity> getTranslationRequests() {
         return persistence.findAll();
     }
-
-    /**
-     * @generated
-     */
-    @Override
-    public List<TranslationRequestEntity> getTranslationRequests(Integer page, Integer maxRecords) {
-        return persistence.findAll(page, maxRecords);
-    }
     /**
      * @generated
      */
