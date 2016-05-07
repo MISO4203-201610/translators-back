@@ -24,6 +24,7 @@ public class TransOnLineDTO {
     private Date creationDate;
     private Long idCustomer;
     private Long idTranslator;
+    private long idRequest;
     private List<TransOnLineMsgDTO> listChatMsg = new ArrayList<>();
     
     
@@ -105,6 +106,20 @@ public class TransOnLineDTO {
 
     public void setIdTranslator(Long idTranslator) {
         this.idTranslator = idTranslator;
+    }
+
+    /**
+     * @return the idRequest
+     */
+    public long getIdRequest() {
+        return idRequest;
+    }
+
+    /**
+     * @param idRequest the idRequest to set
+     */
+    public void setIdRequest(long idRequest) {
+        this.idRequest = idRequest;
     }
     
 }

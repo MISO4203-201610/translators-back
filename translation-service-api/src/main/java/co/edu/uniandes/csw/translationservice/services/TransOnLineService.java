@@ -51,7 +51,7 @@ public class TransOnLineService {
     public TransOnLineDTO createTransOnLine(TransOnLineDTO dto) {
         TransOnLineDTO res;
         TransOnLineEntity  ch;
-        String name= "CU"+dto.getIdCustomer()+"CO"+dto.getIdTranslator();
+        String name= "CU"+dto.getIdCustomer()+"CO"+dto.getIdTranslator()+"TR"+dto.getIdRequest();
         dto.setName(name);
         ch = transOnLineLogic.getTransOnLine(name);
         if (ch==null){
