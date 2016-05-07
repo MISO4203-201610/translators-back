@@ -44,6 +44,8 @@ public class TranslatorOfertService {
     private ITranslatorOfertLogic translatorOfertLogic;
     @Inject
     private ITranslatorLogic translatorLogic;
+    @Inject
+    private ITranslationRequestLogic translationRequestLogic;
     @Context
     private HttpServletRequest req;
     @Context
@@ -55,8 +57,7 @@ public class TranslatorOfertService {
     
     private static final int MAX_EMAIL =40;
     
-    @Inject
-    private ITranslationRequestLogic translationRequestLogic;
+    
     
 
     /**
