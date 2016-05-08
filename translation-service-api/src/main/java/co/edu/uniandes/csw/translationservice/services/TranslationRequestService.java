@@ -16,6 +16,7 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import co.edu.uniandes.csw.translationservice.api.ITranslationRequestLogic;
 import co.edu.uniandes.csw.translationservice.api.ITranslatorLogic;
+import co.edu.uniandes.csw.translationservice.api.ITranslatorOfertLogic;
 import co.edu.uniandes.csw.translationservice.converters.KnowledgeAreaConverter;
 import co.edu.uniandes.csw.translationservice.converters.TranslatorOfertConverter;
 import co.edu.uniandes.csw.translationservice.dtos.TranslationRequestDTO;
@@ -25,6 +26,7 @@ import co.edu.uniandes.csw.translationservice.converters.TranslatorConverter;
 import co.edu.uniandes.csw.translationservice.dtos.KnowledgeAreaDTO;
 import co.edu.uniandes.csw.translationservice.dtos.TranslatorOfertDTO;
 import co.edu.uniandes.csw.translationservice.dtos.TranslatorDTO;
+import co.edu.uniandes.csw.translationservice.entities.TranslatorOfertEntity;
 import static co.edu.uniandes.csw.translationservice.services.AccountService.getCurrentCustomer;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -42,6 +44,8 @@ public class TranslationRequestService {
 
     @Inject
     private ITranslationRequestLogic translationRequestLogic;
+    @Inject
+    private ITranslatorOfertLogic translatorOfertLogic;
     @Inject
     private ICustomerLogic customerLogic;
     @Context
@@ -262,15 +266,21 @@ public class TranslationRequestService {
             for (TranslatorOfertDTO translatorOfert : translatorOferts) {
                 TranslatorDTO translator = translatorOfert.getTranslator();
                 if (translatorOfert.getId() == translatorOfertId) {
+                    translatorOfert.setStatus("selected");
                     translatorsAccepted.add(TranslatorConverter.refEntity2DTO(translatorLogic.getTranslator(translator.getId())));
                 }else{
+                    translatorOfert.setStatus("rejected");
                     translatorsRejected.add(TranslatorConverter.refEntity2DTO(translatorLogic.getTranslator(translator.getId())));
                 }
+                TranslatorOfertEntity translatorOfertEntity = TranslatorOfertConverter.fullDTO2Entity(translatorOfert);
+                translatorOfertEntity.setTranslationRequest(TranslationRequestConverter.fullDTO2Entity(translatorOfert.getTranslationRequest()));
+                translatorOfertEntity.setId(translatorOfert.getId());
+                TranslatorOfertConverter.fullEntity2DTO(translatorOfertLogic.updateTranslatorOfert(translatorOfertEntity));
             }
         }
         
         // Sent the accepted email
-        String subject = "Your Offer translation was selected";
+        /*String subject = "Your Offer translation was selected";
         String body = "Congratulations! your offer was selected for the TranslationRequest: " + translationRequest.getName() + ". To give a quote go to: http://localhost:9000/#/translatorOfert";
         MailService.sendMailAdmin(translatorsAccepted, subject, body);
         
@@ -279,6 +289,6 @@ public class TranslationRequestService {
         subject = "Your Offer translation was rejected";
         body = "Sorry =( your offer wasn't selected for the TranslationRequest: " + translationRequest.getName() + ". You can see your active Oferts: http://localhost:9000/#/translatorOfert";
         MailService.sendMailAdmin(translatorsRejected, subject, body); 
-        
+        */
     }
 }
