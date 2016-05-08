@@ -27,6 +27,7 @@ import co.edu.uniandes.csw.translationservice.converters.TranslatorOfertConverte
 import co.edu.uniandes.csw.translationservice.dtos.CustomerDTO;
 import co.edu.uniandes.csw.translationservice.dtos.TranslationRequestDTO;
 import co.edu.uniandes.csw.translationservice.dtos.TranslatorDTO;
+import co.edu.uniandes.csw.translationservice.entities.TranslationRequestEntity;
 import static co.edu.uniandes.csw.translationservice.services.AccountService.getCurrentTranslator;
 import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
@@ -71,6 +72,105 @@ public class TranslatorOfertService {
     public List<TranslatorOfertDTO> getTranslatorOferts() {
         Long id = getCurrentTranslator(req.getRemoteUser()).getId();
         return TranslatorOfertConverter.listEntity2DTO(translatorLogic.getTranslator(id).getTranslatorOferts());
+    }
+    
+    /**
+     * Obtiene la lista de los registros de TranslatorOfert con estado "selected".
+     *
+     * @return Colección de objetos de TranslatorOfertDTO cada uno con sus
+     * respectivos Review
+     * @generated
+     */
+    @GET
+    @Path("selected")
+    public List<TranslatorOfertDTO> getSelectedTranslatorOferts() {
+        Long id = getCurrentTranslator(req.getRemoteUser()).getId();
+        List<TranslatorOfertDTO> translatorOferts = TranslatorOfertConverter.listEntity2DTO(translatorLogic.getTranslator(id).getTranslatorOferts());
+        List<TranslatorOfertDTO> selectedTranslatorOferts = new ArrayList<>();
+        for (TranslatorOfertDTO translatorOfert : translatorOferts) {
+            if ((translatorOfert.getStatus() != null) && (translatorOfert.getStatus().equals("selected"))){
+                selectedTranslatorOferts.add(translatorOfert);
+            }
+        }
+        return selectedTranslatorOferts;
+    }
+    
+    /**
+     * Obtiene un registro de TranslatorOfert con estado "selected".
+     *
+     * @return Colección de objetos de TranslatorOfertDTO cada uno con sus
+     * respectivos Review
+     * @generated
+     */
+    @GET
+    @Path("selected/{id: \\d+}")
+    public TranslatorOfertDTO getSelectedTranslatorOfert(@PathParam("id") Long id) {
+        return TranslatorOfertConverter.fullEntity2DTO(translatorOfertLogic.getTranslatorOfert(id));
+    }
+    
+    
+    @GET
+    @Path("{id: \\d+}/translationRequest/{translationRequestId: \\d+}")
+    public TranslationRequestDTO getTranslationRequest(@PathParam("id") Long id, @PathParam("translationRequestId") Long translationRequestId) {
+        return TranslationRequestConverter.fullEntity2DTO(translationRequestLogic.getTranslationRequest(translationRequestId));
+    }
+    
+    @PUT
+    @Path("{id: \\d+}/translationRequest/{translationRequestId: \\d+}")
+    public TranslationRequestDTO submitTranslation(@PathParam("id") Long id, @PathParam("translationRequestId") Long translationRequestId, TranslationRequestDTO translationRequestDTO) {
+        TranslatorOfertDTO translatorOfertDTO = TranslatorOfertConverter.fullEntity2DTO(translatorOfertLogic.getTranslatorOfert(id));
+        translatorOfertDTO.setStatus("selected");
+        
+        TranslatorOfertEntity translatorOfertEntity = TranslatorOfertConverter.fullDTO2Entity(translatorOfertDTO);
+        
+        TranslationRequestEntity translationRequestEntity = TranslationRequestConverter.fullDTO2Entity(translationRequestDTO);
+        translationRequestEntity.setId(translationRequestId);
+        
+        TranslationRequestConverter.fullEntity2DTO(translationRequestLogic.updateTranslationRequest(translationRequestEntity));
+        
+        TranslatorOfertConverter.fullEntity2DTO(translatorOfertLogic.updateTranslatorOfert(translatorOfertEntity));
+                
+        CustomerDTO customer = CustomerConverter.refEntity2DTO(translationRequestLogic.getCustomer(translatorOfertDTO.getTranslationRequest().getId()));
+        
+        // Invite them
+        String subject = "The translator finished your TranslationRequest: " + translatorOfertDTO.getTranslationRequest().getName();
+        String body = "The translator finished your TranslationRequest: " + translatorOfertDTO.getTranslationRequest().getName() + " you can see it in the link: " + translatorOfertEntity.getTranslationRequest().getEnlaceArchivoResultado();
+        System.out.println("Email to Customer: " + customer.getName());
+        //MailService.sendMailCustomer(customer, subject, body);
+        
+        return TranslationRequestConverter.fullEntity2DTO(translationRequestEntity);
+    }
+    
+    @GET
+    @Path("{id: \\d+}/translationRequest/{translationRequestId: \\d+}/{translationRequestSecId: \\d+}")
+    public TranslationRequestDTO getTranslationRequestSec(@PathParam("id") Long id, @PathParam("translationRequestId") Long translationRequestId, @PathParam("translationRequestSecId") Long translationRequestSecId) {
+        return TranslationRequestConverter.fullEntity2DTO(translationRequestLogic.getTranslationRequest(translationRequestId));
+    }
+    
+    @PUT
+    @Path("{id: \\d+}/translationRequest/{translationRequestId: \\d+}/{translationRequestSecId: \\d+}")
+    public TranslationRequestDTO submitTranslationSec(@PathParam("id") Long id, @PathParam("translationRequestId") Long translationRequestId, @PathParam("translationRequestSecId") Long translationRequestSecId, TranslationRequestDTO translationRequestDTO) {
+        TranslatorOfertDTO translatorOfertDTO = TranslatorOfertConverter.fullEntity2DTO(translatorOfertLogic.getTranslatorOfert(id));
+        translatorOfertDTO.setStatus("selected");
+        
+        TranslatorOfertEntity translatorOfertEntity = TranslatorOfertConverter.fullDTO2Entity(translatorOfertDTO);
+        
+        TranslationRequestEntity translationRequestEntity = TranslationRequestConverter.fullDTO2Entity(translationRequestDTO);
+        translationRequestEntity.setId(translationRequestId);
+        
+        TranslationRequestConverter.fullEntity2DTO(translationRequestLogic.updateTranslationRequest(translationRequestEntity));
+        
+        TranslatorOfertConverter.fullEntity2DTO(translatorOfertLogic.updateTranslatorOfert(translatorOfertEntity));
+                
+        CustomerDTO customer = CustomerConverter.refEntity2DTO(translationRequestLogic.getCustomer(translatorOfertDTO.getTranslationRequest().getId()));
+        
+        // Invite them
+        String subject = "The translator finished your TranslationRequest: " + translatorOfertDTO.getTranslationRequest().getName();
+        String body = "The translator finished your TranslationRequest: " + translatorOfertDTO.getTranslationRequest().getName() + " you can see it in the link: " + translatorOfertEntity.getTranslationRequest().getEnlaceArchivoResultado();
+        System.out.println("Email to Customer: " + customer.getName());
+        //MailService.sendMailCustomer(customer, subject, body);
+        
+        return TranslationRequestConverter.fullEntity2DTO(translationRequestEntity);
     }
 
     /**
