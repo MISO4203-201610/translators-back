@@ -1,5 +1,6 @@
 package co.edu.uniandes.csw.translationservice.converters;
 
+import co.edu.uniandes.csw.translationservice.dtos.CustomerDTO;
 import co.edu.uniandes.csw.translationservice.dtos.TranslationRequestDTO;
 import co.edu.uniandes.csw.translationservice.dtos.TranslatorDTO;
 import co.edu.uniandes.csw.translationservice.entities.TranslationRequestEntity;
@@ -32,6 +33,8 @@ public abstract class TranslationRequestConverter {
     public static TranslationRequestDTO refEntity2DTO(TranslationRequestEntity entity) {
         if (entity != null) {
             TranslationRequestDTO dto = new TranslationRequestDTO();
+            CustomerDTO cus = new CustomerDTO();
+            cus.setId(entity.getCustomer().getId());
             dto.setId(entity.getId());
             dto.setName(entity.getName());
             dto.setCreationDate(entity.getCreationDate());
@@ -40,6 +43,7 @@ public abstract class TranslationRequestConverter {
             dto.setContexto(entity.getContexto());
             dto.setNumberOfWords(entity.getNumberOfWords());
             dto.setUrlFile(entity.getUrlFile());
+            dto.setCustomer(cus);
             return dto;
         } else {
             return null;
